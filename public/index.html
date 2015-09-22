@@ -94,6 +94,8 @@
 				        
 							<li><a href="/archives">所有文章</a></li>
 				        
+							<li><a href="/tags/生活">生活</a></li>
+				        
 							<li><a href="/tags/杂谈">杂谈</a></li>
 				        
 							<li><a href="/tags/知识小集">知识小集</a></li>
@@ -114,7 +116,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/写作工具/" style="font-size: 10px;">写作工具</a> <a href="/tags/杂谈/" style="font-size: 20px;">杂谈</a> <a href="/tags/水彩/" style="font-size: 10px;">水彩</a> <a href="/tags/爱好/" style="font-size: 10px;">爱好</a> <a href="/tags/知识小集/" style="font-size: 10px;">知识小集</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/编程习惯/" style="font-size: 10px;">编程习惯</a> <a href="/tags/诗/" style="font-size: 10px;">诗</a> <a href="/tags/读书札记/" style="font-size: 10px;">读书札记</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+						<a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/写作工具/" style="font-size: 10px;">写作工具</a> <a href="/tags/杂谈/" style="font-size: 20px;">杂谈</a> <a href="/tags/水彩/" style="font-size: 10px;">水彩</a> <a href="/tags/爱好/" style="font-size: 10px;">爱好</a> <a href="/tags/版本号/" style="font-size: 10px;">版本号</a> <a href="/tags/生活/" style="font-size: 15px;">生活</a> <a href="/tags/知识小集/" style="font-size: 15px;">知识小集</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/编程习惯/" style="font-size: 10px;">编程习惯</a> <a href="/tags/诗/" style="font-size: 10px;">诗</a> <a href="/tags/读书札记/" style="font-size: 10px;">读书札记</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
 					</div>
 				</section>
 				
@@ -167,6 +169,8 @@
 		        
 					<li><a href="/archives">所有文章</a></li>
 		        
+					<li><a href="/tags/生活">生活</a></li>
+		        
 					<li><a href="/tags/杂谈">杂谈</a></li>
 		        
 					<li><a href="/tags/知识小集">知识小集</a></li>
@@ -187,6 +191,90 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-Bundle version VS Bundle versions string" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/09/20/Bundle version VS Bundle versions string/" class="article-date">
+  	<time datetime="2015-09-20T06:14:23.000Z" itemprop="datePublished">2015-09-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/20/Bundle version VS Bundle versions string/">Bundle version VS Bundle versions string</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>今天上传新版本，在修改Bundle version和Bundle versions string的时候突然想到：一直以来都没有深究过这两个字段的真正含义，只是保持它们一样。那么它们真正的用途到底是什么呢？今天来探究一下。</p>
+</blockquote>
+<h2 id="区别">区别</h2><h3 id="Bundle_Version_(CFBundleVersion)">Bundle Version (CFBundleVersion)</h3><ul>
+<li>Bundle Version是应用程序的内部版本号。</li>
+<li>Bundle Version不需要是一个纯粹的版本号，它可以是1234，也可以是1.2.3(Build 12345AB)</li>
+</ul>
+<h3 id="Bundle_Version_String_(CFBundleShortVersionString)">Bundle Version String (CFBundleShortVersionString)</h3><ul>
+<li>Bundle versions string 是应用程序公开可见的版本号。例如，你每次迭代一个内部测试版本时，都会生成一个版本号，这个版本号可能是2.0.0.12345b7，但是你不想让其公开可见，所以你设置应用程序的短版本号为2.0。</li>
+<li>必须与用于iTunes Connect的版本号保持一致。</li>
+<li>Bundle Version String不能超过三个部分。例如：2.0.1是可以的，但是2.0.0.1是不可以的。</li>
+<li>当Bundle Version String缺省时，Bundle Version替代Bundle Version String的功能，同时也继承他的限制(比如格式，位数等)，展示在AppStore中。</li>
+</ul>
+<h2 id="Xcode_设置自增编译版本号">Xcode 设置自增编译版本号</h2><p>步骤：</p>
+<ol>
+<li>Info.plist 中设置Bundle Version String；</li>
+<li>Info.plist中Bundle version设置为数字 比如1，如果设置为其它，则可能会编译错误；</li>
+<li>添加脚本<ol>
+<li>TARGETS -&gt; Build Phases</li>
+<li>点击左上角的‘+’，在弹出的选择框中点击New Run Script Phase，如下图：<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-09-21%20%E4%B8%8B%E5%8D%883.55.49.png" alt="图1"></li>
+<li>在Run script中添加以下脚本：</li>
+</ol>
+</li>
+</ol>
+<pre><code><span class="keyword">version</span>=`/usr/libexec/PlistBuddy -c <span class="string">"Print CFBundleVersion"</span> <span class="label">$PRODUCT_SETTINGS_PATH</span>`
+<span class="keyword">version</span>=`expr <span class="label">$version</span> + 1`
+/usr/libexec/PlistBuddy -c <span class="string">"Set :CFBundleVersion $version"</span> <span class="label">$PRODUCT_SETTINGS_PATH</span>
+#/usr/libexec/PlistBuddy -c <span class="string">"Set :CFBundleShortVersionString $version"</span> <span class="label">$PRODUCT_SETTINGS_PATH</span> 这行代码会让<span class="keyword">version</span>也自增，一般不需要
+</code></pre><p>如图：<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/09211611.png" alt="图1"></p>
+<p>OK,这样设置以后，每次编译，Build version都会自增1.</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Xcode/">Xcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/版本号/">版本号</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/知识小集/">知识小集</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-Markdown为写作而生" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -700,7 +788,7 @@ _   底线
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂谈/">杂谈</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/生活/">生活</a></li></ul>
 	</div>
 
       
@@ -758,7 +846,7 @@ _   底线
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/水彩/">水彩</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爱好/">爱好</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/水彩/">水彩</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爱好/">爱好</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/生活/">生活</a></li></ul>
 	</div>
 
       
