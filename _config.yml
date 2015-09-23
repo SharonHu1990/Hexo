@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 小阳的世界
+title: Sharon's World
 subtitle: 热闹之外的世界无边无际,那里有着我的位置,一个安静的位置。
 description: sharon's blog| iOS | Objective-C | Code
-author: 小阳
-language: zh-CN
+author: Sharon
+#language: zh-CN
 email: sharonhu0813@163.com
 timezone:
 
@@ -53,13 +53,23 @@ tag_map:
 ## Hexo uses Moment.js to parse and display date
 ## You can customize the date format as defined in
 ## http://momentjs.com/docs/#/displaying/format/
-date_format: YYYY-MM-DD
+date_format: MMM D YYYY
 time_format: HH:mm:ss
 
 # Pagination
 ## Set per_page to 0 to disable pagination
-per_page: 10
+per_page: 8
 pagination_dir: page
+
+
+# Archives
+#Archives 默认值为2,修改为1,Archives页面就只会列出标题,而非全文
+## 2: Enable pagination
+## 1: Disable pagination
+## 0: Fully Disable
+archive: 1
+category: 1
+tag: 1
 
 # Extensions
 ## Plugins: http://hexo.io/plugins/

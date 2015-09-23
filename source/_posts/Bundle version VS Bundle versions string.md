@@ -1,10 +1,15 @@
-﻿title: Bundle version VS Bundle versions string
+title: Bundle version VS Bundle versions string
 date: 2015-09-20 14:14:23
 tags: [知识小集,Xcode,版本号]
+toc: true
 ---
+
+
+
 
 > 今天上传新版本，在修改Bundle version和Bundle versions string的时候突然想到：一直以来都没有深究过这两个字段的真正含义，只是保持它们一样。那么它们真正的用途到底是什么呢？今天来探究一下。
 
+<!-- more -->
 
 
 ## 区别
