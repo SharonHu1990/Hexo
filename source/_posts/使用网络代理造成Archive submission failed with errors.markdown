@@ -1,7 +1,8 @@
-title: Bundle version VS Bundle versions string
+﻿title: Bundle version VS Bundle versions string
 date: 2015-09-20 14:14:23
-tags: [知识小集,Xcode,版本号]
+tags: [知识小集,iOS,Xcode,版本号]
 toc: true
+category: iOS
 ---
 
 
