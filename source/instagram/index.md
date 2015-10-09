@@ -1,14 +1,13 @@
-title: instagram
-date: 2015-09-23 17:04:09
 ---
 layout: post
 slug: "instagram"
 title: "相册"
 noDate: "true"
+comments: "false"
 ---
-
-<div class="instagram" data-client-id="956dd096b6e5496aba6662165b9b8443" data-user-id="438522285">
-<a href="http://instagram.com/litten225" target="_blank" class="open-ins">图片来自instagram，正在加载中…</a>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<div class="instagram" data-client-id="e1e92f0343094970a241208ec2b8a268" data-user-id="2208066691">
+<a href="http://instagram.com/521world" target="_blank" class="open-ins">图片来自instagram，正在加载中…</a>
 </div>
 <script src="/js/jquery.lazyload.js"></script>
 <script src="/js/instagram.js"></script>
