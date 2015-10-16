@@ -3,18 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>胡言乱语 | Sharon&#39;s World</title>
+  <title>iOS开发总结 | Sharon&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我敲击着键盘在代码之间游弋那不是我的向往如道具一般的工作开发着别人眼中的生活">
+  <meta name="description" content="记录iOS开发过程中使用的技术、遇到的问题以及解决方法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="胡言乱语">
-<meta property="og:url" content="http://yoursite.com/2015/09/01/胡言乱语/index.html">
+<meta property="og:title" content="iOS开发总结">
+<meta property="og:url" content="http://yoursite.com/2015/10/15/iOS开发总结/index.html">
 <meta property="og:site_name" content="Sharon's World">
-<meta property="og:description" content="我敲击着键盘在代码之间游弋那不是我的向往如道具一般的工作开发着别人眼中的生活">
-<meta property="og:updated_time" content="2015-09-23T07:45:51.000Z">
+<meta property="og:description" content="记录iOS开发过程中使用的技术、遇到的问题以及解决方法。">
+<meta property="og:image" content="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-12%20%E4%B8%8A%E5%8D%889.35.57.png">
+<meta property="og:image" content="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-14%20%E4%B8%8A%E5%8D%8810.38.35.png">
+<meta property="og:image" content="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-15%20%E4%B8%8A%E5%8D%889.06.43.png">
+<meta property="og:image" content="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-15%20%E4%B8%8A%E5%8D%889.10.01.png">
+<meta property="og:updated_time" content="2015-10-15T03:26:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="胡言乱语">
-<meta name="twitter:description" content="我敲击着键盘在代码之间游弋那不是我的向往如道具一般的工作开发着别人眼中的生活">
+<meta name="twitter:title" content="iOS开发总结">
+<meta name="twitter:description" content="记录iOS开发过程中使用的技术、遇到的问题以及解决方法。">
   
     <link rel="alternative" href="/atom.xml" title="Sharon&#39;s World" type="application/atom+xml">
   
@@ -207,11 +211,11 @@ var _hmt = _hmt || [];
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-胡言乱语" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-iOS开发总结" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/09/01/胡言乱语/" class="article-date">
-  	<time datetime="2015-09-01T05:20:55.000Z" itemprop="datePublished">Sep 1 2015</time>
+      <a href="/2015/10/15/iOS开发总结/" class="article-date">
+  	<time datetime="2015-10-15T00:53:04.000Z" itemprop="datePublished">Oct 15 2015</time>
 </a>
     </div>
   
@@ -224,7 +228,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      胡言乱语
+      iOS开发总结
     </h1>
   
 
@@ -233,10 +237,14 @@ var _hmt = _hmt || [];
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/诗/">诗</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/知识小集/">知识小集</a></li></ul>
 	</div>
 
         
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
 
         <div class="clearfix"></div>
       </div>
@@ -245,14 +253,30 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
 		
+			<div id="toc" class="toc-article">
+			  <strong class="toc-title">目录</strong>
+			  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义系统键盘上方的View有两种方法"><span class="toc-number">1.</span> <span class="toc-text">自定义系统键盘上方的View有两种方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CocoaPods_执行_pod_update_和_pod_install_卡住不动"><span class="toc-number">2.</span> <span class="toc-text">CocoaPods 执行 pod update 和 pod install 卡住不动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加PCH文件"><span class="toc-number">3.</span> <span class="toc-text">添加PCH文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加讯飞语音需要的系统类库"><span class="toc-number">4.</span> <span class="toc-text">添加讯飞语音需要的系统类库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装CocoaPods错误"><span class="toc-number">5.</span> <span class="toc-text">安装CocoaPods错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Undefined_symbols_for_architecture_arm64"><span class="toc-number">6.</span> <span class="toc-text">Undefined symbols for architecture arm64</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#理解armv7_armv7s_arm64_i386_x86_64"><span class="toc-number">7.</span> <span class="toc-text">理解armv7 armv7s arm64 i386 x86_64</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么时候用Block或代理？"><span class="toc-number">8.</span> <span class="toc-text">什么时候用Block或代理？</span></a></li></ol>
+			</div>
 		
-        <p>我敲击着键盘<br>在代码之间游弋<br>那不是我的向往<br>如道具一般的工作<br>开发着别人眼中的生活</p>
+		
+        <p>记录iOS开发过程中使用的技术、遇到的问题以及解决方法。</p>
 <a id="more"></a>
-<p>我不是勤恳的工人<br>无私奉献毛孔中的火热<br>不能与金钱为敌<br>只希望梦想不会进入坟地</p>
-<p>我拿起画笔信手涂鸦<br>多数只是以失望收场<br>耐心是我的敌人<br>激情和创意是我的短板</p>
-<p>我试着在镜头里写情书<br>不管是甘甜还是苦涩<br>花草，虫鱼，枯枝，残影<br>都成了落寞的情话</p>
-<p>我唱起红尘的歌<br>忘我地演绎着悲伤的快乐<br>怕是歌词太应景<br>预言里有一个可笑的侬</p>
-<p>剩下的我<br>用捡来的文字堆砌所谓的诗歌<br>这是我虚伪的满足<br>打发物质追求之外的空虚<br>用胡言乱语，装饰自己的清高和粗俗</p>
+<h3 id="自定义系统键盘上方的View有两种方法">自定义系统键盘上方的View有两种方法</h3><p>1.设定textfield或者textview的inputAccessoryView属性<br>2.监听键盘事件，获取键盘高度，动态改变自定义View的位置</p>
+<h3 id="CocoaPods_执行_pod_update_和_pod_install_卡住不动">CocoaPods 执行 pod update 和 pod install 卡住不动</h3><p>使用加参数的命令：<br>pod install –verbose –no-repo-update<br>或者<br>pod update –verbose –no-repo-update</p>
+<h3 id="添加PCH文件">添加PCH文件</h3><p><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-12%20%E4%B8%8A%E5%8D%889.35.57.png" alt="添加PCH文件"><br>注意在BuildSetting中设置Prefix header路径</p>
+<h3 id="添加讯飞语音需要的系统类库">添加讯飞语音需要的系统类库</h3><p><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-14%20%E4%B8%8A%E5%8D%8810.38.35.png" alt="添加讯飞语音需要注意的"></p>
+<h3 id="安装CocoaPods错误">安装CocoaPods错误</h3><p>如果是下面这个错误：<br>Could not find a valid gem ‘cocoapods’ (&gt;= 0), here is why: Unable to download data from <a href="https://rubygems.org/" target="_blank" rel="external">https://rubygems.org/</a> - Errno::ETIMEDOUT: Op…</p>
+<p>解决方法，<a href="http://stackoverflow.com/questions/15305350/gem-install-fails-with-openssl-failure" target="_blank" rel="external">看这里!</a></p>
+<h3 id="Undefined_symbols_for_architecture_arm64">Undefined symbols for architecture arm64</h3><ol>
+<li><p>检查Pod的TARGETS和工程项目的TARGETS的BuildSetting<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-15%20%E4%B8%8A%E5%8D%889.06.43.png" alt="此处输入图片的描述"></p>
+</li>
+<li><p>检查工程项目TARGETS的Other Linder Flags<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-15%20%E4%B8%8A%E5%8D%889.10.01.png" alt="此处输入图片的描述"></p>
+</li>
+</ol>
+<h3 id="理解armv7_armv7s_arm64_i386_x86_64">理解armv7 armv7s arm64 i386 x86_64</h3><p><a href="http://blog.csdn.net/lizhongfu2013/article/details/42387311" target="_blank" rel="external">看这篇博文</a></p>
+<h3 id="什么时候用Block或代理？">什么时候用Block或代理？</h3><p><a href="http://blog.cocoabit.com/2014-01-19-block-delegate/" target="_blank" rel="external">看这篇博文</a><br>1.要是一个对象有超过一个的不同的事件，使用代理<br>2.要是一个对象是个单例，我们不能使用代理<br>3.要是一个对象调用方法需要返回一些额外的信息，我们可能需要使用代理<br>4.过程 vs. 结果<br>5.速度（也许吧？）</p>
+<p>具体情况，具体分析!</p>
+<p>### </p>
 
       
     </div>
@@ -262,18 +286,9 @@ var _hmt = _hmt || [];
     
 <nav id="article-nav">
   
-    <a href="/2015/09/01/记住回家的路/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          记住回家的路
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/09/01/新的开篇/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">新的开篇</div>
+    <a href="/2015/10/11/观《被嫌弃的松子的一生》有感/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">观《被嫌弃的松子的一生》有感</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -302,7 +317,7 @@ var _hmt = _hmt || [];
 
 
 <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="2015/09/01/胡言乱语/" data-title="胡言乱语" data-url="http://yoursite.com/2015/09/01/胡言乱语/"></div><!-- 多说评论框 end -->
+	<div class="ds-thread" data-thread-key="2015/10/15/iOS开发总结/" data-title="iOS开发总结" data-url="http://yoursite.com/2015/10/15/iOS开发总结/"></div><!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"SharonHu1990"};
