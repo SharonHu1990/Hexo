@@ -67,10 +67,35 @@ Could not find a valid gem 'cocoapods' (>= 0), here is why: Unable to download d
 
 
 
-### 
+### 使用%运算符出现错误：invalid operands to binary expression (‘CGFloat’(aka 'double') and 'CGFloat')
+
+CGFloat c = a % b;
+解决：% is for int or long, not float or double.
+You can use fmod() or fmodf() from <math.h> instead.
+Better is <tgmath.h> as suggested by the inventor of CGFloat.
+
+
+### Objective-C浮点数向上取整和向下取整：
+[看这里][5]
+
     
-    
+### TableView的分割线从顶端开始：
+        if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {  
+          [self.tableView setLayoutMargins:UIEdgeInsetsZero];  
+        } 
+        
+        
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {  
+         [cell setSeparatorInset:UIEdgeInsetsZero];  
+        }  
+        if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {  
+        [cell setLayoutMargins:UIEdgeInsetsZero];  
+        }
+
+
+
   [1]: http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-12%20%E4%B8%8A%E5%8D%889.35.57.png
   [2]: http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-14%20%E4%B8%8A%E5%8D%8810.38.35.png
   [3]: http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-15%20%E4%B8%8A%E5%8D%889.06.43.png
   [4]: http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-15%20%E4%B8%8A%E5%8D%889.10.01.png
+  [5]: http://blog.csdn.net/abc649395594/article/details/44730425
