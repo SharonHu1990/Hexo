@@ -52,14 +52,13 @@ tagcloud: true
 #friends: false
 #开启——
 friends:
-  我的LOFTER: http://sharon0325.lofter.com/
   我的CSDN: http://blog.csdn.net/dreamersharon
 
 #是否开启“关于我”。
 #不开启——
 #aboutme: false
 #开启——
-aboutme: 目前从事iOS开发，喜欢安静，爱好摄影、画画、唱歌，但是都不精通。只想当有意思的人，做有意思的事儿。
+aboutme: I'm an iOS developer.
 
 #统计
 baidu_tongji: true
