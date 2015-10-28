@@ -5,20 +5,17 @@
   
   <title>浅析UITableViewCell重用机制 | Sharon&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="UITableView在iOS开发中用的非常的多，由于Cell中一般都会有Image等占用内存的资源，容易引起Memory Warning，所以iOS引入了重用机制。
-案例分析情况A：所有Cell具有相同的类型-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)ind">
+  <meta name="description" content="UITableView在iOS开发中用的非常的多，由于Cell中一般都会有Image等占用内存的资源，容易引起Memory Warning，所以iOS引入了重用机制。那么今天就对UITableView的重用机制分析一下。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅析UITableViewCell重用机制">
 <meta property="og:url" content="http://yoursite.com/2015/10/28/浅析UITableViewCell重用机制/index.html">
 <meta property="og:site_name" content="Sharon's World">
-<meta property="og:description" content="UITableView在iOS开发中用的非常的多，由于Cell中一般都会有Image等占用内存的资源，容易引起Memory Warning，所以iOS引入了重用机制。
-案例分析情况A：所有Cell具有相同的类型-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)ind">
+<meta property="og:description" content="UITableView在iOS开发中用的非常的多，由于Cell中一般都会有Image等占用内存的资源，容易引起Memory Warning，所以iOS引入了重用机制。那么今天就对UITableView的重用机制分析一下。">
 <meta property="og:image" content="http://7xlt6k.com1.z0.glb.clouddn.com/Simulator%20Screen%20Shot%202015%E5%B9%B410%E6%9C%8828%E6%97%A5%20%E4%B8%8B%E5%8D%881.41.28.png">
-<meta property="og:updated_time" content="2015-10-28T09:21:49.000Z">
+<meta property="og:updated_time" content="2015-10-28T11:54:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析UITableViewCell重用机制">
-<meta name="twitter:description" content="UITableView在iOS开发中用的非常的多，由于Cell中一般都会有Image等占用内存的资源，容易引起Memory Warning，所以iOS引入了重用机制。
-案例分析情况A：所有Cell具有相同的类型-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)ind">
+<meta name="twitter:description" content="UITableView在iOS开发中用的非常的多，由于Cell中一般都会有Image等占用内存的资源，容易引起Memory Warning，所以iOS引入了重用机制。那么今天就对UITableView的重用机制分析一下。">
   
     <link rel="alternative" href="/atom.xml" title="Sharon&#39;s World" type="application/atom+xml">
   
@@ -130,6 +127,8 @@ var _hmt = _hmt || [];
 					        
 								<a class="weibo" target="_blank" href="http://weibo.com/sharonhu0813" title="weibo">weibo</a>
 					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
 						</div>
 					</nav>
 				</section>
@@ -204,6 +203,8 @@ var _hmt = _hmt || [];
 			        
 						<a class="weibo" target="_blank" href="http://weibo.com/sharonhu0813" title="weibo">weibo</a>
 			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
 				</div>
 			</nav>
 		</header>				
@@ -257,7 +258,8 @@ var _hmt = _hmt || [];
 			</div>
 		
 		
-        <p>UITableView在iOS开发中用的非常的多，由于Cell中一般都会有Image等占用内存的资源，容易引起Memory Warning，所以iOS引入了重用机制。</p>
+        <p>UITableView在iOS开发中用的非常的多，由于Cell中一般都会有Image等占用内存的资源，容易引起Memory Warning，所以iOS引入了重用机制。那么今天就对UITableView的重用机制分析一下。</p>
+<a id="more"></a>
 <h1 id="案例分析">案例分析</h1><h2 id="情况A：所有Cell具有相同的类型">情况A：所有Cell具有相同的类型</h2><pre><code>-(<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath
 {
     <span class="keyword">static</span> <span class="built_in">NSInteger</span> times = <span class="number">0</span>;

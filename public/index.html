@@ -125,6 +125,8 @@ var _hmt = _hmt || [];
 					        
 								<a class="weibo" target="_blank" href="http://weibo.com/sharonhu0813" title="weibo">weibo</a>
 					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
 						</div>
 					</nav>
 				</section>
@@ -199,6 +201,8 @@ var _hmt = _hmt || [];
 			        
 						<a class="weibo" target="_blank" href="http://weibo.com/sharonhu0813" title="weibo">weibo</a>
 			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
 				</div>
 			</nav>
 		</header>				
@@ -232,104 +236,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-		
-			<div id="toc" class="toc-article">
-			  <strong class="toc-title">目录</strong>
-			  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#案例分析"><span class="toc-number">1.</span> <span class="toc-text">案例分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#情况A：所有Cell具有相同的类型"><span class="toc-number">1.1.</span> <span class="toc-text">情况A：所有Cell具有相同的类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#情况B：具有多种类型的Cell"><span class="toc-number">1.2.</span> <span class="toc-text">情况B：具有多种类型的Cell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#分析："><span class="toc-number">1.2.1.</span> <span class="toc-text">分析：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不该有图片的Cell出现了图片"><span class="toc-number">1.2.2.</span> <span class="toc-text">不该有图片的Cell出现了图片</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#区分两个获取重用Cell的方法"><span class="toc-number">2.</span> <span class="toc-text">区分两个获取重用Cell的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#-_dequeueReusableCellWithIdentifier:forIndexPath:"><span class="toc-number">2.1.</span> <span class="toc-text">- dequeueReusableCellWithIdentifier:forIndexPath:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-_dequeueReusableCellWithIdentifier:"><span class="toc-number">2.2.</span> <span class="toc-text">- dequeueReusableCellWithIdentifier:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比较"><span class="toc-number">2.3.</span> <span class="toc-text">比较</span></a></li></ol></li></ol>
-			</div>
-		
-		
-        <p>UITableView在iOS开发中用的非常的多，由于Cell中一般都会有Image等占用内存的资源，容易引起Memory Warning，所以iOS引入了重用机制。</p>
-<h1 id="案例分析">案例分析</h1><h2 id="情况A：所有Cell具有相同的类型">情况A：所有Cell具有相同的类型</h2><pre><code>-(<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath
-{
-    <span class="keyword">static</span> <span class="built_in">NSInteger</span> times = <span class="number">0</span>;
-    <span class="keyword">static</span> <span class="built_in">NSString</span> *cellIdentifier = <span class="string">@"Default Type"</span>;
-    <span class="built_in">UITableViewCell</span> *myCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    <span class="keyword">if</span> (myCell == <span class="literal">nil</span>) {
-        myCell = [[<span class="built_in">UITableViewCell</span> alloc] initWithStyle:<span class="built_in">UITableViewCellStyleDefault</span> reuseIdentifier:cellIdentifier];
-        <span class="built_in">NSLog</span>(<span class="string">@"创建%d次"</span>,++times);
-    }
-    myCell<span class="variable">.textLabel</span><span class="variable">.text</span>= [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"第%d行 %@"</span>,indexPath<span class="variable">.row</span>+<span class="number">1</span>, cellIdentifier];
-    <span class="keyword">return</span> myCell;
-}
-</code></pre><p>分析：</p>
-<ul>
-<li>有两个存放Cell的队列：可复用Cell队列 <strong>reusableCellQueue</strong> 和可见的Cell队列 <strong>visualCellQueue</strong>；</li>
-<li>执行<code>cellForRowAtIndexPath</code>之前，先从reusableCellQueue中寻找标识为<code>Default Style</code>的Cell，如果没有，返回<code>nil</code>，接着会执行<code>initWithStyle：reuseIdentifier</code>；</li>
-<li>假设屏幕显示 <strong>11行</strong> Cell，如果不滚动TableView，reusableCellQueue是空的，Cell被创建了11次；</li>
-<li>向上拖动TableView，使第12行Cell出现在屏幕中（加入到visualCellQueue中），这时，reusableCellQueue仍然是空的。所以又创建了一次Cell；</li>
-<li>当第12行Cell完全出现在visualCellQueue中，第1行Cell就加入到了reusableCellQueue中。</li>
-<li>再次向上拖动TableView，使第13行Cell出现。注意，这时从reusableCellQueue中寻找到了标识为<code>Default Style</code>的Cell，于是第一行Cell被复用，不用重新创建Cell。</li>
-<li>以后再上下滑动，都会在reusableCellQueue中找到可复用的Cell，因此，此TableView完成完整的滚动需要创建 <strong>12次</strong> Cell。</li>
-<li>总结：第一页显示N行Cell，则一共创建了N+1次。</li>
-</ul>
-<h2 id="情况B：具有多种类型的Cell">情况B：具有多种类型的Cell</h2><pre><code>    -(<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath
-{
-    <span class="built_in">NSString</span> *cellIdentifier;
-    <span class="built_in">UITableViewCellStyle</span> cellStyle;
-    <span class="keyword">switch</span> ((indexPath<span class="variable">.row</span> + <span class="number">1</span>)%<span class="number">4</span>) {
-        <span class="keyword">case</span> <span class="number">1</span>:{
-            <span class="comment">//有标题和副标题，可选图片</span>
-            cellIdentifier = <span class="string">@"Subtitle Style"</span>;
-            cellStyle = <span class="built_in">UITableViewCellStyleSubtitle</span>;
-        }
-            <span class="keyword">break</span>;
-        <span class="keyword">case</span> <span class="number">2</span>:{
-            <span class="comment">//左边文字左对齐，右边文字右对齐，可选的图片</span>
-            cellIdentifier = <span class="string">@"Value1 Style"</span>;
-            cellStyle = <span class="built_in">UITableViewCellStyleValue1</span>;
-        }
-            <span class="keyword">break</span>;
-        <span class="keyword">case</span> <span class="number">3</span>:{
-            <span class="comment">//左边文字右对齐，蓝色字体。右边文字左对齐，黑色。没有图片</span>
-            cellIdentifier = <span class="string">@"Value2 Style"</span>;
-            cellStyle = <span class="built_in">UITableViewCellStyleValue2</span>;
-        }
-            <span class="keyword">break</span>;
-        <span class="keyword">default</span>:{
-            <span class="comment">//有标题，没有副标题，可选的图片</span>
-            cellIdentifier = <span class="string">@"Default Style"</span>;
-            cellStyle = <span class="built_in">UITableViewCellStyleDefault</span>;
-        }
-            <span class="keyword">break</span>;
-    }
-
-    <span class="keyword">static</span> <span class="built_in">NSInteger</span> times = <span class="number">0</span>;
-    <span class="built_in">UITableViewCell</span> *myCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    <span class="keyword">if</span> (!myCell) {
-        myCell = [[<span class="built_in">UITableViewCell</span> alloc] initWithStyle:cellStyle reuseIdentifier:cellIdentifier];
-        <span class="built_in">NSLog</span>(<span class="string">@"创建%d次"</span>,++times);
-    }
-    myCell<span class="variable">.textLabel</span><span class="variable">.text</span> = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"第%d行%@"</span>,indexPath<span class="variable">.row</span>+<span class="number">1</span>, cellIdentifier];
-    myCell<span class="variable">.detailTextLabel</span><span class="variable">.text</span> = <span class="string">@"Subtitle Text"</span>;
-    <span class="keyword">if</span> (indexPath<span class="variable">.row</span> &gt; <span class="number">3</span>) {
-        myCell<span class="variable">.imageView</span><span class="variable">.image</span> = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"smile.png"</span>];
-    }
-    <span class="keyword">return</span> myCell;
-}
-</code></pre><p>运行结果是这样的：<br>    <img src="http://7xlt6k.com1.z0.glb.clouddn.com/Simulator%20Screen%20Shot%202015%E5%B9%B410%E6%9C%8828%E6%97%A5%20%E4%B8%8B%E5%8D%881.41.28.png" alt="不同ReusableCellIdentifier的Cell"></p>
-<h3 id="分析：">分析：</h3><ul>
-<li>第一页显示11个Cell，创建了11次。</li>
-<li>向上拖动TableView，使第12行Cell出现，第12行是<code>Default Style</code>类型的，可复用队列为空，没有找到可复用Cell，于是又创建一次（第12次）。第一个Cell进入reusableCellQueue中。此时reusableCellQueue中只有一个<code>Subtitle Style</code>的Cell。</li>
-<li>再次向上拖动，当第13个Cell出现时，从reusableCellQueue中寻找标识为<code>Subtitle Style</code>的Cell，Yes，reusableCellQueue里有这个标识的Cell，于是复用队列里的这个Cell。此时第二个Cell进入reusableCellQueue，队列里有这几个标识：<code>Subtitle Style</code>和<code>Value1 Style</code>。</li>
-<li>当第14个Cell出现时，寻找标识为<code>Value1 Style</code>的Cell，也找到了，复用之。此时队列里有<code>Subtitle Style</code>、<code>Value1 Style</code>和<code>Value2 Style</code></li>
-<li>以此类推，以后的Cell都可以在reusableCellQueue中找到可复用的Cell。因此一共创建了12次Cell。</li>
-</ul>
-<h3 id="不该有图片的Cell出现了图片">不该有图片的Cell出现了图片</h3><p>当上下滑动TableView的时候，会出现第一行的Cell一会有图片，一会儿又没有图片的现象。这是为什么呢？</p>
-<p>第一个Cell应该是没有图片的，但是在TableView向下滚动，使第一个Cell出现在屏幕上的时候，会先从reusableCellQueue中寻找标识为<code>Subtitle Style</code>的Cell。注意了，第5、9、13、17行的Cell都是Subtitle Style类型的，而且还都带有图片，因此，当这些类型的Cell在reusableCellQueue中被寻找到时，第一行Cell上就会出现图片。</p>
-<p>那么，如何解决这类问题呢？</p>
-<p>在配置Cell的时候一定要注意，对取出的重用的cell要重新赋值，不能遗留被重用Cell的数据。</p>
-<h1 id="区分两个获取重用Cell的方法">区分两个获取重用Cell的方法</h1><h2 id="-_dequeueReusableCellWithIdentifier:forIndexPath:">- dequeueReusableCellWithIdentifier:forIndexPath:</h2><p>此方法返回一个相关标识的UITableViewCell对象，这个Cell总是有效的(不是nil)。</p>
-<p><strong> 注意：</strong><br>使用这个方法之前，必须使用<code>registerNib:forCellReuseIdentifier:</code>或者<code>registerClass:forCellReuseIdentifier:</code>注册一个Cell类或者nib。</p>
-<pre><code>[<span class="built_in">table</span>View registerClass:[UITableViewCell class] <span class="keyword">for</span>CellReuseIdentifier:cellIdentifier];
-    UITableViewCell *myCell = [<span class="built_in">table</span>View dequeueReusableCellWithIdentifier:cellIdentifier <span class="keyword">for</span>IndexPath:indexPath];
-</code></pre><h2 id="-_dequeueReusableCellWithIdentifier:">- dequeueReusableCellWithIdentifier:</h2><p>   返回值 : 相关标识的UITableViewCell对象，或者是nil(如果在可重用Cell队列中没有找到的话)。</p>
-<pre><code>   <span class="built_in">UITableViewCell</span> *myCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-<span class="keyword">if</span> (myCell == <span class="literal">nil</span>) {
-    myCell = [[<span class="built_in">UITableViewCell</span> alloc] initWithStyle:<span class="built_in">UITableViewCellStyleDefault</span> reuseIdentifier:cellIdentifier];
-}
-</code></pre><h2 id="比较">比较</h2><pre><code>使用`- dequeueReusableCellWithIdentifier:forIndexPath:`的话，必须注册<span class="keyword">Cell</span>，而且，不需要再判断<span class="keyword">Cell</span>是否为nil和创建 <span class="keyword">Cell</span>。
-</code></pre>
+        <p>UITableView在iOS开发中用的非常的多，由于Cell中一般都会有Image等占用内存的资源，容易引起Memory Warning，所以iOS引入了重用机制。那么今天就对UITableView的重用机制分析一下。</p>
       
     </div>
     
@@ -346,6 +253,10 @@ var _hmt = _hmt || [];
 	</div>
 
 
+      
+        <p class="article-more-link">
+          <a  href="/2015/10/28/浅析UITableViewCell重用机制/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -390,14 +301,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-		
-			<div id="toc" class="toc-article">
-			  <strong class="toc-title">目录</strong>
-			  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#if"><span class="toc-number">1.</span> <span class="toc-text">if</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#if_else"><span class="toc-number">1.1.</span> <span class="toc-text">if else</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#if_else_+_for_in"><span class="toc-number">1.2.</span> <span class="toc-text">if else + for in</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用可选绑定"><span class="toc-number">1.3.</span> <span class="toc-text">使用可选绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在if条件判断语句中使用where关键字"><span class="toc-number">1.4.</span> <span class="toc-text">在if条件判断语句中使用where关键字</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Switch"><span class="toc-number">2.</span> <span class="toc-text">Switch</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一条case分支可匹配多个模式"><span class="toc-number">2.1.</span> <span class="toc-text">一条case分支可匹配多个模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不存在隐式的贯穿"><span class="toc-number">2.2.</span> <span class="toc-text">不存在隐式的贯穿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#区间匹配"><span class="toc-number">2.3.</span> <span class="toc-text">区间匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用元组"><span class="toc-number">2.4.</span> <span class="toc-text">使用元组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#case分支中使用值绑定"><span class="toc-number">2.5.</span> <span class="toc-text">case分支中使用值绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用where_模式匹配"><span class="toc-number">2.6.</span> <span class="toc-text">使用where 模式匹配</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#For循环"><span class="toc-number">3.</span> <span class="toc-text">For循环</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用下划线_替代循环变量名"><span class="toc-number">3.1.</span> <span class="toc-text">使用下划线_替代循环变量名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#遍历数组元素"><span class="toc-number">3.2.</span> <span class="toc-text">遍历数组元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#遍历字典的键值对"><span class="toc-number">3.3.</span> <span class="toc-text">遍历字典的键值对</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用条件判断和递增方法的标准_C_样式for循环"><span class="toc-number">3.4.</span> <span class="toc-text">使用条件判断和递增方法的标准 C 样式for循环</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#While循环"><span class="toc-number">4.</span> <span class="toc-text">While循环</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#while"><span class="toc-number">4.1.</span> <span class="toc-text">while</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#repeat-while"><span class="toc-number">4.2.</span> <span class="toc-text">repeat-while</span></a></li></ol></li></ol>
-			</div>
-		
-		
-        <h1 id="if">if</h1><h2 id="if_else">if else</h2><pre><code><span class="built_in">let</span> number = <span class="number">100</span>
+        <h1 id="If_条件语句">If 条件语句</h1><h2 id="if_else">if else</h2><pre><code><span class="built_in">let</span> number = <span class="number">100</span>
 <span class="keyword">if</span> number &lt; <span class="number">10</span> {
     <span class="built_in">print</span>(<span class="string">"The number is small"</span>)
 } <span class="keyword">else</span> <span class="keyword">if</span> number &gt; <span class="number">100</span> {
@@ -405,181 +309,6 @@ var _hmt = _hmt || [];
 } <span class="keyword">else</span> {
     <span class="built_in">print</span>(<span class="string">"The number is between 10 and 100"</span>)
 }
-</code></pre><h2 id="if_else_+_for_in">if else + for in</h2><pre><code>let individualScores = [<span class="number">75</span>, <span class="number">43</span>, <span class="number">103</span>, <span class="number">87</span>, <span class="number">12</span>]
-var teamScore = <span class="number">0</span>
-<span class="keyword">for</span> score in individualScores {
-    <span class="keyword">if</span> score &gt; <span class="number">50</span> {
-        teamScore += <span class="number">3</span>
-    } <span class="keyword">else</span> {
-        teamScore += <span class="number">1</span>
-    }
-}
-print(teamScore)
-</code></pre><h2 id="使用可选绑定">使用可选绑定</h2><pre><code><span class="keyword">var</span> optionalName: <span class="type">String</span>?
-<span class="keyword">var</span> greeting = <span class="string">"Hello!"</span>
-<span class="keyword">if</span> <span class="keyword">let</span> name = optionalName {
-    greeting = <span class="string">"Hello, <span class="subst">\(name)</span>"</span>
-}<span class="keyword">else</span>
-{
-    <span class="built_in">print</span>(<span class="string">"optionalName is nil"</span>)
-}
-</code></pre><h2 id="在if条件判断语句中使用where关键字">在if条件判断语句中使用where关键字</h2><pre><code><span class="keyword">var</span> optionalHello: <span class="type">String</span>? = <span class="string">"Hello"</span>
-<span class="keyword">if</span> <span class="keyword">let</span> hello = optionalHello <span class="keyword">where</span> hello.hasPrefix(<span class="string">"H"</span>), <span class="keyword">let</span> name = optionalName {
-    greeting = <span class="string">"<span class="subst">\(hello)</span>, <span class="subst">\(name)</span>"</span>
-    <span class="built_in">print</span>(<span class="string">"greeting:<span class="subst">\(greeting)</span>"</span>)
-}<span class="keyword">else</span>
-{
-    <span class="comment">//跳到这里，因为hello还没有被复制，它没有“H”前缀，仅当where模式匹配成功，if条件语句才执行。</span>
-}
-</code></pre><h1 id="Switch">Switch</h1><h2 id="一条case分支可匹配多个模式">一条case分支可匹配多个模式</h2><pre><code><span class="keyword">let</span> vegetable = <span class="string">"red pepper"</span>
-<span class="keyword">switch</span> vegetable {
-    <span class="keyword">case</span> <span class="string">"celery"</span>:
-        <span class="keyword">let</span> vegetableComment = <span class="string">"Add some raisins and make ants on a log."</span>
-    <span class="keyword">case</span> <span class="string">"cucumber"</span>, <span class="string">"watercress"</span>:
-        <span class="keyword">let</span> vegetableComment = <span class="string">"That would make a good tea sandwich."</span>
-    <span class="keyword">case</span> <span class="keyword">let</span> x <span class="keyword">where</span> x.hasSuffix(<span class="string">"pepper"</span>):
-        <span class="keyword">let</span> vegetableComment = <span class="string">"Is it a spicy <span class="subst">\(x)</span>?"</span>
-    <span class="keyword">default</span>:<span class="comment">//必须有default分支</span>
-        <span class="keyword">let</span> vegetableComment = <span class="string">"Everything tastes good in soup."</span>
-}
-</code></pre><h2 id="不存在隐式的贯穿">不存在隐式的贯穿</h2><p>下面的代码会有编译错误！</p>
-<pre><code><span class="keyword">let</span> anotherCharacter: <span class="type">Character</span> = <span class="string">"a"</span>
-<span class="keyword">switch</span> anotherCharacter {
-<span class="keyword">case</span> <span class="string">"a"</span>:
-<span class="keyword">case</span> <span class="string">"A"</span>:
-    <span class="built_in">print</span>(<span class="string">"The letter A"</span>)
-<span class="keyword">default</span>:
-    <span class="built_in">print</span>(<span class="string">"Not the letter A"</span>)
-}
-<span class="comment">// this will report a compile-time error</span>
-</code></pre><h2 id="区间匹配">区间匹配</h2><p>使用闭区间操作符<code>..</code>或开区间操作符<code>..&lt;</code></p>
-<pre><code>let approximateCount = <span class="number">62</span>
-let countedThings = <span class="string">"moons orbiting Saturn"</span>
-var naturalCount: String
-<span class="keyword">switch</span> approximateCount {
-<span class="keyword">case</span> <span class="number">0</span>:
-    naturalCount = <span class="string">"no"</span>
-<span class="keyword">case</span> <span class="number">1.</span>.&lt;<span class="number">5</span>:
-    naturalCount = <span class="string">"a few"</span>
-<span class="keyword">case</span> <span class="number">5.</span>.&lt;<span class="number">12</span>:
-    naturalCount = <span class="string">"several"</span>
-<span class="keyword">case</span> <span class="number">12.</span>.&lt;<span class="number">100</span>:
-    naturalCount = <span class="string">"dozens of"</span>
-<span class="keyword">case</span> <span class="number">100.</span>.&lt;<span class="number">1000</span>:
-    naturalCount = <span class="string">"hundreds of"</span>
-<span class="keyword">default</span>:
-    naturalCount = <span class="string">"many"</span>
-}
-print(<span class="string">"There are \(naturalCount) \(countedThings)."</span>)
-<span class="comment">// 输出 "There are dozens of moons orbiting Saturn."</span>
-</code></pre><h2 id="使用元组">使用元组</h2><pre><code><span class="keyword">let</span> somePoint = (<span class="number">1</span>, <span class="number">1</span>)
-<span class="keyword">switch</span> somePoint {
-<span class="keyword">case</span> (<span class="number">0</span>, <span class="number">0</span>):
-    <span class="built_in">print</span>(<span class="string">"(0, 0) is at the origin"</span>)
-<span class="keyword">case</span> (<span class="number">_</span>, <span class="number">0</span>):
-    <span class="built_in">print</span>(<span class="string">"(<span class="subst">\(somePoint.<span class="number">0</span>)</span>, 0) is on the x-axis"</span>)
-<span class="keyword">case</span> (<span class="number">0</span>, <span class="number">_</span>):
-    <span class="built_in">print</span>(<span class="string">"(0, <span class="subst">\(somePoint.<span class="number">1</span>)</span>) is on the y-axis"</span>)
-<span class="keyword">case</span> (-<span class="number">2</span>...<span class="number">2</span>, -<span class="number">2</span>...<span class="number">2</span>):
-    <span class="built_in">print</span>(<span class="string">"(<span class="subst">\(somePoint.<span class="number">0</span>)</span>, <span class="subst">\(somePoint.<span class="number">1</span>)</span>) is inside the box"</span>)
-<span class="keyword">default</span>:
-    <span class="built_in">print</span>(<span class="string">"(<span class="subst">\(somePoint.<span class="number">0</span>)</span>, <span class="subst">\(somePoint.<span class="number">1</span>)</span>) is outside of the box"</span>)
-}
-<span class="comment">// 输出 "(1, 1) is inside the box"</span>
-</code></pre><blockquote>
-<p>如果存在多个匹配，那么只会执行第一个被匹配到的 case 分支。剩下的能够匹配 case 分支都会被忽视掉.</p>
-</blockquote>
-<h2 id="case分支中使用值绑定">case分支中使用值绑定</h2><pre><code><span class="keyword">let</span> anotherPoint = (<span class="number">2</span>, <span class="number">0</span>)
-<span class="keyword">switch</span> anotherPoint {
-<span class="keyword">case</span> (<span class="keyword">let</span> x, <span class="number">0</span>):
-    <span class="built_in">print</span>(<span class="string">"on the x-axis with an x value of <span class="subst">\(x)</span>"</span>)
-<span class="keyword">case</span> (<span class="number">0</span>, <span class="keyword">let</span> y):
-    <span class="built_in">print</span>(<span class="string">"on the y-axis with a y value of <span class="subst">\(y)</span>"</span>)
-<span class="keyword">case</span> <span class="keyword">let</span> (x, y):
-    <span class="built_in">print</span>(<span class="string">"somewhere else at (<span class="subst">\(x)</span>, <span class="subst">\(y)</span>)"</span>)
-}
-<span class="comment">// 输出 "on the x-axis with an x value of 2"</span>
-</code></pre><h2 id="使用where_模式匹配">使用where 模式匹配</h2><pre><code><span class="keyword">let</span> yetAnotherPoint = (<span class="number">1</span>, -<span class="number">1</span>)
-<span class="keyword">switch</span> yetAnotherPoint {
-<span class="keyword">case</span> <span class="keyword">let</span> (x, y) <span class="keyword">where</span> x == y:
-    <span class="built_in">print</span>(<span class="string">"(<span class="subst">\(x)</span>, <span class="subst">\(y)</span>) is on the line x == y"</span>)
-<span class="keyword">case</span> <span class="keyword">let</span> (x, y) <span class="keyword">where</span> x == -y:
-    <span class="built_in">print</span>(<span class="string">"(<span class="subst">\(x)</span>, <span class="subst">\(y)</span>) is on the line x == -y"</span>)
-<span class="keyword">case</span> <span class="keyword">let</span> (x, y):
-    <span class="built_in">print</span>(<span class="string">"(<span class="subst">\(x)</span>, <span class="subst">\(y)</span>) is just some arbitrary point"</span>)
-}
-<span class="comment">// 输出 "(1, -1) is on the line x == -y"</span>
-</code></pre><h1 id="For循环">For循环</h1><p>#使用For-In<br>    var firstForLoop = 0<br>    for i in 0..&lt;4 {<br>        firstForLoop += i<br>    }<br>    print(firstForLoop)</p>
-<pre><code>var secondForLoop = <span class="number">0</span>
-<span class="keyword">for</span> _ in <span class="number">0.</span>.<span class="number">.4</span> {
-    secondForLoop += <span class="number">1</span>
-}
-print(secondForLoop)
-</code></pre><h2 id="使用下划线_替代循环变量名">使用下划线_替代循环变量名</h2><p>如果你不需要知道区间内每一项的值，你可以使用下划线（_）替代变量名来忽略对值的访问：<br>code:</p>
-<pre><code><span class="keyword">let</span> base = <span class="number">3</span>
-<span class="keyword">let</span> power = <span class="number">10</span>
-<span class="keyword">var</span> answer = <span class="number">1</span>
-<span class="keyword">for</span> <span class="number">_</span> <span class="keyword">in</span> <span class="number">1</span>...power {
-    answer *= base
-}
-<span class="built_in">print</span>(<span class="string">"<span class="subst">\(base)</span> to the power of <span class="subst">\(power)</span> is <span class="subst">\(answer)</span>"</span>)
-<span class="comment">// 输出 "3 to the power of 10 is 59049"</span>
-</code></pre><p>code2:</p>
-<pre><code>var secondForLoop = <span class="number">0</span>
-<span class="keyword">for</span> _ in <span class="number">0.</span>.<span class="number">.4</span> {
-    secondForLoop += <span class="number">1</span>
-}
-print(secondForLoop)
-<span class="comment">//输出5</span>
-</code></pre><h2 id="遍历数组元素">遍历数组元素</h2><pre><code><span class="keyword">let</span> names = [<span class="string">"Anna"</span>, <span class="string">"Alex"</span>, <span class="string">"Brian"</span>, <span class="string">"Jack"</span>]
-<span class="keyword">for</span> name <span class="keyword">in</span> names {
-    <span class="built_in">print</span>(<span class="string">"Hello, <span class="subst">\(name)</span>!"</span>)
-}
-<span class="comment">// Hello, Anna!</span>
-<span class="comment">// Hello, Alex!</span>
-<span class="comment">// Hello, Brian!</span>
-<span class="comment">// Hello, Jack!</span>
-</code></pre><h2 id="遍历字典的键值对">遍历字典的键值对</h2><p>字典元素的遍历顺序和插入顺序可能不同</p>
-<pre><code><span class="keyword">let</span> numberOfLegs = [<span class="string">"spider"</span>: <span class="number">8</span>, <span class="string">"ant"</span>: <span class="number">6</span>, <span class="string">"cat"</span>:<span class="number">4</span>]
-<span class="keyword">for</span> (animalName, legCount) <span class="keyword">in</span> numberOfLegs{
-    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(animalName)</span>s have <span class="subst">\(legCount)</span> legs"</span>)
-}
-<span class="comment">// ants have 6 legs</span>
-<span class="comment">// cats have 4 legs</span>
-<span class="comment">// spiders have 8 legs</span>
-</code></pre><h2 id="使用条件判断和递增方法的标准_C_样式for循环">使用条件判断和递增方法的标准 C 样式for循环</h2><pre><code><span class="keyword">for</span> var <span class="keyword">index</span> = <span class="number">0</span>; <span class="keyword">index</span> &lt; <span class="number">3</span>; ++<span class="keyword">index</span> {
-    <span class="keyword">print</span>(<span class="string">"index is \(index)"</span>)
-}
-// <span class="keyword">index</span> is <span class="number">0</span>
-// <span class="keyword">index</span> is <span class="number">1</span>
-// <span class="keyword">index</span> is <span class="number">2</span>
-</code></pre><h1 id="While循环">While循环</h1><h2 id="while">while</h2><pre><code><span class="keyword">var</span> <span class="built_in">count</span> = <span class="number">1</span>
-<span class="keyword">while</span> <span class="built_in">count</span> &lt; <span class="number">3</span> {
-    <span class="built_in">println</span>(<span class="string">"count is <span class="subst">\(<span class="built_in">count</span>)</span>"</span>)
-    ++<span class="built_in">count</span>
-}
-<span class="comment">// count is 1</span>
-<span class="comment">// count is 2</span>
-
-<span class="built_in">count</span> = <span class="number">1</span>
-<span class="keyword">while</span> <span class="built_in">count</span> &lt; <span class="number">1</span> {
-    <span class="built_in">println</span>(<span class="string">"count is <span class="subst">\(<span class="built_in">count</span>)</span>"</span>)
-    ++<span class="built_in">count</span>
-}
-</code></pre><h2 id="repeat-while">repeat-while</h2><pre><code><span class="keyword">var</span> <span class="built_in">count</span> = <span class="number">1</span>
-repeat {
-    <span class="built_in">print</span>(<span class="string">"count is <span class="subst">\(<span class="built_in">count</span>)</span>"</span>)
-    ++<span class="built_in">count</span>
-} <span class="keyword">while</span> <span class="built_in">count</span> &lt; <span class="number">3</span>
-<span class="comment">// count is 1</span>
-<span class="comment">// count is 2</span>
-
-<span class="built_in">count</span> = <span class="number">1</span>
-repeat {
-    <span class="built_in">print</span>(<span class="string">"count is <span class="subst">\(<span class="built_in">count</span>)</span>"</span>)
-    ++<span class="built_in">count</span>
-} <span class="keyword">while</span> <span class="built_in">count</span> &lt; <span class="number">1</span>
-<span class="comment">// count is 1</span>
 </code></pre>
       
     </div>
@@ -589,6 +318,10 @@ repeat {
       
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2015/10/22/Swift Cheat Sheet [2] - Control Flow/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
