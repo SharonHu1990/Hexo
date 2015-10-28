@@ -132,7 +132,7 @@ var _hmt = _hmt || [];
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Archive-Submission/" style="font-size: 10px;">Archive Submission</a> <a href="/tags/Demo/" style="font-size: 10px;">Demo</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Swift/" style="font-size: 10px;">Swift</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 17.5px;">iOS</a> <a href="/tags/假期/" style="font-size: 10px;">假期</a> <a href="/tags/写作工具/" style="font-size: 10px;">写作工具</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/杂谈/" style="font-size: 15px;">杂谈</a> <a href="/tags/水彩/" style="font-size: 10px;">水彩</a> <a href="/tags/爱/" style="font-size: 10px;">爱</a> <a href="/tags/爱好/" style="font-size: 10px;">爱好</a> <a href="/tags/版本号/" style="font-size: 10px;">版本号</a> <a href="/tags/生日/" style="font-size: 10px;">生日</a> <a href="/tags/生活/" style="font-size: 15px;">生活</a> <a href="/tags/电影/" style="font-size: 10px;">电影</a> <a href="/tags/知识小集/" style="font-size: 20px;">知识小集</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/编程习惯/" style="font-size: 10px;">编程习惯</a> <a href="/tags/诗/" style="font-size: 10px;">诗</a> <a href="/tags/读书札记/" style="font-size: 10px;">读书札记</a> <a href="/tags/随笔/" style="font-size: 12.5px;">随笔</a>
+						<a href="/tags/Archive-Submission/" style="font-size: 10px;">Archive Submission</a> <a href="/tags/Demo/" style="font-size: 10px;">Demo</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Swift/" style="font-size: 10px;">Swift</a> <a href="/tags/UITableView/" style="font-size: 10px;">UITableView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 17.5px;">iOS</a> <a href="/tags/假期/" style="font-size: 10px;">假期</a> <a href="/tags/写作工具/" style="font-size: 10px;">写作工具</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/杂谈/" style="font-size: 15px;">杂谈</a> <a href="/tags/水彩/" style="font-size: 10px;">水彩</a> <a href="/tags/爱/" style="font-size: 10px;">爱</a> <a href="/tags/爱好/" style="font-size: 10px;">爱好</a> <a href="/tags/版本号/" style="font-size: 10px;">版本号</a> <a href="/tags/生日/" style="font-size: 10px;">生日</a> <a href="/tags/生活/" style="font-size: 15px;">生活</a> <a href="/tags/电影/" style="font-size: 10px;">电影</a> <a href="/tags/知识小集/" style="font-size: 20px;">知识小集</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/编程习惯/" style="font-size: 10px;">编程习惯</a> <a href="/tags/诗/" style="font-size: 10px;">诗</a> <a href="/tags/读书札记/" style="font-size: 10px;">读书札记</a> <a href="/tags/随笔/" style="font-size: 12.5px;">随笔</a>
 					</div>
 				</section>
 				
@@ -205,6 +205,164 @@ var _hmt = _hmt || [];
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-浅析UITableViewCell重用机制" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/28/浅析UITableViewCell重用机制/" class="article-date">
+  	<time datetime="2015-10-28T02:31:02.000Z" itemprop="datePublished">Oct 28 2015</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/28/浅析UITableViewCell重用机制/">浅析UITableViewCell重用机制</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+			<div id="toc" class="toc-article">
+			  <strong class="toc-title">目录</strong>
+			  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#案例分析"><span class="toc-number">1.</span> <span class="toc-text">案例分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#情况A：所有Cell具有相同的类型"><span class="toc-number">1.1.</span> <span class="toc-text">情况A：所有Cell具有相同的类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#情况B：具有多种类型的Cell"><span class="toc-number">1.2.</span> <span class="toc-text">情况B：具有多种类型的Cell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#分析："><span class="toc-number">1.2.1.</span> <span class="toc-text">分析：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不该有图片的Cell出现了图片"><span class="toc-number">1.2.2.</span> <span class="toc-text">不该有图片的Cell出现了图片</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#区分两个获取重用Cell的方法"><span class="toc-number">2.</span> <span class="toc-text">区分两个获取重用Cell的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#-_dequeueReusableCellWithIdentifier:forIndexPath:"><span class="toc-number">2.1.</span> <span class="toc-text">- dequeueReusableCellWithIdentifier:forIndexPath:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-_dequeueReusableCellWithIdentifier:"><span class="toc-number">2.2.</span> <span class="toc-text">- dequeueReusableCellWithIdentifier:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比较"><span class="toc-number">2.3.</span> <span class="toc-text">比较</span></a></li></ol></li></ol>
+			</div>
+		
+		
+        <p>UITableView在iOS开发中用的非常的多，由于Cell中一般都会有Image等占用内存的资源，容易引起Memory Warning，所以iOS引入了重用机制。</p>
+<h1 id="案例分析">案例分析</h1><h2 id="情况A：所有Cell具有相同的类型">情况A：所有Cell具有相同的类型</h2><pre><code>-(<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath
+{
+    <span class="keyword">static</span> <span class="built_in">NSInteger</span> times = <span class="number">0</span>;
+    <span class="keyword">static</span> <span class="built_in">NSString</span> *cellIdentifier = <span class="string">@"Default Type"</span>;
+    <span class="built_in">UITableViewCell</span> *myCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    <span class="keyword">if</span> (myCell == <span class="literal">nil</span>) {
+        myCell = [[<span class="built_in">UITableViewCell</span> alloc] initWithStyle:<span class="built_in">UITableViewCellStyleDefault</span> reuseIdentifier:cellIdentifier];
+        <span class="built_in">NSLog</span>(<span class="string">@"创建%d次"</span>,++times);
+    }
+    myCell<span class="variable">.textLabel</span><span class="variable">.text</span>= [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"第%d行 %@"</span>,indexPath<span class="variable">.row</span>+<span class="number">1</span>, cellIdentifier];
+    <span class="keyword">return</span> myCell;
+}
+</code></pre><p>分析：</p>
+<ul>
+<li>有两个存放Cell的队列：可复用Cell队列 <strong>reusableCellQueue</strong> 和可见的Cell队列 <strong>visualCellQueue</strong>；</li>
+<li>执行<code>cellForRowAtIndexPath</code>之前，先从reusableCellQueue中寻找标识为<code>Default Style</code>的Cell，如果没有，返回<code>nil</code>，接着会执行<code>initWithStyle：reuseIdentifier</code>；</li>
+<li>假设屏幕显示 <strong>11行</strong> Cell，如果不滚动TableView，reusableCellQueue是空的，Cell被创建了11次；</li>
+<li>向上拖动TableView，使第12行Cell出现在屏幕中（加入到visualCellQueue中），这时，reusableCellQueue仍然是空的。所以又创建了一次Cell；</li>
+<li>当第12行Cell完全出现在visualCellQueue中，第1行Cell就加入到了reusableCellQueue中。</li>
+<li>再次向上拖动TableView，使第13行Cell出现。注意，这时从reusableCellQueue中寻找到了标识为<code>Default Style</code>的Cell，于是第一行Cell被复用，不用重新创建Cell。</li>
+<li>以后再上下滑动，都会在reusableCellQueue中找到可复用的Cell，因此，此TableView完成完整的滚动需要创建 <strong>12次</strong> Cell。</li>
+<li>总结：第一页显示N行Cell，则一共创建了N+1次。</li>
+</ul>
+<h2 id="情况B：具有多种类型的Cell">情况B：具有多种类型的Cell</h2><pre><code>    -(<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath
+{
+    <span class="built_in">NSString</span> *cellIdentifier;
+    <span class="built_in">UITableViewCellStyle</span> cellStyle;
+    <span class="keyword">switch</span> ((indexPath<span class="variable">.row</span> + <span class="number">1</span>)%<span class="number">4</span>) {
+        <span class="keyword">case</span> <span class="number">1</span>:{
+            <span class="comment">//有标题和副标题，可选图片</span>
+            cellIdentifier = <span class="string">@"Subtitle Style"</span>;
+            cellStyle = <span class="built_in">UITableViewCellStyleSubtitle</span>;
+        }
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="number">2</span>:{
+            <span class="comment">//左边文字左对齐，右边文字右对齐，可选的图片</span>
+            cellIdentifier = <span class="string">@"Value1 Style"</span>;
+            cellStyle = <span class="built_in">UITableViewCellStyleValue1</span>;
+        }
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="number">3</span>:{
+            <span class="comment">//左边文字右对齐，蓝色字体。右边文字左对齐，黑色。没有图片</span>
+            cellIdentifier = <span class="string">@"Value2 Style"</span>;
+            cellStyle = <span class="built_in">UITableViewCellStyleValue2</span>;
+        }
+            <span class="keyword">break</span>;
+        <span class="keyword">default</span>:{
+            <span class="comment">//有标题，没有副标题，可选的图片</span>
+            cellIdentifier = <span class="string">@"Default Style"</span>;
+            cellStyle = <span class="built_in">UITableViewCellStyleDefault</span>;
+        }
+            <span class="keyword">break</span>;
+    }
+
+    <span class="keyword">static</span> <span class="built_in">NSInteger</span> times = <span class="number">0</span>;
+    <span class="built_in">UITableViewCell</span> *myCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    <span class="keyword">if</span> (!myCell) {
+        myCell = [[<span class="built_in">UITableViewCell</span> alloc] initWithStyle:cellStyle reuseIdentifier:cellIdentifier];
+        <span class="built_in">NSLog</span>(<span class="string">@"创建%d次"</span>,++times);
+    }
+    myCell<span class="variable">.textLabel</span><span class="variable">.text</span> = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"第%d行%@"</span>,indexPath<span class="variable">.row</span>+<span class="number">1</span>, cellIdentifier];
+    myCell<span class="variable">.detailTextLabel</span><span class="variable">.text</span> = <span class="string">@"Subtitle Text"</span>;
+    <span class="keyword">if</span> (indexPath<span class="variable">.row</span> &gt; <span class="number">3</span>) {
+        myCell<span class="variable">.imageView</span><span class="variable">.image</span> = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"smile.png"</span>];
+    }
+    <span class="keyword">return</span> myCell;
+}
+</code></pre><p>运行结果是这样的：<br>    <img src="http://7xlt6k.com1.z0.glb.clouddn.com/Simulator%20Screen%20Shot%202015%E5%B9%B410%E6%9C%8828%E6%97%A5%20%E4%B8%8B%E5%8D%881.41.28.png" alt="不同ReusableCellIdentifier的Cell"></p>
+<h3 id="分析：">分析：</h3><ul>
+<li>第一页显示11个Cell，创建了11次。</li>
+<li>向上拖动TableView，使第12行Cell出现，第12行是<code>Default Style</code>类型的，可复用队列为空，没有找到可复用Cell，于是又创建一次（第12次）。第一个Cell进入reusableCellQueue中。此时reusableCellQueue中只有一个<code>Subtitle Style</code>的Cell。</li>
+<li>再次向上拖动，当第13个Cell出现时，从reusableCellQueue中寻找标识为<code>Subtitle Style</code>的Cell，Yes，reusableCellQueue里有这个标识的Cell，于是复用队列里的这个Cell。此时第二个Cell进入reusableCellQueue，队列里有这几个标识：<code>Subtitle Style</code>和<code>Value1 Style</code>。</li>
+<li>当第14个Cell出现时，寻找标识为<code>Value1 Style</code>的Cell，也找到了，复用之。此时队列里有<code>Subtitle Style</code>、<code>Value1 Style</code>和<code>Value2 Style</code></li>
+<li>以此类推，以后的Cell都可以在reusableCellQueue中找到可复用的Cell。因此一共创建了12次Cell。</li>
+</ul>
+<h3 id="不该有图片的Cell出现了图片">不该有图片的Cell出现了图片</h3><p>当上下滑动TableView的时候，会出现第一行的Cell一会有图片，一会儿又没有图片的现象。这是为什么呢？</p>
+<p>第一个Cell应该是没有图片的，但是在TableView向下滚动，使第一个Cell出现在屏幕上的时候，会先从reusableCellQueue中寻找标识为<code>Subtitle Style</code>的Cell。注意了，第5、9、13、17行的Cell都是Subtitle Style类型的，而且还都带有图片，因此，当这些类型的Cell在reusableCellQueue中被寻找到时，第一行Cell上就会出现图片。</p>
+<p>那么，如何解决这类问题呢？</p>
+<p>在配置Cell的时候一定要注意，对取出的重用的cell要重新赋值，不能遗留被重用Cell的数据。</p>
+<h1 id="区分两个获取重用Cell的方法">区分两个获取重用Cell的方法</h1><h2 id="-_dequeueReusableCellWithIdentifier:forIndexPath:">- dequeueReusableCellWithIdentifier:forIndexPath:</h2><p>此方法返回一个相关标识的UITableViewCell对象，这个Cell总是有效的(不是nil)。</p>
+<p><strong> 注意：</strong><br>使用这个方法之前，必须使用<code>registerNib:forCellReuseIdentifier:</code>或者<code>registerClass:forCellReuseIdentifier:</code>注册一个Cell类或者nib。</p>
+<pre><code>[<span class="built_in">table</span>View registerClass:[UITableViewCell class] <span class="keyword">for</span>CellReuseIdentifier:cellIdentifier];
+    UITableViewCell *myCell = [<span class="built_in">table</span>View dequeueReusableCellWithIdentifier:cellIdentifier <span class="keyword">for</span>IndexPath:indexPath];
+</code></pre><h2 id="-_dequeueReusableCellWithIdentifier:">- dequeueReusableCellWithIdentifier:</h2><p>   返回值 : 相关标识的UITableViewCell对象，或者是nil(如果在可重用Cell队列中没有找到的话)。</p>
+<pre><code>   <span class="built_in">UITableViewCell</span> *myCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+<span class="keyword">if</span> (myCell == <span class="literal">nil</span>) {
+    myCell = [[<span class="built_in">UITableViewCell</span> alloc] initWithStyle:<span class="built_in">UITableViewCellStyleDefault</span> reuseIdentifier:cellIdentifier];
+}
+</code></pre><h2 id="比较">比较</h2><pre><code>使用`- dequeueReusableCellWithIdentifier:forIndexPath:`的话，必须注册<span class="keyword">Cell</span>，而且，不需要再判断<span class="keyword">Cell</span>是否为nil和创建 <span class="keyword">Cell</span>。
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITableView/">UITableView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/知识小集/">知识小集</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
   
     <article id="post-Swift Cheat Sheet [2] - Control Flow" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -837,67 +995,6 @@ myInt = <span class="number">2</span> <span class="comment">//compile-time error
       
         <p class="article-more-link">
           <a  href="/2015/10/08/以此纪念2015年最后一个长假的结束/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Hexo使用多说插件" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/09/23/Hexo使用多说插件/" class="article-date">
-  	<time datetime="2015-09-23T03:37:21.000Z" itemprop="datePublished">Sep 23 2015</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/23/Hexo使用多说插件/">Hexo使用多说插件</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>多说是一款追求极致体验的社会化评论框，可以用微博、QQ、人人、豆瓣等帐号登录并评论。下面简单说说如何在Hexo的博客中使用多说。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/知识小集/">知识小集</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/09/23/Hexo使用多说插件/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
