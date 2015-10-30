@@ -1,0 +1,171 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'hexo-generator-feed',
+1 verbose cli   '--save' ]
+2 info using npm@2.11.3
+3 info using node@v0.12.7
+4 verbose install initial load of /Users/yanghu/Desktop/Hexo/package.json
+5 verbose installManyTop reading scoped package data from /Users/yanghu/Desktop/Hexo/node_modules/hexo/package.json
+6 verbose installManyTop reading scoped package data from /Users/yanghu/Desktop/Hexo/node_modules/hexo-deployer-git/package.json
+7 verbose installManyTop reading scoped package data from /Users/yanghu/Desktop/Hexo/node_modules/hexo-generator-archive/package.json
+8 verbose installManyTop reading scoped package data from /Users/yanghu/Desktop/Hexo/node_modules/hexo-generator-category/package.json
+9 verbose installManyTop reading scoped package data from /Users/yanghu/Desktop/Hexo/node_modules/hexo-generator-index/package.json
+10 verbose installManyTop reading scoped package data from /Users/yanghu/Desktop/Hexo/node_modules/hexo-generator-tag/package.json
+11 verbose installManyTop reading scoped package data from /Users/yanghu/Desktop/Hexo/node_modules/hexo-renderer-ejs/package.json
+12 verbose installManyTop reading scoped package data from /Users/yanghu/Desktop/Hexo/node_modules/hexo-renderer-marked/package.json
+13 verbose installManyTop reading scoped package data from /Users/yanghu/Desktop/Hexo/node_modules/hexo-renderer-stylus/package.json
+14 verbose installManyTop reading scoped package data from /Users/yanghu/Desktop/Hexo/node_modules/hexo-server/package.json
+15 verbose installManyTop reading scoped package data from /Users/yanghu/Desktop/Hexo/node_modules/hexo-wordcount/package.json
+16 info package.json hexo-renderer-ejs@0.1.0 license should be a valid SPDX license expression
+17 verbose readDependencies loading dependencies from /Users/yanghu/Desktop/Hexo/package.json
+18 silly cache add args [ 'hexo-generator-feed', null ]
+19 verbose cache add spec hexo-generator-feed
+20 silly cache add parsed spec { raw: 'hexo-generator-feed',
+20 silly cache add   scope: null,
+20 silly cache add   name: 'hexo-generator-feed',
+20 silly cache add   rawSpec: '',
+20 silly cache add   spec: '*',
+20 silly cache add   type: 'range' }
+21 silly addNamed hexo-generator-feed@*
+22 verbose addNamed "*" is a valid semver range for hexo-generator-feed
+23 silly addNameRange { name: 'hexo-generator-feed', range: '*', hasData: false }
+24 silly mapToRegistry name hexo-generator-feed
+25 silly mapToRegistry using default registry
+26 silly mapToRegistry registry https://registry.npmjs.org/
+27 silly mapToRegistry uri https://registry.npmjs.org/hexo-generator-feed
+28 verbose addNameRange registry:https://registry.npmjs.org/hexo-generator-feed not in flight; fetching
+29 verbose request uri https://registry.npmjs.org/hexo-generator-feed
+30 verbose request no auth needed
+31 info attempt registry request try #1 at 20:17:21
+32 verbose request id 18a44b44a0e6271d
+33 http request GET https://registry.npmjs.org/hexo-generator-feed
+34 http 200 https://registry.npmjs.org/hexo-generator-feed
+35 silly get cb [ 200,
+35 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+35 silly get     etag: '"F217VQ29R8E0D9GP4MWL1QPZK"',
+35 silly get     'content-type': 'application/json',
+35 silly get     'cache-control': 'max-age=60',
+35 silly get     'content-length': '21153',
+35 silly get     'accept-ranges': 'bytes',
+35 silly get     date: 'Wed, 28 Oct 2015 12:17:22 GMT',
+35 silly get     via: '1.1 varnish',
+35 silly get     age: '0',
+35 silly get     connection: 'keep-alive',
+35 silly get     'x-served-by': 'cache-ams4135-AMS',
+35 silly get     'x-cache': 'MISS',
+35 silly get     'x-cache-hits': '0',
+35 silly get     'x-timer': 'S1446034642.593117,VS0,VE93',
+35 silly get     vary: 'Accept' } ]
+36 verbose get saving hexo-generator-feed to /Users/yanghu/.npm/registry.npmjs.org/hexo-generator-feed/.cache.json
+37 silly addNameRange number 2 { name: 'hexo-generator-feed', range: '*', hasData: true }
+38 silly addNameRange versions [ 'hexo-generator-feed',
+38 silly addNameRange   [ '0.0.1',
+38 silly addNameRange     '0.0.2',
+38 silly addNameRange     '0.0.3',
+38 silly addNameRange     '0.0.4',
+38 silly addNameRange     '0.0.5',
+38 silly addNameRange     '0.0.6',
+38 silly addNameRange     '0.0.7',
+38 silly addNameRange     '0.0.8',
+38 silly addNameRange     '0.0.9',
+38 silly addNameRange     '0.0.10',
+38 silly addNameRange     '0.1.0',
+38 silly addNameRange     '0.1.1',
+38 silly addNameRange     '0.1.2',
+38 silly addNameRange     '0.2.0',
+38 silly addNameRange     '0.2.1',
+38 silly addNameRange     '1.0.0',
+38 silly addNameRange     '1.0.1',
+38 silly addNameRange     '1.0.2',
+38 silly addNameRange     '1.0.3' ] ]
+39 silly addNamed hexo-generator-feed@1.0.3
+40 verbose addNamed "1.0.3" is a plain semver version for hexo-generator-feed
+41 silly mapToRegistry name hexo-generator-feed
+42 silly mapToRegistry using default registry
+43 silly mapToRegistry registry https://registry.npmjs.org/
+44 silly mapToRegistry uri https://registry.npmjs.org/hexo-generator-feed
+45 verbose addRemoteTarball https://registry.npmjs.org/hexo-generator-feed/-/hexo-generator-feed-1.0.3.tgz not in flight; adding
+46 verbose addRemoteTarball [ 'https://registry.npmjs.org/hexo-generator-feed/-/hexo-generator-feed-1.0.3.tgz',
+46 verbose addRemoteTarball   '7a4ab550627135754f5fef9e2f3fd89a47b3ced0' ]
+47 info retry fetch attempt 1 at 20:17:23
+48 info attempt registry request try #1 at 20:17:23
+49 http fetch GET https://registry.npmjs.org/hexo-generator-feed/-/hexo-generator-feed-1.0.3.tgz
+50 http fetch 200 https://registry.npmjs.org/hexo-generator-feed/-/hexo-generator-feed-1.0.3.tgz
+51 silly fetchAndShaCheck shasum 7a4ab550627135754f5fef9e2f3fd89a47b3ced0
+52 verbose addTmpTarball /var/folders/c9/g4f1mp7d5cj0g2xwmnw3vcrc0000gn/T/npm-1498-e1eae1f1/registry.npmjs.org/hexo-generator-feed/-/hexo-generator-feed-1.0.3.tgz not in flight; adding
+53 verbose addTmpTarball already have metadata; skipping unpack for hexo-generator-feed@1.0.3
+54 silly cache afterAdd hexo-generator-feed@1.0.3
+55 verbose afterAdd /Users/yanghu/.npm/hexo-generator-feed/1.0.3/package/package.json not in flight; writing
+56 verbose afterAdd /Users/yanghu/.npm/hexo-generator-feed/1.0.3/package/package.json written
+57 silly install resolved [ { name: 'hexo-generator-feed',
+57 silly install resolved     version: '1.0.3',
+57 silly install resolved     description: 'Feed generator plugin for Hexo',
+57 silly install resolved     main: 'index',
+57 silly install resolved     scripts: { test: 'gulp test' },
+57 silly install resolved     directories: { lib: './lib' },
+57 silly install resolved     engines: { node: '>= 0.10.0' },
+57 silly install resolved     repository:
+57 silly install resolved      { type: 'git',
+57 silly install resolved        url: 'git+https://github.com/hexojs/hexo-generator-feed.git' },
+57 silly install resolved     keywords: [ 'hexo', 'rss', 'feed', 'atom', 'generator' ],
+57 silly install resolved     author:
+57 silly install resolved      { name: 'Tommy Chen',
+57 silly install resolved        email: 'tommy351@gmail.com',
+57 silly install resolved        url: 'http://zespia.tw' },
+57 silly install resolved     license: 'MIT',
+57 silly install resolved     dependencies: { ejs: '^1.0.0', 'object-assign': '^3.0.0' },
+57 silly install resolved     devDependencies:
+57 silly install resolved      { chai: '^1.9.1',
+57 silly install resolved        cheerio: '^0.19.0',
+57 silly install resolved        coveralls: '^2.11.2',
+57 silly install resolved        gulp: '^3.8.9',
+57 silly install resolved        'gulp-istanbul': '^0.5.0',
+57 silly install resolved        'gulp-jshint': '^1.8.6',
+57 silly install resolved        'gulp-load-plugins': '^0.8.0',
+57 silly install resolved        'gulp-mocha': '^2.0.0',
+57 silly install resolved        hexo: '^3.0.0',
+57 silly install resolved        'jshint-stylish': '^1.0.0',
+57 silly install resolved        mocha: '^2.0.1',
+57 silly install resolved        rimraf: '^2.2.8' },
+57 silly install resolved     gitHead: '565ddcc0552352fd6433fafd48ead729bfb3e1be',
+57 silly install resolved     bugs: { url: 'https://github.com/hexojs/hexo-generator-feed/issues' },
+57 silly install resolved     homepage: 'https://github.com/hexojs/hexo-generator-feed#readme',
+57 silly install resolved     _id: 'hexo-generator-feed@1.0.3',
+57 silly install resolved     _shasum: '7a4ab550627135754f5fef9e2f3fd89a47b3ced0',
+57 silly install resolved     _from: 'hexo-generator-feed@*',
+57 silly install resolved     _npmVersion: '3.1.2',
+57 silly install resolved     _nodeVersion: '0.12.7',
+57 silly install resolved     _npmUser: { name: 'tommy351', email: 'tommy351@gmail.com' },
+57 silly install resolved     maintainers: [ [Object] ],
+57 silly install resolved     dist:
+57 silly install resolved      { shasum: '7a4ab550627135754f5fef9e2f3fd89a47b3ced0',
+57 silly install resolved        tarball: 'http://registry.npmjs.org/hexo-generator-feed/-/hexo-generator-feed-1.0.3.tgz' },
+57 silly install resolved     _resolved: 'https://registry.npmjs.org/hexo-generator-feed/-/hexo-generator-feed-1.0.3.tgz' } ]
+58 info install hexo-generator-feed@1.0.3 into /Users/yanghu/Desktop/Hexo
+59 info installOne hexo-generator-feed@1.0.3
+60 verbose installOne of hexo-generator-feed to /Users/yanghu/Desktop/Hexo not in flight; installing
+61 warn locking Error: EACCES, open '/Users/yanghu/.npm/_locks/hexo-generator-feed-13b39810b0e315c9.lock'
+61 warn locking     at Error (native)
+61 warn locking  /Users/yanghu/.npm/_locks/hexo-generator-feed-13b39810b0e315c9.lock failed { [Error: EACCES, open '/Users/yanghu/.npm/_locks/hexo-generator-feed-13b39810b0e315c9.lock']
+61 warn locking   errno: -13,
+61 warn locking   code: 'EACCES',
+61 warn locking   path: '/Users/yanghu/.npm/_locks/hexo-generator-feed-13b39810b0e315c9.lock' }
+62 verbose stack Error: Attempt to unlock /Users/yanghu/Desktop/Hexo/node_modules/hexo-generator-feed, which hasn't been locked
+62 verbose stack     at unlock (/usr/local/lib/node_modules/npm/lib/utils/locker.js:66:11)
+62 verbose stack     at cb (/usr/local/lib/node_modules/npm/lib/install.js:1017:5)
+62 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:1021:20
+62 verbose stack     at /usr/local/lib/node_modules/npm/lib/utils/locker.js:40:9
+62 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/lockfile/lockfile.js:149:38)
+62 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/lockfile/lockfile.js:177:38
+62 verbose stack     at FSReqWrap.oncomplete (fs.js:95:15)
+63 verbose cwd /Users/yanghu/Desktop/Hexo
+64 error Darwin 15.0.0
+65 error argv "node" "/usr/local/bin/npm" "install" "hexo-generator-feed" "--save"
+66 error node v0.12.7
+67 error npm  v2.11.3
+68 error Attempt to unlock /Users/yanghu/Desktop/Hexo/node_modules/hexo-generator-feed, which hasn't been locked
+69 error If you need help, you may report this error at:
+69 error     <https://github.com/npm/npm/issues>
+70 verbose exit [ 1, true ]

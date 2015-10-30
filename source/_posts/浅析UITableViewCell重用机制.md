@@ -4,7 +4,9 @@ date: 2015-10-28 10:31:02
 tags: [iOS, UITableView, 知识小集]
 categories: [iOS]
 ---
-UITableView在iOS开发中用的非常的多，由于Cell中一般都会有Image等占用内存的资源，容易引起Memory Warning，所以iOS引入了重用机制。
+UITableView在iOS开发中用的非常的多，由于Cell中一般都会有Image等占用内存的资源，容易引起Memory Warning，所以iOS引入了重用机制。那么今天就对UITableView的重用机制分析一下。
+
+<!-- more -->
 
 # 案例分析
 

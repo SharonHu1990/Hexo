@@ -5,34 +5,34 @@
   
   <title>Swift Cheat Sheet [2] - Control Flow | Sharon&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ifif elselet number = 100
+  <meta name="description" content="If 条件语句if elselet number = 100
 if number &amp;lt; 10 {
     print(&quot;The number is small&quot;)
 } else if number &amp;gt; 100 {
     print(&quot;The number is pretty big&quot;)
 } else {
-    print(&quot;The number is between 10 and 100&quot;)">
+    print(&quot;The number is between 10 and 1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift Cheat Sheet [2] - Control Flow">
 <meta property="og:url" content="http://yoursite.com/2015/10/22/Swift Cheat Sheet [2] - Control Flow/index.html">
 <meta property="og:site_name" content="Sharon's World">
-<meta property="og:description" content="ifif elselet number = 100
+<meta property="og:description" content="If 条件语句if elselet number = 100
 if number &amp;lt; 10 {
     print(&quot;The number is small&quot;)
 } else if number &amp;gt; 100 {
     print(&quot;The number is pretty big&quot;)
 } else {
-    print(&quot;The number is between 10 and 100&quot;)">
-<meta property="og:updated_time" content="2015-10-22T09:09:55.000Z">
+    print(&quot;The number is between 10 and 1">
+<meta property="og:updated_time" content="2015-10-28T11:59:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift Cheat Sheet [2] - Control Flow">
-<meta name="twitter:description" content="ifif elselet number = 100
+<meta name="twitter:description" content="If 条件语句if elselet number = 100
 if number &amp;lt; 10 {
     print(&quot;The number is small&quot;)
 } else if number &amp;gt; 100 {
     print(&quot;The number is pretty big&quot;)
 } else {
-    print(&quot;The number is between 10 and 100&quot;)">
+    print(&quot;The number is between 10 and 1">
   
     <link rel="alternative" href="/atom.xml" title="Sharon&#39;s World" type="application/atom+xml">
   
@@ -144,6 +144,8 @@ var _hmt = _hmt || [];
 					        
 								<a class="weibo" target="_blank" href="http://weibo.com/sharonhu0813" title="weibo">weibo</a>
 					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
 						</div>
 					</nav>
 				</section>
@@ -218,6 +220,8 @@ var _hmt = _hmt || [];
 			        
 						<a class="weibo" target="_blank" href="http://weibo.com/sharonhu0813" title="weibo">weibo</a>
 			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
 				</div>
 			</nav>
 		</header>				
@@ -259,11 +263,11 @@ var _hmt = _hmt || [];
 		
 			<div id="toc" class="toc-article">
 			  <strong class="toc-title">目录</strong>
-			  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#if"><span class="toc-number">1.</span> <span class="toc-text">if</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#if_else"><span class="toc-number">1.1.</span> <span class="toc-text">if else</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#if_else_+_for_in"><span class="toc-number">1.2.</span> <span class="toc-text">if else + for in</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用可选绑定"><span class="toc-number">1.3.</span> <span class="toc-text">使用可选绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在if条件判断语句中使用where关键字"><span class="toc-number">1.4.</span> <span class="toc-text">在if条件判断语句中使用where关键字</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Switch"><span class="toc-number">2.</span> <span class="toc-text">Switch</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一条case分支可匹配多个模式"><span class="toc-number">2.1.</span> <span class="toc-text">一条case分支可匹配多个模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不存在隐式的贯穿"><span class="toc-number">2.2.</span> <span class="toc-text">不存在隐式的贯穿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#区间匹配"><span class="toc-number">2.3.</span> <span class="toc-text">区间匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用元组"><span class="toc-number">2.4.</span> <span class="toc-text">使用元组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#case分支中使用值绑定"><span class="toc-number">2.5.</span> <span class="toc-text">case分支中使用值绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用where_模式匹配"><span class="toc-number">2.6.</span> <span class="toc-text">使用where 模式匹配</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#For循环"><span class="toc-number">3.</span> <span class="toc-text">For循环</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用下划线_替代循环变量名"><span class="toc-number">3.1.</span> <span class="toc-text">使用下划线_替代循环变量名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#遍历数组元素"><span class="toc-number">3.2.</span> <span class="toc-text">遍历数组元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#遍历字典的键值对"><span class="toc-number">3.3.</span> <span class="toc-text">遍历字典的键值对</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用条件判断和递增方法的标准_C_样式for循环"><span class="toc-number">3.4.</span> <span class="toc-text">使用条件判断和递增方法的标准 C 样式for循环</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#While循环"><span class="toc-number">4.</span> <span class="toc-text">While循环</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#while"><span class="toc-number">4.1.</span> <span class="toc-text">while</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#repeat-while"><span class="toc-number">4.2.</span> <span class="toc-text">repeat-while</span></a></li></ol></li></ol>
+			  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#If_条件语句"><span class="toc-number">1.</span> <span class="toc-text">If 条件语句</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#if_else"><span class="toc-number">1.1.</span> <span class="toc-text">if else</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#if_else_+_for_in"><span class="toc-number">1.2.</span> <span class="toc-text">if else + for in</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用可选绑定"><span class="toc-number">1.3.</span> <span class="toc-text">使用可选绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在if条件判断语句中使用where关键字"><span class="toc-number">1.4.</span> <span class="toc-text">在if条件判断语句中使用where关键字</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Switch"><span class="toc-number">2.</span> <span class="toc-text">Switch</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一条case分支可匹配多个模式"><span class="toc-number">2.1.</span> <span class="toc-text">一条case分支可匹配多个模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不存在隐式的贯穿"><span class="toc-number">2.2.</span> <span class="toc-text">不存在隐式的贯穿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#区间匹配"><span class="toc-number">2.3.</span> <span class="toc-text">区间匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用元组"><span class="toc-number">2.4.</span> <span class="toc-text">使用元组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#case分支中使用值绑定"><span class="toc-number">2.5.</span> <span class="toc-text">case分支中使用值绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用where_模式匹配"><span class="toc-number">2.6.</span> <span class="toc-text">使用where 模式匹配</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#For循环"><span class="toc-number">3.</span> <span class="toc-text">For循环</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用下划线_替代循环变量名"><span class="toc-number">3.1.</span> <span class="toc-text">使用下划线_替代循环变量名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#遍历数组元素"><span class="toc-number">3.2.</span> <span class="toc-text">遍历数组元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#遍历字典的键值对"><span class="toc-number">3.3.</span> <span class="toc-text">遍历字典的键值对</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用条件判断和递增方法的标准_C_样式for循环"><span class="toc-number">3.4.</span> <span class="toc-text">使用条件判断和递增方法的标准 C 样式for循环</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#While循环"><span class="toc-number">4.</span> <span class="toc-text">While循环</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#while"><span class="toc-number">4.1.</span> <span class="toc-text">while</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#repeat-while"><span class="toc-number">4.2.</span> <span class="toc-text">repeat-while</span></a></li></ol></li></ol>
 			</div>
 		
 		
-        <h1 id="if">if</h1><h2 id="if_else">if else</h2><pre><code><span class="built_in">let</span> number = <span class="number">100</span>
+        <h1 id="If_条件语句">If 条件语句</h1><h2 id="if_else">if else</h2><pre><code><span class="built_in">let</span> number = <span class="number">100</span>
 <span class="keyword">if</span> number &lt; <span class="number">10</span> {
     <span class="built_in">print</span>(<span class="string">"The number is small"</span>)
 } <span class="keyword">else</span> <span class="keyword">if</span> number &gt; <span class="number">100</span> {
@@ -271,7 +275,8 @@ var _hmt = _hmt || [];
 } <span class="keyword">else</span> {
     <span class="built_in">print</span>(<span class="string">"The number is between 10 and 100"</span>)
 }
-</code></pre><h2 id="if_else_+_for_in">if else + for in</h2><pre><code>let individualScores = [<span class="number">75</span>, <span class="number">43</span>, <span class="number">103</span>, <span class="number">87</span>, <span class="number">12</span>]
+</code></pre><a id="more"></a>
+<h2 id="if_else_+_for_in">if else + for in</h2><pre><code>let individualScores = [<span class="number">75</span>, <span class="number">43</span>, <span class="number">103</span>, <span class="number">87</span>, <span class="number">12</span>]
 var teamScore = <span class="number">0</span>
 <span class="keyword">for</span> score in individualScores {
     <span class="keyword">if</span> score &gt; <span class="number">50</span> {

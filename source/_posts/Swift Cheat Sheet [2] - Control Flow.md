@@ -1,10 +1,10 @@
-﻿title: Swift Cheat Sheet [2] - Control Flow
+title: Swift Cheat Sheet [2] - Control Flow
 toc: true
 date: 2015-10-22 10:28:13
 tags:
 categories:
 ---
-# if
+# If 条件语句
 
 ## if else
     let number = 100
@@ -15,6 +15,8 @@ categories:
     } else {
         print("The number is between 10 and 100")
     }
+
+<!-- more -->
     
     
 ## if else + for in

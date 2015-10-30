@@ -73,9 +73,22 @@ tag: 1
 
 # Extensions
 ## Plugins: http://hexo.io/plugins/
-plugins: -hexo-generator-feed
+plugins:
+- hexo-generator-feed
+- hexo-generator-sitemap
+
 ## Themes: http://hexo.io/themes/
 theme: yilia
+
+#Feed Atom
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+
+#sitemap
+sitemap:
+  path: sitemap.xml
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
