@@ -3,18 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>关于 | Sharon&#39;s World</title>
+  <title>什么是EXC_BAD_ACCESS以及如何调试 | Sharon&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="欢迎来到Sharon’s World!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
+  <meta name="description" content="某些时候，你可能会遇到由EXC_BAD_ACCESS引起的崩溃。在这片文章中，你将学会什么是EXC_BAD_ACCESS，以及它是有什么引起的。我也将提出一些解决由EXC_BAD_ACCESS引起的bug的技巧。
+什么是EXC_BAD_ACCESS？一旦你理解了EXC_BAD_ACCESS的根本原因，你会更好地理解它这个含义模糊的名称。这里有一个简单的解释和一个更加专业的解释。让我们首先以这个简单">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是EXC_BAD_ACCESS以及如何调试">
+<meta property="og:url" content="http://yoursite.com/2015/10/30/什么是EXC_BAD_ACCESS以及如何调试/index.html">
 <meta property="og:site_name" content="Sharon's World">
-<meta property="og:description" content="欢迎来到Sharon’s World!">
-<meta property="og:updated_time" content="2015-10-27T01:36:15.000Z">
+<meta property="og:description" content="某些时候，你可能会遇到由EXC_BAD_ACCESS引起的崩溃。在这片文章中，你将学会什么是EXC_BAD_ACCESS，以及它是有什么引起的。我也将提出一些解决由EXC_BAD_ACCESS引起的bug的技巧。
+什么是EXC_BAD_ACCESS？一旦你理解了EXC_BAD_ACCESS的根本原因，你会更好地理解它这个含义模糊的名称。这里有一个简单的解释和一个更加专业的解释。让我们首先以这个简单">
+<meta property="og:updated_time" content="2015-10-30T10:09:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于">
-<meta name="twitter:description" content="欢迎来到Sharon’s World!">
+<meta name="twitter:title" content="什么是EXC_BAD_ACCESS以及如何调试">
+<meta name="twitter:description" content="某些时候，你可能会遇到由EXC_BAD_ACCESS引起的崩溃。在这片文章中，你将学会什么是EXC_BAD_ACCESS，以及它是有什么引起的。我也将提出一些解决由EXC_BAD_ACCESS引起的bug的技巧。
+什么是EXC_BAD_ACCESS？一旦你理解了EXC_BAD_ACCESS的根本原因，你会更好地理解它这个含义模糊的名称。这里有一个简单的解释和一个更加专业的解释。让我们首先以这个简单">
   
     <link rel="alternative" href="/atom.xml" title="Sharon&#39;s World" type="application/atom+xml">
   
@@ -209,11 +212,11 @@ var _hmt = _hmt || [];
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-什么是EXC_BAD_ACCESS以及如何调试" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/about/index.html" class="article-date">
-  	<time datetime="2015-08-28T03:37:04.000Z" itemprop="datePublished">Aug 28 2015</time>
+      <a href="/2015/10/30/什么是EXC_BAD_ACCESS以及如何调试/" class="article-date">
+  	<time datetime="2015-10-30T02:23:56.000Z" itemprop="datePublished">Oct 30 2015</time>
 </a>
     </div>
   
@@ -226,7 +229,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      关于
+      什么是EXC_BAD_ACCESS以及如何调试
     </h1>
   
 
@@ -234,7 +237,15 @@ var _hmt = _hmt || [];
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EXC-BAD-ACCESS，调试/">EXC_BAD_ACCESS，调试</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+	</div>
+
         
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
 
         <div class="clearfix"></div>
       </div>
@@ -243,9 +254,25 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
 		
+			<div id="toc" class="toc-article">
+			  <strong class="toc-title">目录</strong>
+			  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是EXC_BAD_ACCESS？"><span class="toc-number">1.</span> <span class="toc-text">什么是EXC_BAD_ACCESS？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#保持简单"><span class="toc-number">1.1.</span> <span class="toc-text">保持简单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#真正含义"><span class="toc-number">1.2.</span> <span class="toc-text">真正含义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调试EXC_BAD_ACCESS"><span class="toc-number">1.3.</span> <span class="toc-text">调试EXC_BAD_ACCESS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Zombies"><span class="toc-number">1.3.1.</span> <span class="toc-text">Zombies</span></a></li></ol></li></ol></li></ol>
+			</div>
 		
-        <p>　　欢迎来到Sharon’s World!
-　　</p>
+		
+        <p>某些时候，你可能会遇到由EXC_BAD_ACCESS引起的崩溃。在这片文章中，你将学会什么是EXC_BAD_ACCESS，以及它是有什么引起的。我也将提出一些解决由EXC_BAD_ACCESS引起的bug的技巧。</p>
+<h1 id="什么是EXC_BAD_ACCESS？">什么是EXC_BAD_ACCESS？</h1><p>一旦你理解了EXC_BAD_ACCESS的根本原因，你会更好地理解它这个含义模糊的名称。这里有一个简单的解释和一个更加专业的解释。让我们首先以这个简单的解释开始吧。</p>
+<h2 id="保持简单">保持简单</h2><p>无论何时你遇到了EXC_BAD_ACCESS，那就意味着你正在发送一个消息给一个对象，而这个对象已经被释放掉了。这是最常见的情况，但是下面来看看更多的解释。</p>
+<h2 id="真正含义">真正含义</h2><p>专业的解释有一些复杂。在C和Objective-C中，经常处理指针。指针无非是存储另一个变量的内存地址的变量。当你发送一个消息给一个对象，那么指向这个对象的指针需要被引用。这意味着，你取得这个指针指向的内存地址而且访问那块内存的值。</p>
+<p>当那块内存不再与你的应用程序映射，或者，换一种说法，那块内存不再以你所期许的方式被使用，那么，就有可能无法访问到那一块内存。当这种情况发生的时候，内核发送异常（ <strong> EXC </strong> ），表明你的应用程序无法访问到那块内存（<strong> BAD ACCESS </strong>）。</p>
+<p>概括起来就是：当你遇到EXC_BAD_ACCESS时，意味着你在尝试向一块内存发送消息，而这块内存无法执行这个消息。</p>
+<p>然而，有时候,EXC_BAD_ACCESS是由一个corrupt pointer引起的。每当你的应用程序程序尝试去引用一个corrupt pointer指针时，内核都会抛出一个异常。</p>
+<p>注：corrupt pointer：可以理解为『野指针』。指的是：指向一个已删除的对象或未申请访问受限内存区域的指针。与空指针不同，野指针无法通过简单地判断是否为 NULL避免，而只能通过养成良好的编程习惯来尽力减少。对野指针进行操作很容易造成程序错误。</p>
+<h2 id="调试EXC_BAD_ACCESS">调试EXC_BAD_ACCESS</h2><p>调试EXC_BAD_ACCESS可能是棘手和令人沮丧的。显示，现在EXC_BAD_ACCESS对你来说不再是那么困难的事情了。</p>
+<p>你需要了解的第一件事情是，一旦内存块无法被访问到，你的应用程序就会崩溃。使这就是经常使调试EXC_BAD_ACCESS这么困难的原因。</p>
+<p>这同样适用于野指针。当你引用野指针时，情况就糟糕了。</p>
+<h3 id="Zombies">Zombies</h3><p>虽然僵尸在过去的几年中才得到普及，但是，在Xcode中以及出现十多年了。『僵尸』这个名称听起来可能有些戏剧化，但是，这对于解释我们是如何调试EXC_BAD_ACCESS来说，是一个体现其特性的伟大的名字。</p>
+<p>在Xcode中，你可以启用僵尸对象（zombie objects），这意味着，被释放的对象</p>
 
       
     </div>
@@ -253,6 +280,25 @@ var _hmt = _hmt || [];
   </div>
   
     
+<nav id="article-nav">
+  
+    <a href="/2015/10/30/什么是EXC-BAD-ACCESS以及如何调试/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          什么是EXC_BAD_ACCESS以及如何调试
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/10/28/浅析UITableViewCell重用机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浅析UITableViewCell重用机制</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
@@ -276,7 +322,7 @@ var _hmt = _hmt || [];
 
 
 <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="about/index.html" data-title="关于" data-url="http://yoursite.com/about/index.html"></div><!-- 多说评论框 end -->
+	<div class="ds-thread" data-thread-key="2015/10/30/什么是EXC_BAD_ACCESS以及如何调试/" data-title="什么是EXC_BAD_ACCESS以及如何调试" data-url="http://yoursite.com/2015/10/30/什么是EXC_BAD_ACCESS以及如何调试/"></div><!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"SharonHu1990"};
@@ -325,7 +371,7 @@ var duoshuoQuery = {short_name:"SharonHu1990"};
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
