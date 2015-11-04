@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>什么是EXC_BAD_ACCESS以及如何调试 | Sharon&#39;s World</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="某些时候，你可能会遇到由EXC_BAD_ACCESS引起的崩溃。在这片文章中，你将学会什么是EXC_BAD_ACCESS，以及它是由什么引起的。我也将提出一些解决由EXC_BAD_ACCESS引起的bug的技巧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是EXC_BAD_ACCESS以及如何调试">
+<meta property="og:url" content="http://yoursite.com/2015/10/30/什么是EXC_BAD_ACCESS以及如何调试/index.html">
+<meta property="og:site_name" content="Sharon's World">
+<meta property="og:description" content="某些时候，你可能会遇到由EXC_BAD_ACCESS引起的崩溃。在这片文章中，你将学会什么是EXC_BAD_ACCESS，以及它是由什么引起的。我也将提出一些解决由EXC_BAD_ACCESS引起的bug的技巧。">
+<meta property="og:image" content="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-11-01%2019.05.57.png">
+<meta property="og:image" content="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-11-01%2019.58.48.png">
+<meta property="og:image" content="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-11-01%2020.00.54.png">
+<meta property="og:updated_time" content="2015-11-01T12:20:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="什么是EXC_BAD_ACCESS以及如何调试">
+<meta name="twitter:description" content="某些时候，你可能会遇到由EXC_BAD_ACCESS引起的崩溃。在这片文章中，你将学会什么是EXC_BAD_ACCESS，以及它是由什么引起的。我也将提出一些解决由EXC_BAD_ACCESS引起的bug的技巧。">
+  
+    <link rel="alternative" href="/atom.xml" title="Sharon&#39;s World" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/sun.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+  
+<script type="text/javascript">
+#申请的百度统计代码
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?06fa334b387f01741a8ceb0eb36c3c1d";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</script>
+
+    
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/blogImg/sun.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Sharon Hu</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Think deeply，work hard.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/生活">生活</a></li>
+				        
+							<li><a href="/tags/知识小集">知识小集</a></li>
+				        
+							<li><a href="http://sharonhu1990.github.io/instagram">相册</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/SharonHu1990" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/sharonhu0813" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Archive-Submission/" style="font-size: 10px;">Archive Submission</a> <a href="/tags/Demo/" style="font-size: 10px;">Demo</a> <a href="/tags/EXC-BAD-ACCESS，调试/" style="font-size: 10px;">EXC_BAD_ACCESS，调试</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Swift/" style="font-size: 10px;">Swift</a> <a href="/tags/UITableView/" style="font-size: 10px;">UITableView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/假期/" style="font-size: 10px;">假期</a> <a href="/tags/写作工具/" style="font-size: 10px;">写作工具</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/杂谈/" style="font-size: 16.67px;">杂谈</a> <a href="/tags/水彩/" style="font-size: 10px;">水彩</a> <a href="/tags/爱/" style="font-size: 10px;">爱</a> <a href="/tags/爱好/" style="font-size: 10px;">爱好</a> <a href="/tags/版本号/" style="font-size: 10px;">版本号</a> <a href="/tags/生日/" style="font-size: 10px;">生日</a> <a href="/tags/生活/" style="font-size: 16.67px;">生活</a> <a href="/tags/电影/" style="font-size: 10px;">电影</a> <a href="/tags/知识小集/" style="font-size: 20px;">知识小集</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/编程习惯/" style="font-size: 10px;">编程习惯</a> <a href="/tags/诗/" style="font-size: 10px;">诗</a> <a href="/tags/读书札记/" style="font-size: 10px;">读书札记</a> <a href="/tags/随笔/" style="font-size: 13.33px;">随笔</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.csdn.net/dreamersharon">我的CSDN</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">I&#39;m an iOS developer.</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Sharon Hu</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/assets/blogImg/sun.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Sharon Hu</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Think deeply，work hard.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/生活">生活</a></li>
+		        
+					<li><a href="/tags/知识小集">知识小集</a></li>
+		        
+					<li><a href="http://sharonhu1990.github.io/instagram">相册</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/SharonHu1990" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/sharonhu0813" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-什么是EXC_BAD_ACCESS以及如何调试" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/30/什么是EXC_BAD_ACCESS以及如何调试/" class="article-date">
+  	<time datetime="2015-10-30T02:23:56.000Z" itemprop="datePublished">Oct 30 2015</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      什么是EXC_BAD_ACCESS以及如何调试
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EXC-BAD-ACCESS，调试/">EXC_BAD_ACCESS，调试</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+			<div id="toc" class="toc-article">
+			  <strong class="toc-title">目录</strong>
+			  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是EXC_BAD_ACCESS？"><span class="toc-number">1.</span> <span class="toc-text">什么是EXC_BAD_ACCESS？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#保持简单"><span class="toc-number">1.1.</span> <span class="toc-text">保持简单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#真正含义"><span class="toc-number">1.2.</span> <span class="toc-text">真正含义</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调试EXC_BAD_ACCESS"><span class="toc-number">2.</span> <span class="toc-text">调试EXC_BAD_ACCESS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Zombies"><span class="toc-number">2.1.</span> <span class="toc-text">Zombies</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#剖析"><span class="toc-number">2.2.</span> <span class="toc-text">剖析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结论"><span class="toc-number">3.</span> <span class="toc-text">结论</span></a></li></ol>
+			</div>
+		
+		
+        <p>某些时候，你可能会遇到由EXC_BAD_ACCESS引起的崩溃。在这片文章中，你将学会什么是EXC_BAD_ACCESS，以及它是由什么引起的。我也将提出一些解决由EXC_BAD_ACCESS引起的bug的技巧。</p>
+<a id="more"></a>
+<h1 id="什么是EXC_BAD_ACCESS？">什么是EXC_BAD_ACCESS？</h1><p>一旦你理解了EXC_BAD_ACCESS的根本原因，你会更好地理解它这个含义模糊的名称。这里有一个简单的解释和一个更加专业的解释。让我们首先以这个简单的解释开始吧。</p>
+<h2 id="保持简单">保持简单</h2><p>无论何时你遇到了EXC_BAD_ACCESS，那就意味着你正在发送一个消息给一个对象，而这个对象已经被释放掉了。这是最常见的情况，但是下面来看看更多的解释。</p>
+<h2 id="真正含义">真正含义</h2><p>专业的解释有一些复杂。在C和Objective-C中，经常处理指针。指针无非是存储另一个变量的内存地址的变量。当你发送一个消息给一个对象，那么指向这个对象的指针需要被引用。这意味着，你取得这个指针指向的内存地址而且访问那块内存的值。</p>
+<p>当那块内存不再与你的应用程序映射，或者，换一种说法，那块内存不再以你所期许的方式被使用，那么，就有可能无法访问到那一块内存。当这种情况发生的时候，内核发送异常（ <strong>EXC</strong> ），表明你的应用程序无法访问到那块内存（<strong>BAD ACCESS</strong>）。</p>
+<p>概括起来就是：当你遇到EXC_BAD_ACCESS时，意味着你在尝试向一块内存发送消息，而这块内存无法执行这个消息。</p>
+<p>然而，有时候,EXC_BAD_ACCESS是由一个corrupt pointer（即野指针）引起的。每当你的应用程序程序尝试去引用一个corrupt pointer指针时，内核都会抛出一个异常。</p>
+<p>注：corrupt pointer：可以理解为『野指针』。指的是：指向一个已删除的对象或未申请访问受限内存区域的指针。与空指针不同，野指针无法通过简单地判断是否为 NULL避免，而只能通过养成良好的编程习惯来尽力减少。对野指针进行操作很容易造成程序错误。</p>
+<h1 id="调试EXC_BAD_ACCESS">调试EXC_BAD_ACCESS</h1><p>调试EXC_BAD_ACCESS可能是棘手和令人沮丧的。显示，现在EXC_BAD_ACCESS对你来说不再是那么困难的事情了。</p>
+<p>你需要了解的第一件事情是，一旦内存块无法被访问到，你的应用程序就会崩溃。这就是使调试EXC_BAD_ACCESS这么困难的原因。</p>
+<p>同样的，当你引用野指针时，情况就糟糕了。</p>
+<h2 id="Zombies">Zombies</h2><p>虽然僵尸在过去的几年中才得到普及，但是，在Xcode中以及出现十多年了。『僵尸』这个名称听起来可能有些戏剧化，但是，这对于解释我们是如何调试EXC_BAD_ACCESS来说，是一个体现其特性的伟大的名字。</p>
+<p>在Xcode中，你可以启用僵尸对象（zombie objects），这意味着，被释放的对象作为『僵尸』来被保持。换句话说，被释放的对象为了调试程序而被保持活跃。这没有什么神奇的作用。如果你将消息发送给一个僵尸对象，你的应用程序仍然会得到一个EXC_BAD_ACCESS的崩溃。</p>
+<p>为什么启用zombie是有用的？让EXC_BAD_ACCESS难以调试的原因是：你不知道你的应用程序尝试去访问的对象是什么。在多种情况下，僵尸对象能够解决这个问题。通过使被释放的对象保持活跃，Xcode能够告诉你应用程序试图访问的对象，并使问题的检索更加简单。</p>
+<p>在Xcode中启用Zombies很简单。注意，你的Xcode版本不同可能导致方法不同。以下方法适用于Xcode 6 和Xcode 7.选择工具条中的Product-&gt; 选择 Scheme -&gt; 选择 Edit Scheme。或者使用快捷方式Command+&lt;。</p>
+<p>选择左侧的Run，打开顶部标签中的Diagnotics(诊断)，勾选复选框Enable Zombie Objects。<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-11-01%2019.05.57.png" alt="此处输入图片的描述"></p>
+<p>如果现在遇到EXC_BAD_ACCESS,Xcode控制台的输出会给你一个从哪里开始检索错误的更好的建议。看看下面的例子:</p>
+<pre><code>2015-08-12 06:31:55.501 Debug<span class="keyword">[</span>2371:1379247] -<span class="keyword">[</span>ChildViewController respondsToSelector:] message sent to deallocated<span class="instruction"> instance </span>0x17579780
+</code></pre><p>在上面的例子中，Xcode是在告诉我们，这个消息<code>respondsToSelector:</code>被发送给一个僵尸对象。然而，僵尸对象不再是ChildViewController类的一个实例对象。之前分配给ChildViewController实例对象的内存块不再与你的应用程序所映射。这对你认识问题的根本原因有所帮助。</p>
+<p>不幸的是，僵尸对象不能解决你所遇到的任何由EXC_BAD_ACCESS所引起的崩溃。如果僵尸对象不能解决你的问题，那么试着去做一些分析。</p>
+<h2 id="剖析">剖析</h2><p>如果僵尸对象不能帮助你，那么根本原因则是很重要的。这种情况下，你应该仔细看看你的应用程序崩溃时正在执行的代码。这个过程有可能是耗时而麻烦的。</p>
+<p>为了帮你找到你的代码中得问题，你可以让Xcode分析你的代码，以帮你找到问题区间。注意，Xcode分析你的项目，可能会指出它遇到的任何一个潜在的问题。</p>
+<p>选择Product-&gt;Analyze，或者快捷方式Shift+Command+B，来启用Xcode对你的项目的分析。</p>
+<p>这可能消耗Xcode几分钟时间，但是，当它完成的时候，你会在左侧的问题导航器中看到问题清单。通过分析发现的问题以蓝色高亮显示。<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-11-01%2019.58.48.png" alt="此处输入图片的描述"></p>
+<p>当你点击一个问题时，Xcode定位到需要你注意的那块代码。需要注意的是，Xcode只是提出建议，某些时候，有可能问题是不相干的，或者不需要你去解决的。<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-11-01%2020.00.54.png" alt="此处输入图片的描述"></p>
+<p>如果你不能找到引起EXC_BAD_ACCESS的bug，那么仔细检查Xcode在分析过程中找到的问题就很重要了。</p>
+<h1 id="结论">结论</h1><p>EXC_BAD_ACCESS是开发人员共同面临的挫折，这是手动内存管理所特有的东西。自推出ARC之后，内存管理相关的问题出现的频率比较低了，但是，它们并没有消失。</p>
+<p>本篇文章翻译自：<a href="http://code.tutsplus.com/tutorials/what-is-exc_bad_access-and-how-to-debug-it--cms-24544" target="_blank" rel="external">http://code.tutsplus.com/tutorials/what-is-exc_bad_access-and-how-to-debug-it--cms-24544</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/28/浅析UITableViewCell重用机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浅析UITableViewCell重用机制</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2015/10/30/什么是EXC_BAD_ACCESS以及如何调试/" data-title="什么是EXC_BAD_ACCESS以及如何调试" data-url="http://yoursite.com/2015/10/30/什么是EXC_BAD_ACCESS以及如何调试/"></div><!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"SharonHu1990"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Sharon Hu
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  <span id="busuanzi_container_site_uv">
+  您是第<span id="busuanzi_value_site_uv"></span>位访问本站的朋友
+</span>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?0de2e36863e6f2e517dc7c2b8908cc77";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </div>
+</body>
+</html>
