@@ -3,40 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>HScrollViewWithTitleAndSlide | Sharon&#39;s World</title>
+  <title>新闻App优化：数据缓存 | Sharon&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="功能说明
-模仿LOFTER发现界面的页面切换效果
-标题可以随着内容的滚动而滚动
-下拉展示所有标题以供点选
-下拉按钮的图片和勾选的图片可以自定义，每页最多显示的标题的个数可以自定义。
-封装的比较完整，使用起来很简单，几句代码搞定。
-使用Xcode7.0.1  Objective-C
-GitHub地址：https://github.com/SharonHu1990/HScrollViewWithTit">
+  <meta name="description" content="原因应用需要离线工作的主要原因是：改善应用所表现出来的性能。将应用的内容缓存起来就可以支持离线。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HScrollViewWithTitleAndSlide">
-<meta property="og:url" content="http://yoursite.com/2015/10/20/HScrollViewWithTitleAndSlide/index.html">
+<meta property="og:title" content="新闻App优化：数据缓存">
+<meta property="og:url" content="http://yoursite.com/2015/12/22/新闻App优化：数据缓存/index.html">
 <meta property="og:site_name" content="Sharon's World">
-<meta property="og:description" content="功能说明
-模仿LOFTER发现界面的页面切换效果
-标题可以随着内容的滚动而滚动
-下拉展示所有标题以供点选
-下拉按钮的图片和勾选的图片可以自定义，每页最多显示的标题的个数可以自定义。
-封装的比较完整，使用起来很简单，几句代码搞定。
-使用Xcode7.0.1  Objective-C
-GitHub地址：https://github.com/SharonHu1990/HScrollViewWithTit">
-<meta property="og:image" content="http://7xlt6k.com1.z0.glb.clouddn.com/SlideScrollView.gif">
-<meta property="og:updated_time" content="2015-10-20T09:23:29.000Z">
+<meta property="og:description" content="原因应用需要离线工作的主要原因是：改善应用所表现出来的性能。将应用的内容缓存起来就可以支持离线。">
+<meta property="og:updated_time" content="2015-12-22T01:48:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HScrollViewWithTitleAndSlide">
-<meta name="twitter:description" content="功能说明
-模仿LOFTER发现界面的页面切换效果
-标题可以随着内容的滚动而滚动
-下拉展示所有标题以供点选
-下拉按钮的图片和勾选的图片可以自定义，每页最多显示的标题的个数可以自定义。
-封装的比较完整，使用起来很简单，几句代码搞定。
-使用Xcode7.0.1  Objective-C
-GitHub地址：https://github.com/SharonHu1990/HScrollViewWithTit">
+<meta name="twitter:title" content="新闻App优化：数据缓存">
+<meta name="twitter:description" content="原因应用需要离线工作的主要原因是：改善应用所表现出来的性能。将应用的内容缓存起来就可以支持离线。">
   
     <link rel="alternative" href="/atom.xml" title="Sharon&#39;s World" type="application/atom+xml">
   
@@ -231,11 +209,11 @@ var _hmt = _hmt || [];
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-HScrollViewWithTitleAndSlide" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-新闻App优化：数据缓存" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/20/HScrollViewWithTitleAndSlide/" class="article-date">
-  	<time datetime="2015-10-20T09:13:11.000Z" itemprop="datePublished">Oct 20 2015</time>
+      <a href="/2015/12/22/新闻App优化：数据缓存/" class="article-date">
+  	<time datetime="2015-12-22T01:29:39.000Z" itemprop="datePublished">Dec 22 2015</time>
 </a>
     </div>
   
@@ -248,7 +226,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      HScrollViewWithTitleAndSlide
+      新闻App优化：数据缓存
     </h1>
   
 
@@ -257,7 +235,7 @@ var _hmt = _hmt || [];
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Demo/">Demo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据缓存/">数据缓存</a></li></ul>
 	</div>
 
         
@@ -275,36 +253,65 @@ var _hmt = _hmt || [];
 		
 			<div id="toc" class="toc-article">
 			  <strong class="toc-title">目录</strong>
-			  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#功能说明"><span class="toc-number">1.</span> <span class="toc-text">功能说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#框架使用说明"><span class="toc-number">2.</span> <span class="toc-text">框架使用说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#功能演示"><span class="toc-number">3.</span> <span class="toc-text">功能演示</span></a></li></ol>
+			  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原因"><span class="toc-number">1.</span> <span class="toc-text">原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路："><span class="toc-number">2.</span> <span class="toc-text">思路：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建一个AppCache单例类"><span class="toc-number">2.1.</span> <span class="toc-text">创建一个AppCache单例类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缓存目录的创建："><span class="toc-number">2.2.</span> <span class="toc-text">缓存目录的创建：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现首页列表数据的磁盘缓存"><span class="toc-number">2.3.</span> <span class="toc-text">实现首页列表数据的磁盘缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内存缓存（速度更快）"><span class="toc-number">2.4.</span> <span class="toc-text">内存缓存（速度更快）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建内存缓存"><span class="toc-number">2.4.1.</span> <span class="toc-text">创建内存缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#保存到内存缓存"><span class="toc-number">2.4.2.</span> <span class="toc-text">保存到内存缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#超过保存上限的处理机制"><span class="toc-number">2.4.3.</span> <span class="toc-text">超过保存上限的处理机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#读取内存缓存"><span class="toc-number">2.4.4.</span> <span class="toc-text">读取内存缓存</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加对内存警告的处理机制"><span class="toc-number">2.5.</span> <span class="toc-text">添加对内存警告的处理机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加对App退出和进入后台时的内存管理机制"><span class="toc-number">2.6.</span> <span class="toc-text">添加对App退出和进入后台时的内存管理机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">3.</span> <span class="toc-text">参考资料</span></a></li></ol>
 			</div>
 		
 		
-        <h2 id="功能说明">功能说明</h2><ol>
-<li>模仿LOFTER发现界面的页面切换效果</li>
-<li>标题可以随着内容的滚动而滚动</li>
-<li>下拉展示所有标题以供点选</li>
-<li>下拉按钮的图片和勾选的图片可以自定义，每页最多显示的标题的个数可以自定义。</li>
-<li>封装的比较完整，使用起来很简单，几句代码搞定。</li>
-<li>使用Xcode7.0.1  Objective-C</li>
-<li>GitHub地址：<a href="https://github.com/SharonHu1990/HScrollViewWithTitleAndSlide" target="_blank" rel="external">https://github.com/SharonHu1990/HScrollViewWithTitleAndSlide</a></li>
-</ol>
+        <h2 id="原因">原因</h2><p>应用需要离线工作的主要原因是：改善应用所表现出来的性能。将应用的内容缓存起来就可以支持离线。</p>
 <a id="more"></a>
-<h2 id="框架使用说明">框架使用说明</h2><ol>
-<li>拖拽HSlideScrollView文件夹到你的工程目录.</li>
-<li>在需要使用该框架的ViewController中添加如下代码：</li>
-</ol>
-<p>代码示例：</p>
-<pre><code><span class="comment">/**
- *  添加MySlideScrollView
- */</span>
--(<span class="typename">void</span>)addMySlideScrollView
-{
-    CGRect slideScrollFrame = CGRectMake(<span class="number">0</span>, <span class="number">64</span>, self.view.frame.size.width, self.view.frame.size.height-<span class="number">64</span>);
-    NSArray *titlesArray = [[NSArray alloc] <span class="string">initWithObjects:</span>@<span class="string">"A"</span>, @<span class="string">"B"</span>, @<span class="string">"C"</span>, @<span class="string">"D"</span>, @<span class="string">"E"</span>, @<span class="string">"F"</span>, @<span class="string">"G"</span>, @<span class="string">"H"</span>, @<span class="string">"I"</span>, @<span class="string">"J"</span>,     @<span class="string">"K"</span>, @<span class="string">"L"</span>, @<span class="string">"M"</span>, @<span class="string">"N"</span>, nil];
-    mySlideScrollView = [[HSlideScrollView alloc] <span class="string">initWithFrame:</span>slideScrollFrame <span class="string">andTitleArrays:</span>titlesArray     <span class="string">andTitleScrollerViewHight:</span><span class="number">40.</span>f <span class="string">andNumverOfTitlesPerPage:</span><span class="number">7</span> <span class="string">andArrowImage:</span>[UIImage <span class="string">imageNamed:</span>@<span class="string">"arrow_down"</span>] <span class="string">andTickImage:</span>[UIImage         <span class="string">imageNamed:</span>@<span class="string">"tick"</span>] <span class="string">andTitleListTitle:</span>@<span class="string">"分类"</span>];
-     [self.view <span class="string">addSubview:</span>mySlideScrollView];
-}
-</code></pre><h2 id="功能演示">功能演示</h2><p><img src="http://7xlt6k.com1.z0.glb.clouddn.com/SlideScrollView.gif" alt="功能演示"></p>
+<h2 id="思路：">思路：</h2><h3 id="创建一个AppCache单例类">创建一个AppCache单例类</h3><p>创建一个单例类AppCache，用来管理缓存（包括内存缓存和磁盘缓存）。</p>
+<h3 id="缓存目录的创建：">缓存目录的创建：</h3><ul>
+<li><p>在library/caches目录下，创建一个名为『MyAppCaches』的目录，在这个目录下，针对不同的用户，需要创建对应的缓存目录，目录名为用户的ID。比如，用户ID为12345，那么该用户的缓存目录为library/caches/MyAppCaches/12345。这样，在不同的用户目录下，就可以实现个性化的内容缓存。</p>
+</li>
+<li><p>首页列表缓存目录：<br>  创建首页列表缓存目录：library/caches/MyAppCaches/用户ID/HomeCaches<br>首页有多个不同的栏目，针对不同的栏目，创建不同的缓存目录，比如栏目『热门』的缓存目录为： library/caches/MyAppCaches/用户ID/HomeCaches/热门</p>
+</li>
+<li><p>新闻详情的缓存目录<br>  新闻详情页的缓存，统一保存在与首页列表缓存目录并列的详情页缓存目录中，如：library/caches/MyAppCaches/用户ID/NewsDetailCaches</p>
+</li>
+</ul>
+<h3 id="实现首页列表数据的磁盘缓存">实现首页列表数据的磁盘缓存</h3><p>（以『推荐新闻』列表为例，其他栏目是一样的）</p>
+<ul>
+<li>为新闻数据创建数据模型类，如NewsModel类，这个类需要遵循NSCoding协议，只有遵循了NSCoding协议，才能使用NSKeyedArchiver对数据模型实例进行归档和反归档。</li>
+<li>在NewsModel类中，实现NSCoding协议方法：</li>
+<li>(id)initWithCoder:(NSCoder *)aDecoder</li>
+<li><ul>
+<li>(void)encodeWithCoder:(NSCoder *)aCoder</li>
+</ul>
+</li>
+<li><p>使用NSKeyedArchiver/NSKeyedUnarchiver对数据模型进行归档和反归档</p>
+<p>  归档：[NSKeyedArchiver archiveRootObject:objectForArchiving toFile:archiveFilePath];<br>  反归档：[NSKeyedArchiver archivedDataWithRootObject:objectForArchiving];</p>
+</li>
+</ul>
+<h3 id="内存缓存（速度更快）">内存缓存（速度更快）</h3><h4 id="创建内存缓存">创建内存缓存</h4><ul>
+<li>NSMutableDictionary类型的变量 cachedDirectory :保存缓存的数据</li>
+<li>NSMutableArray类型的变量 recentData：保存最近访问的数据</li>
+<li>一个整数maxNumber：限制最大内存缓存大小</li>
+</ul>
+<h4 id="保存到内存缓存">保存到内存缓存</h4><ul>
+<li>判断recentData数组中有没有这条数据</li>
+<li>如果有相同数据，则删除这条数据，把数据插入到recentData的第一个位置</li>
+<li>如果没有，直接插入到最后一个位置</li>
+</ul>
+<h4 id="超过保存上限的处理机制">超过保存上限的处理机制</h4><p><strong>当最近访问数据即recentData的count达到上限值maxNumber时，根据LRU（Least Recently Used，最近最少使用）算法做以下处理：</strong></p>
+<ul>
+<li>从recentData中删除最后一个数据</li>
+<li>从cachedDirectory中删除这个数据</li>
+<li>将数据保存到磁盘中</li>
+</ul>
+<h4 id="读取内存缓存">读取内存缓存</h4><ul>
+<li>根据fileName（新闻ID ）查询  cachedDirectory中是否有数据</li>
+<li>如果有，就返回cachedDirectory中的这条数据</li>
+<li>如果没有内存缓存数据，则从磁盘中读取（根据filename（新闻ID）和cachePath 路径）</li>
+</ul>
+<h3 id="添加对内存警告的处理机制">添加对内存警告的处理机制</h3><ul>
+<li>在AppCache但单例类的静态初始化方法中，注册一个对内存警告通知UIApplicationDidReceiveMemoryWarningNotification的监听器。</li>
+<li>在接收到内存警告时，将内存缓存中的数据保存到磁盘中。</li>
+</ul>
+<h3 id="添加对App退出和进入后台时的内存管理机制">添加对App退出和进入后台时的内存管理机制</h3><ul>
+<li>在AppCache但单例类的静态初始化方法中，注册一个对App进入后台的监听器：UIApplicationDidEnterBackgroundNotification</li>
+<li>在AppCache但单例类的静态初始化方法中，注册一个对App退出的监听器：UIApplicationWillTerminateNotification</li>
+<li>在接收到上面两个监听器的通知后，将内存缓存中的数据保存到磁盘。</li>
+</ul>
+<h2 id="参考资料">参考资料</h2><p>人民邮电出版社《iOS6编程实战》第二十四章『离线支持』</p>
 
       
     </div>
@@ -314,18 +321,9 @@ var _hmt = _hmt || [];
     
 <nav id="article-nav">
   
-    <a href="/2015/10/21/Swift Cheat Sheet [1] — Basic Types/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Swift Cheat Sheet [1] — Basic Types
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/10/15/iOS开发总结/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">iOS开发总结</div>
+    <a href="/2015/11/03/Swift Cheat Sheet [3] - Functions/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Swift Cheat Sheet [3] - Functions</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -354,7 +352,7 @@ var _hmt = _hmt || [];
 
 
 <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="2015/10/20/HScrollViewWithTitleAndSlide/" data-title="HScrollViewWithTitleAndSlide" data-url="http://yoursite.com/2015/10/20/HScrollViewWithTitleAndSlide/"></div><!-- 多说评论框 end -->
+	<div class="ds-thread" data-thread-key="2015/12/22/新闻App优化：数据缓存/" data-title="新闻App优化：数据缓存" data-url="http://yoursite.com/2015/12/22/新闻App优化：数据缓存/"></div><!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"SharonHu1990"};
