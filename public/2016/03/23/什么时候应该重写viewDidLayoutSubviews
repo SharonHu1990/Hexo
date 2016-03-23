@@ -3,20 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>花绘一二幅 | Sharon&#39;s World</title>
+  <title>什么时候应该重写viewDidLayoutSubviews? | Sharon&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="中午画了一幅水彩画：芍药花。">
+  <meta name="description" content="viewDidLoad重写viewDidLoad是为了配置任何你没有在XIB或者Storyboard中配置的东西。当View controller的视图层从XIB或Storyboard被加载到内存中的时候，viewDidLoad也会被调用。当在loadView方法中代码实现一个view的时候（使用loadVIew的时候，没有必要再使用viewDidLoad）
+当ViewDidLoad被调用的时候，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="花绘一二幅">
-<meta property="og:url" content="http://yoursite.com/2015/09/05/花绘一二幅/index.html">
+<meta property="og:title" content="什么时候应该重写viewDidLayoutSubviews?">
+<meta property="og:url" content="http://yoursite.com/2016/03/23/什么时候应该重写viewDidLayoutSubviews">
 <meta property="og:site_name" content="Sharon's World">
-<meta property="og:description" content="中午画了一幅水彩画：芍药花。">
-<meta property="og:image" content="https://ooo.0o0.ooo/2015/09/05/55eaf9c27a893.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2015/09/05/55eafae540414.png">
-<meta property="og:updated_time" content="2016-02-26T06:27:29.000Z">
+<meta property="og:description" content="viewDidLoad重写viewDidLoad是为了配置任何你没有在XIB或者Storyboard中配置的东西。当View controller的视图层从XIB或Storyboard被加载到内存中的时候，viewDidLoad也会被调用。当在loadView方法中代码实现一个view的时候（使用loadVIew的时候，没有必要再使用viewDidLoad）
+当ViewDidLoad被调用的时候，">
+<meta property="og:updated_time" content="2016-03-23T03:06:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="花绘一二幅">
-<meta name="twitter:description" content="中午画了一幅水彩画：芍药花。">
+<meta name="twitter:title" content="什么时候应该重写viewDidLayoutSubviews?">
+<meta name="twitter:description" content="viewDidLoad重写viewDidLoad是为了配置任何你没有在XIB或者Storyboard中配置的东西。当View controller的视图层从XIB或Storyboard被加载到内存中的时候，viewDidLoad也会被调用。当在loadView方法中代码实现一个view的时候（使用loadVIew的时候，没有必要再使用viewDidLoad）
+当ViewDidLoad被调用的时候，">
   
     <link rel="alternative" href="/atom.xml" title="Sharon&#39;s World" type="application/atom+xml">
   
@@ -211,11 +212,11 @@ var _hmt = _hmt || [];
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-花绘一二幅" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-什么时候应该重写viewDidLayoutSubviews?" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/09/05/花绘一二幅/" class="article-date">
-  	<time datetime="2015-09-05T13:49:34.000Z" itemprop="datePublished">Sep 5 2015</time>
+      <a href="/2016/03/23/什么时候应该重写viewDidLayoutSubviews?/" class="article-date">
+  	<time datetime="2016-03-23T02:59:38.000Z" itemprop="datePublished">Mar 23 2016</time>
 </a>
     </div>
   
@@ -228,7 +229,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      花绘一二幅
+      什么时候应该重写viewDidLayoutSubviews?
     </h1>
   
 
@@ -237,10 +238,14 @@ var _hmt = _hmt || [];
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/水彩/">水彩</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爱好/">爱好</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/生活/">生活</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
 	</div>
 
         
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
 
         <div class="clearfix"></div>
       </div>
@@ -249,12 +254,22 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
 		
+			<div id="toc" class="toc-article">
+			  <strong class="toc-title">目录</strong>
+			  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#viewDidLoad"><span class="toc-number">1.</span> <span class="toc-text">viewDidLoad</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#viewWillAppear"><span class="toc-number">2.</span> <span class="toc-text">viewWillAppear</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#viewDidLayoutSubviews"><span class="toc-number">3.</span> <span class="toc-text">viewDidLayoutSubviews</span></a></li></ol>
+			</div>
 		
-        <p>中午画了一幅水彩画：芍药花。<br><img src="https://ooo.0o0.ooo/2015/09/05/55eaf9c27a893.png" alt="芍药花"></p>
-<a id="more"></a>
-<p>这是学习水彩花绘的第二幅作品。</p>
-<p>第一幅是这样的：<br><img src="https://ooo.0o0.ooo/2015/09/05/55eafae540414.png" alt="绣球"></p>
-<p>对比一下，发现还是有点进步的。</p>
+		
+        <h2 id="viewDidLoad">viewDidLoad</h2><p>重写viewDidLoad是为了配置任何你没有在XIB或者Storyboard中配置的东西。<br>当View controller的视图层从XIB或Storyboard被加载到内存中的时候，viewDidLoad也会被调用。<br>当在loadView方法中代码实现一个view的时候（使用loadVIew的时候，没有必要再使用viewDidLoad）</p>
+<p>当ViewDidLoad被调用的时候，IBQutlets已经被连接，但是View还没有被加载出来，所以<strong>可以在viewDidLoad中完成在IB中不能完成的view的自定义</strong>。</p>
+<p>注意：当viewController在navigation堆栈中，从此界面跳转到其他界面，再返回过来，不会再走ViewDidLoad方法，所以<strong>不能把需要在viewController准备变为活跃状态的时候做相应更新的代码放在这里</strong>。</p>
+<h2 id="viewWillAppear">viewWillAppear</h2><p>这个方法用来告诉view controller准备把View展示在屏幕上。<br>重写此方法以执行与应用程序的状态有关的设置以及将要展示在view中的数据。<br>实例：</p>
+<ul>
+<li>用于controller使用的数据值</li>
+<li>UI定制，例如自定义依赖于数据的颜色或文字</li>
+<li>controller的状态等</li>
+</ul>
+<h2 id="viewDidLayoutSubviews">viewDidLayoutSubviews</h2><p>这个方法在controller的的子视图的position和size被改变的时候被调用。<br>在view 已经被设计好了它的subviews并且还没有被展示在屏幕上时候，可以调用此方法改变这个view。<br>关键点是改变边界。任何依赖于bounds，并且需要去完成的操作都应该放在viewDidLayoutSubviews中，而不是viewDidLoad或viewWillAppear中。<br>因为view的frame和bounds直到Auto Layout 已经完成工作的时候才会被确定，所以在执行完Auto Layout之后会调用此方法。</p>
 
       
     </div>
@@ -264,18 +279,9 @@ var _hmt = _hmt || [];
     
 <nav id="article-nav">
   
-    <a href="/2015/09/15/良好的编程习惯/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          良好的编程习惯
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/09/01/记住回家的路/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">记住回家的路</div>
+    <a href="/2015/12/22/新闻App优化：数据缓存/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">新闻App优化：数据缓存</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -304,7 +310,7 @@ var _hmt = _hmt || [];
 
 
 <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="2015/09/05/花绘一二幅/" data-title="花绘一二幅" data-url="http://yoursite.com/2015/09/05/花绘一二幅/"></div><!-- 多说评论框 end -->
+	<div class="ds-thread" data-thread-key="2016/03/23/什么时候应该重写viewDidLayoutSubviews?/" data-title="什么时候应该重写viewDidLayoutSubviews?" data-url="http://yoursite.com/2016/03/23/什么时候应该重写viewDidLayoutSubviews?/"></div><!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"SharonHu1990"};
