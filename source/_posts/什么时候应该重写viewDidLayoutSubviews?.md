@@ -8,7 +8,7 @@ categories: iOS
 重写viewDidLoad是为了配置任何你没有在XIB或者Storyboard中配置的东西。
 当View controller的视图层从XIB或Storyboard被加载到内存中的时候，viewDidLoad也会被调用。
 当在loadView方法中代码实现一个view的时候（使用loadVIew的时候，没有必要再使用viewDidLoad）
-
+<!-- more -->
 当ViewDidLoad被调用的时候，IBQutlets已经被连接，但是View还没有被加载出来，所以**可以在viewDidLoad中完成在IB中不能完成的view的自定义**。
 
 注意：当viewController在navigation堆栈中，从此界面跳转到其他界面，再返回过来，不会再走ViewDidLoad方法，所以**不能把需要在viewController准备变为活跃状态的时候做相应更新的代码放在这里**。
