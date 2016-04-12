@@ -5,19 +5,16 @@
   
   <title>什么时候应该重写viewDidLayoutSubviews? | Sharon&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="viewDidLoad重写viewDidLoad是为了配置任何你没有在XIB或者Storyboard中配置的东西。当View controller的视图层从XIB或Storyboard被加载到内存中的时候，viewDidLoad也会被调用。当在loadView方法中代码实现一个view的时候（使用loadVIew的时候，没有必要再使用viewDidLoad）
-当ViewDidLoad被调用的时候，">
+  <meta name="description" content="viewDidLoad重写viewDidLoad是为了配置任何你没有在XIB或者Storyboard中配置的东西。当View controller的视图层从XIB或Storyboard被加载到内存中的时候，viewDidLoad也会被调用。当在loadView方法中代码实现一个view的时候（使用loadVIew的时候，没有必要再使用viewDidLoad）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="什么时候应该重写viewDidLayoutSubviews?">
-<meta property="og:url" content="http://yoursite.com/2016/03/23/什么时候应该重写viewDidLayoutSubviews">
+<meta property="og:url" content="http://yoursite.com/2016/03/23/什么时候应该重写viewDidLayoutSubviews/index.html">
 <meta property="og:site_name" content="Sharon's World">
-<meta property="og:description" content="viewDidLoad重写viewDidLoad是为了配置任何你没有在XIB或者Storyboard中配置的东西。当View controller的视图层从XIB或Storyboard被加载到内存中的时候，viewDidLoad也会被调用。当在loadView方法中代码实现一个view的时候（使用loadVIew的时候，没有必要再使用viewDidLoad）
-当ViewDidLoad被调用的时候，">
-<meta property="og:updated_time" content="2016-04-10T08:30:38.000Z">
+<meta property="og:description" content="viewDidLoad重写viewDidLoad是为了配置任何你没有在XIB或者Storyboard中配置的东西。当View controller的视图层从XIB或Storyboard被加载到内存中的时候，viewDidLoad也会被调用。当在loadView方法中代码实现一个view的时候（使用loadVIew的时候，没有必要再使用viewDidLoad）">
+<meta property="og:updated_time" content="2016-04-11T08:18:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="什么时候应该重写viewDidLayoutSubviews?">
-<meta name="twitter:description" content="viewDidLoad重写viewDidLoad是为了配置任何你没有在XIB或者Storyboard中配置的东西。当View controller的视图层从XIB或Storyboard被加载到内存中的时候，viewDidLoad也会被调用。当在loadView方法中代码实现一个view的时候（使用loadVIew的时候，没有必要再使用viewDidLoad）
-当ViewDidLoad被调用的时候，">
+<meta name="twitter:description" content="viewDidLoad重写viewDidLoad是为了配置任何你没有在XIB或者Storyboard中配置的东西。当View controller的视图层从XIB或Storyboard被加载到内存中的时候，viewDidLoad也会被调用。当在loadView方法中代码实现一个view的时候（使用loadVIew的时候，没有必要再使用viewDidLoad）">
   
     <link rel="alternative" href="/atom.xml" title="Sharon&#39;s World" type="application/atom+xml">
   
@@ -212,10 +209,10 @@ var _hmt = _hmt || [];
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-什么时候应该重写viewDidLayoutSubviews?" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-什么时候应该重写viewDidLayoutSubviews" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/23/什么时候应该重写viewDidLayoutSubviews?/" class="article-date">
+      <a href="/2016/03/23/什么时候应该重写viewDidLayoutSubviews/" class="article-date">
   	<time datetime="2016-03-23T02:59:38.000Z" itemprop="datePublished">Mar 23 2016</time>
 </a>
     </div>
@@ -260,8 +257,7 @@ var _hmt = _hmt || [];
 			</div>
 		
 		
-        <h2 id="viewDidLoad">viewDidLoad</h2><p>重写viewDidLoad是为了配置任何你没有在XIB或者Storyboard中配置的东西。<br>当View controller的视图层从XIB或Storyboard被加载到内存中的时候，viewDidLoad也会被调用。<br>当在loadView方法中代码实现一个view的时候（使用loadVIew的时候，没有必要再使用viewDidLoad）</p>
-<p>当ViewDidLoad被调用的时候，IBQutlets已经被连接，但是View还没有被加载出来，所以<strong>可以在viewDidLoad中完成在IB中不能完成的view的自定义</strong>。</p>
+        <h2 id="viewDidLoad">viewDidLoad</h2><p>重写viewDidLoad是为了配置任何你没有在XIB或者Storyboard中配置的东西。<br>当View controller的视图层从XIB或Storyboard被加载到内存中的时候，viewDidLoad也会被调用。<br>当在loadView方法中代码实现一个view的时候（使用loadVIew的时候，没有必要再使用viewDidLoad）<br><a id="more"></a><br>当ViewDidLoad被调用的时候，IBQutlets已经被连接，但是View还没有被加载出来，所以<strong>可以在viewDidLoad中完成在IB中不能完成的view的自定义</strong>。</p>
 <p>注意：当viewController在navigation堆栈中，从此界面跳转到其他界面，再返回过来，不会再走ViewDidLoad方法，所以<strong>不能把需要在viewController准备变为活跃状态的时候做相应更新的代码放在这里</strong>。</p>
 <h2 id="viewWillAppear">viewWillAppear</h2><p>这个方法用来告诉view controller准备把View展示在屏幕上。<br>重写此方法以执行与应用程序的状态有关的设置以及将要展示在view中的数据。<br>实例：</p>
 <ul>
@@ -319,7 +315,7 @@ var _hmt = _hmt || [];
 
 
 <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="2016/03/23/什么时候应该重写viewDidLayoutSubviews?/" data-title="什么时候应该重写viewDidLayoutSubviews?" data-url="http://yoursite.com/2016/03/23/什么时候应该重写viewDidLayoutSubviews?/"></div><!-- 多说评论框 end -->
+	<div class="ds-thread" data-thread-key="2016/03/23/什么时候应该重写viewDidLayoutSubviews/" data-title="什么时候应该重写viewDidLayoutSubviews?" data-url="http://yoursite.com/2016/03/23/什么时候应该重写viewDidLayoutSubviews/"></div><!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"SharonHu1990"};
