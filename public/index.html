@@ -275,6 +275,75 @@ var _hmt = _hmt || [];
 
 
   
+    <article id="post-About Laying out Subviews" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/11/About Laying out Subviews/" class="article-date">
+  	<time datetime="2016-04-11T08:30:39.000Z" itemprop="datePublished">Apr 11 2016</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/11/About Laying out Subviews/">About Laying out Subviews</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="layoutSubviews">layoutSubviews</h2><p>官方文档引用：</p>
+<blockquote>
+<p>You should override this method only if the autoresizing and<br>constraint-based behaviors of the subviews do not offer the behavior<br>you want.</p>
+</blockquote>
+<p>我的理解是：<br>    在subview的<code>autoresizing</code>和<code>constraint</code>不满足你的要求时，可以重写<code>layoutSubviews</code>。假设一个屏幕从竖屏变为横屏，本来图文单元是图片在上，文字在下面，可能就变为了左右结构；这是无论自动适配还是自动布局都解决不了，就只能重写layoutSubviews函数了。</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/知识小集/">知识小集</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/04/11/About Laying out Subviews/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-什么时候应该重写viewDidLayoutSubviews" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -660,71 +729,6 @@ var _hmt = _hmt || [];
       
         <p class="article-more-link">
           <a  href="/2015/10/28/浅析UITableViewCell重用机制/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Swift Cheat Sheet [2] - Control Flow" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/22/Swift Cheat Sheet [2] - Control Flow/" class="article-date">
-  	<time datetime="2015-10-22T02:28:13.000Z" itemprop="datePublished">Oct 22 2015</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/22/Swift Cheat Sheet [2] - Control Flow/">Swift Cheat Sheet [2] - Control Flow</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="If_条件语句">If 条件语句</h1><h2 id="if_else">if else</h2><pre><code><span class="built_in">let</span> number = <span class="number">100</span>
-<span class="keyword">if</span> number &lt; <span class="number">10</span> {
-    <span class="built_in">print</span>(<span class="string">"The number is small"</span>)
-} <span class="keyword">else</span> <span class="keyword">if</span> number &gt; <span class="number">100</span> {
-    <span class="built_in">print</span>(<span class="string">"The number is pretty big"</span>)
-} <span class="keyword">else</span> {
-    <span class="built_in">print</span>(<span class="string">"The number is between 10 and 100"</span>)
-}
-</code></pre>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/10/22/Swift Cheat Sheet [2] - Control Flow/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
