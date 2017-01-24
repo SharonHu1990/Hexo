@@ -3,19 +3,41 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
+avatar: /uploads/avatar.png
 title: Sharon's World
 subtitle: Think deeply，work hard.
-description: sharon's blog| iOS | Objective-C | Code
+description: sharon's blog
 author: Sharon Hu
-#language: zh-CN
+language: zh-Hans
 email: sharonhu0813@163.com
 timezone:
+#多说
+duoshuo_shortname: sharonhu1990
+duoshuo_hotartical: true
+#百度统计
+baidu_analytics: 06fa334b387f01741a8ceb0eb36c3c1d
+#内容分享
+jiathis: true
+#搜索
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+
+# hexo sitemap网站地图
+sitemap:
+path: sitemap.xml
+baidusitemap:
+path: baidusitemap.xml
+
+
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 #url: https://github.com/SharonHu1990/SharonHu1990.github.io
 root: /
-permalink: :year/:month/:day/:title/
+permalink: :title.html
 permalink_defaults:
 
 # Directory
@@ -78,7 +100,7 @@ plugins:
 - hexo-generator-sitemap
 
 ## Themes: http://hexo.io/themes/
-theme: yilia
+theme: next
 
 #Feed Atom
 feed:

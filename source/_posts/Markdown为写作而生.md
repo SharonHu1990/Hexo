@@ -2,6 +2,7 @@ title: Markdown为写作而生
 date: 2015-09-16 17:02:23
 tags: [知识小集,Markdown,写作工具]
 toc: true
+category: 知识小集
 ---
 
 > 学习Markdown知识，纵享写作之乐！

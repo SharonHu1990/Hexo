@@ -1,0 +1,11 @@
+# hexo robots.txt
+User-agent: * Allow: /
+Allow: /archives/
+Disallow: /vendors/
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /vendors/
+Disallow: /fancybox/
+Sitemap: http://sharonhu1990.github.io/sitemap.xml
+Sitemap: http://sharonhu1990.github.io/baidusitemap.xml

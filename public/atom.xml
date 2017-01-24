@@ -1,0 +1,1693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Sharon&#39;s World</title>
+  <subtitle>Think deeply，work hard.</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2017-01-24T09:36:37.000Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>Sharon Hu</name>
+    <email>sharonhu0813@163.com</email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>对产品架构的思考</title>
+    <link href="http://yoursite.com/%E5%AF%B9%E4%BA%A7%E5%93%81%E6%9E%B6%E6%9E%84%E7%9A%84%E6%80%9D%E8%80%83.html"/>
+    <id>http://yoursite.com/对产品架构的思考.html</id>
+    <published>2017-01-24T09:17:33.000Z</published>
+    <updated>2017-01-24T09:36:37.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="从哪些方面去思考产品架构">从哪些方面去思考产品架构</h1><h2 id="1-_针对App">1. 针对App</h2><ul>
+<li>如何让业务开发工程师方便安全地调用网络API？然后尽可能保证用户在各种网络环境下都能有良好的体验？  </li>
+<li>页面如何组织，才能尽可能降低业务方代码的耦合度？尽可能降低业务方开发界面的复杂度，提高他们的效率？</li>
+<li>当数据有在本地存取的需求的时候，如何能够保证数据在本地的合理安排？如何尽可能地减小性能消耗？</li>
+<li>iOS应用有审核周期，如何能够通过不发版本的方式展示新的内容给用户？如何修复紧急bug？</li>
+</ul>
+<a id="more"></a>
+<h2 id="2-针对团队：">2.针对团队：</h2><ul>
+<li>收集用户数据，给产品和运营提供参考</li>
+<li>合理地组织各业务方开发的业务模块，以及相关基础模块</li>
+<li>每日app的自动打包，提供给QA工程师的测试工具</li>
+</ul>
+<h1 id="架构设计的方法">架构设计的方法</h1><ul>
+<li><p>第一步：搞清楚要解决哪些问题，并找到解决这些问题的充要条件：清楚你要做什么，业务方希望要什么。而不是为了架构而架构，也不是为了体验新技术而改架构方案</p>
+</li>
+<li><p>第二步：问题分类，分模块</p>
+</li>
+<li><p>第三步：搞清楚各问题之间的依赖关系，建立好模块交流规范并设计模块</p>
+</li>
+<li><p>第四步：推演预测一下未来可能的走向，必要时添加新的模块，记录更多的基础数据以备未来之需</p>
+</li>
+<li><p>第五步：先解决依赖关系中最基础的问题，实现基础模块，然后再用基础模块堆叠出整个架构</p>
+</li>
+<li><p>第六步：打点，跑单元测试，跑性能测试，根据数据去优化对应的地方<br>总而言之就是要遵循这些原则：自顶向下设计（1，2，3，4步），自底向上实现（5），先测量，后优化（6）。</p>
+</li>
+</ul>
+<h1 id="什么样的架构是好架构？">什么样的架构是好架构？</h1><ul>
+<li>代码整齐，分类明确，没有common，没有core</li>
+<li>不用文档，或很少文档，就能让业务方上手</li>
+<li>思路和方法要统一，尽量不要多元（先确定解决思路，再开搞）</li>
+<li>没有横向依赖，万不得已不出现跨层访问</li>
+<li>对业务方该限制的地方有限制，该灵活的地方要给业务方创造灵活实现的条件</li>
+<li>易测试，易拓展</li>
+<li>保持一定量的超前性</li>
+<li>接口少，接口参数少</li>
+<li>高性能</li>
+</ul>
+<h1 id="关于架构分层">关于架构分层</h1><p>原则：自顶向下的设计方式</p>
+<ul>
+<li>先确定所有要解决的问题</li>
+<li>确定都有哪些模块</li>
+<li>这些模块再往下细化设计</li>
+<li>把这些列出来的问题和模块做好分类。</li>
+<li>分类之后不出意外大多数都是三层。如果发现某一层特别庞大，那就可以再拆开来变成四层，变成五层。</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;从哪些方面去思考产品架构&quot;&gt;从哪些方面去思考产品架构&lt;/h1&gt;&lt;h2 id=&quot;1-_针对App&quot;&gt;1. 针对App&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;如何让业务开发工程师方便安全地调用网络API？然后尽可能保证用户在各种网络环境下都能有良好的体验？  &lt;/li&gt;
+&lt;li&gt;页面如何组织，才能尽可能降低业务方代码的耦合度？尽可能降低业务方开发界面的复杂度，提高他们的效率？&lt;/li&gt;
+&lt;li&gt;当数据有在本地存取的需求的时候，如何能够保证数据在本地的合理安排？如何尽可能地减小性能消耗？&lt;/li&gt;
+&lt;li&gt;iOS应用有审核周期，如何能够通过不发版本的方式展示新的内容给用户？如何修复紧急bug？&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="软件开发" scheme="http://yoursite.com/categories/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="软件开发 架构" scheme="http://yoursite.com/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91-%E6%9E%B6%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《哪些知识会让你变蠢？》摘录</title>
+    <link href="http://yoursite.com/%E3%80%8A%E5%93%AA%E4%BA%9B%E7%9F%A5%E8%AF%86%E4%BC%9A%E8%AE%A9%E4%BD%A0%E5%8F%98%E8%A0%A2%EF%BC%9F%E3%80%8B%E6%91%98%E5%BD%95.html"/>
+    <id>http://yoursite.com/《哪些知识会让你变蠢？》摘录.html</id>
+    <published>2016-08-08T11:58:57.000Z</published>
+    <updated>2017-01-24T09:51:37.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天在一个微信公众号上看了一篇文章《哪些知识会让你变蠢？》，其中的一些文字多多少少让我构建知识体系这一命题有了更进一步的认识。</p>
+<a id="more"></a>
+<hr>
+<blockquote>
+<p>最核心的知识，只有三个 ：数学、逻辑、哲学。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>知识的世界，不过是一个积木天地，有些知识是积木块，有些知识是积木场。其他的知识，都是由积木块在这个场地里搭起来的。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>你认为这个世界是什么样的，就可以拿数据和逻辑这两块积木，堆砌自己的观点了。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>改变网络搜索的习惯，从单纯的搜寻知识点，改为体系性搜索。<br>你要搜索的，不是一个简单的结论，而是一个思维的完整起步。观察、分析、预判、行动、矫正、结果和反馈。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>只有把你大脑里那些散乱的知识点，勾连起来构成完整的体系，这才构成知识本身。这个体系能够帮你改善你的生存环境。而不成体系的一切，都是无意义的，会让你的人生非常糟糕。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>网络只是个工具。而知识，甚至不能构成工具本身，只有系统化得思想，才能构成真正意义上的工具。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>互联网必将淘汰哪些低端运营者，淘汰那些只会搜索知识点的人。除非你学会运用网络构建体系，用以指导自己的人生实践。</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天在一个微信公众号上看了一篇文章《哪些知识会让你变蠢？》，其中的一些文字多多少少让我构建知识体系这一命题有了更进一步的认识。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="读书" scheme="http://yoursite.com/categories/%E8%AF%BB%E4%B9%A6/"/>
+    
+    
+      <category term="摘录" scheme="http://yoursite.com/tags/%E6%91%98%E5%BD%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用CAShapeLayer实现画虚线</title>
+    <link href="http://yoursite.com/%E4%BD%BF%E7%94%A8CAShapeLayer%E5%AE%9E%E7%8E%B0%E7%94%BB%E8%99%9A%E7%BA%BF.html"/>
+    <id>http://yoursite.com/使用CAShapeLayer实现画虚线.html</id>
+    <published>2016-07-09T14:12:00.000Z</published>
+    <updated>2016-07-09T14:41:41.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>- (<span class="keyword">void</span>)drawRect:(<span class="built_in">CGRect</span>)rect {
+    <span class="built_in">CAShapeLayer</span> *shapeLayer = [<span class="built_in">CAShapeLayer</span> layer];
+    [shapeLayer setBounds:<span class="keyword">self</span><span class="variable">.bounds</span>];
+    [shapeLayer setPosition:<span class="built_in">CGPointMake</span>(<span class="keyword">self</span><span class="variable">.frame</span><span class="variable">.size</span><span class="variable">.width</span> / <span class="number">2.0</span>, <span class="keyword">self</span><span class="variable">.frame</span><span class="variable">.size</span><span class="variable">.height</span>)];
+    [shapeLayer setFillColor:[<span class="built_in">UIColor</span> clearColor]<span class="variable">.CGColor</span>];
+    <span class="comment">//设置虚线颜色</span>
+    [shapeLayer setStrokeColor:[<span class="built_in">UIColor</span> colorWithWhite:<span class="number">226.</span>f/<span class="number">255.</span>f alpha:<span class="number">1</span>]<span class="variable">.CGColor</span>];
+    <span class="comment">//设置虚线宽度</span>
+    [shapeLayer setLineWidth:<span class="keyword">self</span><span class="variable">.frame</span><span class="variable">.size</span><span class="variable">.height</span>];
+    [shapeLayer setLineJoin:k<span class="built_in">CALineJoinRound</span>];
+    <span class="comment">//设置虚线的线宽及间距</span>
+    [shapeLayer setLineDashPattern:[<span class="built_in">NSArray</span> arrayWithObjects:[<span class="built_in">NSNumber</span> numberWithInt:<span class="number">1</span>], [<span class="built_in">NSNumber</span> numberWithInt:<span class="number">3</span>], <span class="literal">nil</span>]];
+    <span class="comment">//创建虚线绘制路径</span>
+    <span class="built_in">CGMutablePathRef</span> path = <span class="built_in">CGPathCreateMutable</span>();
+    <span class="comment">//设置虚线绘制路径起点</span>
+    <span class="built_in">CGPathMoveToPoint</span>(path, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="number">0</span>);
+    <span class="comment">//设置虚线绘制路径终点</span>
+    <span class="built_in">CGPathAddLineToPoint</span>(path, <span class="literal">NULL</span>, <span class="keyword">self</span><span class="variable">.frame</span><span class="variable">.size</span><span class="variable">.width</span>, <span class="number">0</span>);
+    <span class="comment">//设置虚线绘制路径</span>
+    [shapeLayer setPath:path];
+    <span class="built_in">CGPathRelease</span>(path);
+    <span class="comment">//添加虚线</span>
+    [<span class="keyword">self</span><span class="variable">.layer</span> addSublayer:shapeLayer];
+}
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;- (&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt;)drawRect:(&lt;span class=&quot;built_in&quot;&gt;CGRect&lt;/span&gt;)rect {
+    &lt;span class=&quot;built_in&quot;&gt;CAShapeLaye
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="iOS开发技巧" scheme="http://yoursite.com/tags/iOS%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>UITableView section header 不固定</title>
+    <link href="http://yoursite.com/UITableView-section-header-%E4%B8%8D%E5%9B%BA%E5%AE%9A.html"/>
+    <id>http://yoursite.com/UITableView-section-header-不固定.html</id>
+    <published>2016-07-09T13:01:31.000Z</published>
+    <updated>2016-07-09T13:04:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>iOS系统自带的UITableView，当数据分为多个section的时候，在UITableView滑动的过程中，默认section header是固定在顶部的，滑动到下一个section的时候，下一个section header把上一个section header顶出屏幕外。典型的应用就是通讯录。</p>
+<p>默认情况下，UITableView的section header是固定的，如何让section header不固定呢？也就是随着UITableView的滑动而滑动，顶部不是一直都显示section header。方法是设置UITableView 的contentInset。代码如下：</p>
+<pre><code><span class="preprocessor">#<span class="keyword">pragma</span> mark - scrollView代理函数</span>
+- (<span class="keyword">void</span>)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    <span class="comment">// 修改contentSize</span>
+    <span class="keyword">if</span>([scrollView isKindOfClass:[UITableView <span class="keyword">class</span>]]){<span class="comment">// 不固定section</span>
+        CGFloat sectionHeaderHeight = pxToCoordinate(TABLECELL_SECTION_HEADER);
+        <span class="keyword">if</span> (scrollView.contentOffset.y&lt;=sectionHeaderHeight&amp;&amp;scrollView.contentOffset.y&gt;=<span class="number">0</span>) {
+            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);
+    } <span class="keyword">else</span> <span class="keyword">if</span> (scrollView.contentOffset.y&gt;=sectionHeaderHeight) {
+            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);
+        }
+    }
+}
+</code></pre><p>原理：当滑动的值大于section header的高度时，设置其contentInset,达到不显示header的效果，这样就类似于将header给顶出了屏幕；当滑动至小于section header的高度时，恢复contentInset，显示header。</p>
+<p>需要注意：因为UITableView 滑动时contentOffset会不断的改变，因此该部分代码需要写到 scrollViewDidScroll 方法中。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;iOS系统自带的UITableView，当数据分为多个section的时候，在UITableView滑动的过程中，默认section header是固定在顶部的，滑动到下一个section的时候，下一个section header把上一个section header顶出屏幕
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="iOS开发技巧" scheme="http://yoursite.com/tags/iOS%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>About Laying out Subviews</title>
+    <link href="http://yoursite.com/About%20Laying%20out%20Subviews.html"/>
+    <id>http://yoursite.com/About Laying out Subviews.html</id>
+    <published>2016-04-11T08:30:39.000Z</published>
+    <updated>2016-04-13T06:46:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="layoutSubviews">layoutSubviews</h2><p>官方文档引用：</p>
+<blockquote>
+<p>You should override this method only if the autoresizing and<br>constraint-based behaviors of the subviews do not offer the behavior<br>you want.</p>
+</blockquote>
+<p>我的理解是：<br>    在subview的<code>autoresizing</code>和<code>constraint</code>不满足你的要求时，可以重写<code>layoutSubviews</code>。假设一个屏幕从竖屏变为横屏，本来图文单元是图片在上，文字在下面，可能就变为了左右结构；这是无论自动适配还是自动布局都解决不了，就只能重写layoutSubviews函数了。</p>
+<a id="more"></a>
+<p>官方文档引用:</p>
+<blockquote>
+<p>You should not call this method directly.</p>
+</blockquote>
+<p>不应该直接调用这个方法！</p>
+<p>官方不建议我们直接调用<code>layoutSubviews</code>，其中的具体原因我想的不是特别明白，但是，我觉得可以换个角度来思考这个问题，来想想什么时候layoutSubviews会被自动调用，可能会对理解官方不建议直接调用<code>layoutSubviews</code>有帮助。</p>
+<p><code>layoutSubviews</code>在以下情况下会被调用：</p>
+<ul>
+<li><code>init</code>初始化不会触发<code>layoutSubviews</code>,但是使用<code>initWithFrame</code> 进行初始化时，当rect的值不为<code>CGRectZero</code>时,也会触发；</li>
+<li><code>addSubview</code>会触发<code>layoutSubviews</code>;</li>
+<li>设置view的Frame会触发<code>layoutSubviews</code>，当然前提是frame的值设置前后发生了变化;</li>
+<li>滚动一个<code>UIScrollView</code>及其派生类会触发<code>layoutSubviews</code>;</li>
+<li>旋转Screen会触发父<code>UIView</code>上的<code>layoutSubviews</code>事件</li>
+<li>改变一个<code>UIView</code>大小的时候也会触发父<code>UIView</code>上的<code>layoutSubviews</code>事件.</li>
+</ul>
+<h2 id="setNeedsLayout">setNeedsLayout</h2><p>官方文档引用：</p>
+<blockquote>
+<p>Invalidates the current layout of the receiver and triggers a layout update during the next update cycle.</p>
+<p>Call this method on your application’s main thread when you want to adjust the layout of a view’s subviews. This method makes a note of<br>the request and returns immediately. Because this method does not<br>force an immediate update, but instead waits for the next update<br>cycle, you can use it to invalidate the layout of multiple views<br>before any of those views are updated. This behavior allows you to<br>consolidate all of your layout updates to one update cycle, which is<br>usually better for performance.</p>
+</blockquote>
+<p><code>setNeedsLayout</code>在UIView对象中设置一个标记，用来表示view需要被布局。这将使<code>layoutSubviews</code>方法在<strong>下一次重绘发生之前</strong>被异步调用。注意，因为UIView的<code>autoresizesSubviews</code>属性，在很多情况下，你不需要明确地调用<code>setNeedsLayout</code>，因为如果UIView的<code>autoresizesSubviews</code>被设置（默认被设置为YES），那么，当它的frame发生变化的时候就会自动去布局它的subViews。</p>
+<p>此方法会将view当前的layout设置为无效的，并在下一个upadte cycle里去触发layout更新。</p>
+<p><code>setNeedsLayout</code>在以下情况下需要被调用：（帮助理解）</p>
+<ul>
+<li>If you manipulated constraints directly, call setNeedsLayout.</li>
+<li>If you changed some conditions (like offsets or smth) which would change constraints in your overridden <code>updateConstraints</code> method (a recommended way to change constraints, btw), call <code>setNeedsUpdateConstraints</code>, and most of the time, setNeedsLayout after that.</li>
+<li>If you need any of the actions above to have immediate effect—e.g. when your need to learn new frame height after a layout pass—append it with a layoutIfNeeded.</li>
+</ul>
+<h2 id="layoutIfNeeded">layoutIfNeeded</h2><p>官方解释：</p>
+<blockquote>
+<p>Lays out the subviews immediately.</p>
+<p>Use this method to force the layout of subviews before drawing. Using<br>the view that receives the message as the root view, this method lays<br>out the view subtree starting at the root.</p>
+</blockquote>
+<p>使用此方法强制立即进行layout,从当前view开始，此方法会遍历整个view层次(包括superviews)请求layout。因此，调用此方法会强制整个view层次布局。</p>
+<p>如果要立即刷新，要先调用<code>[view setNeedsLayout]</code>，把标记设为需要布局，然后马上调用<code>[view layoutIfNeeded]</code>，实现布局<br>在视图第一次显示之前，标记总是“需要刷新”的，可以直接调用<code>[view layoutIfNeeded]</code>。</p>
+<p>一个Demo:<a href="https://github.com/SharonHu1990/MyDemos/tree/master/LayoutSubViewsTest" target="_blank" rel="external">https://github.com/SharonHu1990/MyDemos/tree/master/LayoutSubViewsTest</a></p>
+<p>在这个Demo中，一个UILabel被放在左上角，中间放一个button，点击button实现label左右移动，带有回弹动画。在xib中已经绑定了约束。</p>
+<p>在button的action中，通过修改label的constraint.constant值实现位置的改变。代码如下：</p>
+<pre><code>- (IBAction)<span class="string">touchButton:</span>(id)sender {
+    <span class="keyword">if</span> (!_hasDistance) {
+        _hasDistance = YES;
+        _leftConstraint.constant = <span class="number">100</span>;
+
+    }<span class="keyword">else</span>{
+        _hasDistance = NO;
+        _leftConstraint.constant = <span class="number">0</span>;
+    }
+
+    [UIView <span class="string">animateWithDuration:</span><span class="number">0.8</span> <span class="string">delay:</span><span class="number">0</span> <span class="string">usingSpringWithDamping:</span><span class="number">0.5</span> <span class="string">initialSpringVelocity:</span><span class="number">0.5</span> <span class="string">options:</span>UIViewAnimationOptionAllowAnimatedContent <span class="string">animations:</span>^{
+        [self.view layoutIfNeeded];<span class="comment">//立即实现布局，如果不写这一句就没有动画效果</span>
+    } <span class="string">completion:</span>nil];
+}
+</code></pre><p>可以看到，在animations中写了<code>[self.view layoutIfNeeded]</code>,如果没有这句代码，label只是简单地移动了位置（即只是执行了_leftConstraint.constant = XX），而没有动画效果。</p>
+<h2 id="setNeedsDisplay">setNeedsDisplay</h2><p>官方解释：</p>
+<blockquote>
+<p>Marks the receiver’s entire bounds rectangle as needing to be redrawn.</p>
+<p>You can use this method or the <code>setNeedsDisplayInRect:</code> to notify the<br>system that your view’s contents need to be redrawn. This method makes<br>a note of the request and returns immediately. The view is not<br>actually redrawn until the next drawing cycle, at which point all<br>invalidated views are updated.</p>
+<p>You should use this method to request that a view be redrawn only when<br>the content or appearance of the view change.</p>
+</blockquote>
+<p>一个使用<code>setNeedsDisplay</code> 的例子:<br><a href="http://blog.fujianjin6471.com/2015/06/11/An-example-of-when-should-setNeedsDisplay-be-called.html" target="_blank" rel="external">http://blog.fujianjin6471.com/2015/06/11/An-example-of-when-should-setNeedsDisplay-be-called.html</a></p>
+<p><code>setNeedsLayout</code> 和 <code>setNeedsDisplay</code>的区别？<br>首先两个方法都是异步执行的。而setNeedsDisplay会自动调用<code>drawRect</code>方法，这样可以拿到<code>UIGraphicsGetCurrentContext</code>，就可以画画了。而<code>setNeedsLayout</code>会默认调用<code>layoutSubViews</code>，就可以处理子视图中的一些数据。<br>综上所述，<code>setNeedsDisplay</code>方便绘图，而<code>setNeedsLayout</code>方便出来数据。</p>
+<h2 id="requiresConstraintBasedLayout">requiresConstraintBasedLayout</h2><p>官方文档：</p>
+<blockquote>
+<p>A Boolean value that indicates whether the receiver depends on the<br>constraint-based layout system.</p>
+<p>Custom views should override this to return YES if they cannot layout<br>correctly using autoresizing.</p>
+</blockquote>
+<p>UIView.h中是这样说的(这个解释更加帮助了理解)：</p>
+<blockquote>
+<p>constraint-based layout engages lazily when someone tries to use it<br>(e.g., adds a constraint to a view).  If you do all of your constraint<br>set up in -updateConstraints, you might never even receive<br>updateConstraints if no one makes a constraint.  To fix this chicken<br>and egg problem, override this method to return YES if your view needs<br>the window to use constraint-based layout.</p>
+</blockquote>
+<p>意思就是：基于约束的布局是懒触发的(例如：给一个view添加约束)。如果把所有的约束放在 updateConstraints中，并且没有添加任何约束，那么你将不会获得updateConstraint。为了解决这个鸡和蛋的问题，重写+requiresConstraintBasedLayout 并且返回YES就是明确告诉系统：虽然我之前没有添加约束,但我确实是基于约束的布局！这样可以保证系统一定会调用 -updateConstraints 方法 从而正确添加约束.</p>
+<p>一篇<a href="https://www.objc.io/issues/3-views/advanced-auto-layout-toolbox/#local_constraints" target="_blank" rel="external">objc.io</a> 中的文章也建议在实现使用了constraint的自定义View时，重写+requiresConstraintBasedLayout并返回YES，以声明view是依赖于AutoLayout的。</p>
+<p>另外一篇参考文章：<a href="http://www.edwardhuynh.com/blog/2013/11/24/the-mystery-of-the-requiresconstraintbasedlayout/" target="_blank" rel="external">The Mystery of the +requiresConstraintBasedLayout</a></p>
+<h2 id="translatesAutoresizingMaskIntoConstraints">translatesAutoresizingMaskIntoConstraints</h2><p>在代码中创建view及其派生类，如果需要给他们添加约束，就将translatesAutoresizingMaskIntoConstraints 设为NO。原因：The reason for this is that iOS creates constraints for you that match the new view’s size and position, and if you try to add your own constraints these will conflict and your app will break.</p>
+<p>官方文档：</p>
+<blockquote>
+<p>A Boolean value that determines whether the view’s autoresizing mask<br>is translated into Auto Layout constraints</p>
+<p>If this property’s value is YES, the system creates a set of<br>constraints that duplicate the behavior specified by the view’s<br>autoresizing mask. This also lets you modify the view’s size and<br>location using the view’s frame, bounds, or center properties,<br>allowing you to create a static, frame-based layout within Auto<br>Layout.</p>
+<p>Note that the autoresizing mask constraints fully specify the view’s<br>size and position; therefore, you cannot add additional constraints to<br>modify this size or position without introducing conflicts. If you<br>want to use Auto Layout to dynamically calculate the size and position<br>of your view, you must set this property to NO, and then provide a non<br>ambiguous, nonconflicting set of constraints for the view.</p>
+<p>By default, the property is set to YES for any view you<br>programmatically create. If you add views in Interface Builder, the<br>system automatically sets this property to NO.</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;layoutSubviews&quot;&gt;layoutSubviews&lt;/h2&gt;&lt;p&gt;官方文档引用：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You should override this method only if the autoresizing and&lt;br&gt;constraint-based behaviors of the subviews do not offer the behavior&lt;br&gt;you want.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我的理解是：&lt;br&gt;    在subview的&lt;code&gt;autoresizing&lt;/code&gt;和&lt;code&gt;constraint&lt;/code&gt;不满足你的要求时，可以重写&lt;code&gt;layoutSubviews&lt;/code&gt;。假设一个屏幕从竖屏变为横屏，本来图文单元是图片在上，文字在下面，可能就变为了左右结构；这是无论自动适配还是自动布局都解决不了，就只能重写layoutSubviews函数了。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="知识小集" scheme="http://yoursite.com/tags/%E7%9F%A5%E8%AF%86%E5%B0%8F%E9%9B%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>什么时候应该重写viewDidLayoutSubviews?</title>
+    <link href="http://yoursite.com/%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%BA%94%E8%AF%A5%E9%87%8D%E5%86%99viewDidLayoutSubviews.html"/>
+    <id>http://yoursite.com/什么时候应该重写viewDidLayoutSubviews.html</id>
+    <published>2016-03-23T02:59:38.000Z</published>
+    <updated>2016-04-11T08:18:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="viewDidLoad">viewDidLoad</h2><p>重写viewDidLoad是为了配置任何你没有在XIB或者Storyboard中配置的东西。<br>当View controller的视图层从XIB或Storyboard被加载到内存中的时候，viewDidLoad也会被调用。<br>当在loadView方法中代码实现一个view的时候（使用loadVIew的时候，没有必要再使用viewDidLoad）<br><a id="more"></a><br>当ViewDidLoad被调用的时候，IBQutlets已经被连接，但是View还没有被加载出来，所以<strong>可以在viewDidLoad中完成在IB中不能完成的view的自定义</strong>。</p>
+<p>注意：当viewController在navigation堆栈中，从此界面跳转到其他界面，再返回过来，不会再走ViewDidLoad方法，所以<strong>不能把需要在viewController准备变为活跃状态的时候做相应更新的代码放在这里</strong>。</p>
+<h2 id="viewWillAppear">viewWillAppear</h2><p>这个方法用来告诉view controller准备把View展示在屏幕上。<br>重写此方法以执行与应用程序的状态有关的设置以及将要展示在view中的数据。<br>实例：</p>
+<ul>
+<li>用于controller使用的数据值</li>
+<li>UI定制，例如自定义依赖于数据的颜色或文字</li>
+<li>controller的状态等</li>
+</ul>
+<h2 id="viewDidLayoutSubviews">viewDidLayoutSubviews</h2><p>这个方法在controller的的子视图的position和size被改变的时候被调用。<br>在view 已经被设计好了它的subviews并且还没有被展示在屏幕上时候，可以调用此方法改变这个view。<br>关键点是改变边界。任何依赖于bounds，并且需要去完成的操作都应该放在viewDidLayoutSubviews中，而不是viewDidLoad或viewWillAppear中。<br>因为view的frame和bounds直到Auto Layout 已经完成工作的时候才会被确定，所以在执行完Auto Layout之后会调用此方法。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;viewDidLoad&quot;&gt;viewDidLoad&lt;/h2&gt;&lt;p&gt;重写viewDidLoad是为了配置任何你没有在XIB或者Storyboard中配置的东西。&lt;br&gt;当View controller的视图层从XIB或Storyboard被加载到内存中的时候，viewDidLoad也会被调用。&lt;br&gt;当在loadView方法中代码实现一个view的时候（使用loadVIew的时候，没有必要再使用viewDidLoad）&lt;br&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>我的2015</title>
+    <link href="http://yoursite.com/%E6%88%91%E7%9A%842015.html"/>
+    <id>http://yoursite.com/我的2015.html</id>
+    <published>2015-12-28T07:39:19.000Z</published>
+    <updated>2017-01-24T11:04:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>2015年快要告一段落，这一年平稳中又有进步，很知足。</p>
+<a id="more"></a>
+<h2 id="居住环境">居住环境</h2><p>2014年十一月份申请了锦程之星的优租房，今年四月份终于排到我，搬到了三室两厅的公寓里，拥有单独的卧室，各项设施比较齐全，环境更加安静舒适，不像以前合租时那样和其他人住一个卧室，没有隐私和学习空间。搬到公租房以后，我有了更多的时间做一些有趣的有意义的事情。</p>
+<p>可惜有时候我和室友比较懒，而且另一个室友还养了一只垂耳兔整天锁在家里，导致屋里面有时会有一股怪味，屋里不够整洁。自己的房间刚开始每周都会打扫一遍，后来懒了，等到实在看不下去了才打扫。</p>
+<h2 id="旅游">旅游</h2><p>上半年办了个一百多的吴中旅游年卡，可以免费游玩太湖二十八个旅游景点。五一放假跟同学一起去了西山、石公山和明月湾古村，品尝了鲜美的太湖白鱼，也泛舟太湖之上欣赏迤逦俊美的风光。五月中旬去上海找大学同学玩，逛了逛城隍庙和外滩，没去几个景点，主要是老同学在一起嘛，开心就好了。五月底公司组织去浙江湖州市安吉县旅游，照了很多照片，当时回来以后也都整理了。六月份去了周庄，人比较多，商业化气息太重，不喜欢。较之这几个地方，最喜欢的是西山那边的风景，那里适合安安静静地思考人生，哈哈。</p>
+<p>上半年在工作上其实没有怎么上心的，心思都花在玩上面了，几乎每周都计划出去一次。遗憾的是，没有对每次的旅游写一篇游记记录下来。2016年，有意思的旅行要整理和记录，这样的话，以后翻看这些照片和旅行故事，也算是一种美好的人生体验。</p>
+<h2 id="健康">健康</h2><p>今年身体还不错，没有怎么感冒发烧啊什么的。只是，在公司里一坐就坐很久，肩膀和背部有时感觉很硬，断断续续坚持按照Keep里面的训练计划做健身，受尚尚影响，开始晚上做仰卧起坐，第一天是做了20个，之后每次比上一次多做一个。</p>
+<p>为了跑步，我买了肩带、腰带，还把给我弟的华为手环要过来了，可惜啊，没有坚持下去。也就夏天的时候跑了段时间，后来就改为室内运动了。。。</p>
+<p>跑步的作用还是极大的，2016年，把跑步纳入健身大计划中。</p>
+<h2 id="感情">感情</h2><p>年中对我来说最重要的事情，是我与尚先生又走在了一起。对于这段故事，此处省略一万字。。。。。。。只想说：我们要相互包容，相互鼓励，奔着共同的幸福生活努力奋斗。</p>
+<h2 id="读书">读书</h2><p>七月份之后，把精力重点放在了看书学习、工作和自我管理上。七月十三号那天还专门画了一个图，计划了下半年要看的书（就是下面这个）。到目前为之呢，明显没有完成这个计划。总结一下看书情况：</p>
+<ul>
+<li>当代文学：除了《一个人住的好时光》更有实用价值以外，其余基本实在有凑字数之嫌。也有可能是我已经过了那个文青的年纪，是在看不下去这种东西。《一个人住的好时光》的作者是一个日本女人，她从理财、租房、饮食和房间置物归纳等方面，介绍独居女生要注意的地方。举个栗子：书里面介绍了如何快速叠衣服，有哪些简单快捷的一人餐，都是很实用的技巧。村上春树《但我谈跑步时我谈些什么》看了一部分，没有继续读下去。</li>
+<li>文学经典：读了《追风筝的人》，两本诗集读了一点之后，感觉语言太干涩，体会不到其中的美，就没有兴趣读下去。《生活的艺术家》是李小龙的著作，读了一半，现在也还在读。</li>
+<li>互联网：《从0到1：开启商业与未来的秘密》看了一部分。</li>
+<li>个人管理：《做灵魂有香气的女人》好像读完了，之前借给陈桂芳看了几天，现在没有什么印象，也没有做读书笔记，这本书和《人性的弱点》一样，都是卡耐基写的。鸡汤类书籍不用读太多，一两本就ok了。《思维导图使用手册》看了一部分，没有看完。我在培养自己用思维导图分析问题的能力，这本书必看。</li>
+<li>专业类：将《Objective-C基础教程》又看了一遍；《iOS开发进阶》感觉不值得买，都是从网上可以找到的内容，并且还都是介绍工具的，不值得不值得啊。。。</li>
+<li>理财：本来看完了一本漫画版的《小狗钱钱》，但是发现是精简版的，于是又从网上download了一本完整的，但是还没有看。</li>
+</ul>
+<p>总的来说，今年读书情况比较糟糕。时间不够不是理由，有时间看电影、逛街、玩手机，就没有时间看书吗？？？下一年要静下心来好好读几本好书，并且每读完一本都要做一个读书笔记。不能只列计划而不执行。</p>
+<h2 id="兴趣爱好">兴趣爱好</h2><ul>
+<li><p>水彩画：从小就喜欢画画，可是，好像越长大对画画的兴致越不高了，本来提起画笔想要认认真真画一幅画，结果还没画完底稿，就坚持不下去了。说到底，是心不静啊。今年买了一本水彩教程，因为有段时间特别想学水彩画，可惜才画了寥寥三幅而已，不过，从第一幅到第三幅的进步还是明显的。</p>
+</li>
+<li><p>摄影：对摄影的喜爱，不知道从什么时候算起，也许是高中吧，那时候拿着亲戚给的破手机，像素特别低，跟弟弟一起跑到家附近的一个大学里拍荷塘，也是饶有兴致。上大学以后，刚开始也是一直拿手机拍拍，后来男朋友看我实在喜欢拍照，就给我买了个卡片机，好像是索尼的，红色外壳，型号我记不住了。后来把『小红』给家里用了，在大四快毕业的时候，在淘宝上买了微单，出去玩的时候会拿来拍拍，不过后来换了iPhone6之后，用的越来越少了，哈哈。</p>
+</li>
+</ul>
+<h2 id="工作与学习">工作与学习</h2><p>年中把Objective基础又回顾了一遍，并且写了一系列学习笔记，这些笔记在CSDN上开了一个专栏，也保存在了印象笔记中。</p>
+<p>学了一段时间的Swift，没有学完。</p>
+<p>平时用印象笔记剪藏了一些笔记，也对我起了很多作用。</p>
+<p>九月份自己学着用Hexo搭建了个人博客。</p>
+<p>从十月份开始在拉勾网上投递简历，经历了好几家公司的电话面试，在准备的过程中又巩固了知识。最后顺利拿到阿里的offer。</p>
+<p>这就是我的2015年，希望2016年走得更加坚定而潇洒！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;2015年快要告一段落，这一年平稳中又有进步，很知足。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="生活记录" scheme="http://yoursite.com/categories/%E7%94%9F%E6%B4%BB%E8%AE%B0%E5%BD%95/"/>
+    
+    
+      <category term="年度总结" scheme="http://yoursite.com/tags/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>新闻App优化：数据缓存</title>
+    <link href="http://yoursite.com/%E6%96%B0%E9%97%BBApp%E4%BC%98%E5%8C%96%EF%BC%9A%E6%95%B0%E6%8D%AE%E7%BC%93%E5%AD%98.html"/>
+    <id>http://yoursite.com/新闻App优化：数据缓存.html</id>
+    <published>2015-12-22T01:29:39.000Z</published>
+    <updated>2016-02-26T06:27:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="原因">原因</h2><p>应用需要离线工作的主要原因是：改善应用所表现出来的性能。将应用的内容缓存起来就可以支持离线。</p>
+<a id="more"></a>
+<h2 id="思路：">思路：</h2><h3 id="创建一个AppCache单例类">创建一个AppCache单例类</h3><p>创建一个单例类AppCache，用来管理缓存（包括内存缓存和磁盘缓存）。</p>
+<h3 id="缓存目录的创建：">缓存目录的创建：</h3><ul>
+<li><p>在library/caches目录下，创建一个名为『MyAppCaches』的目录，在这个目录下，针对不同的用户，需要创建对应的缓存目录，目录名为用户的ID。比如，用户ID为12345，那么该用户的缓存目录为library/caches/MyAppCaches/12345。这样，在不同的用户目录下，就可以实现个性化的内容缓存。</p>
+</li>
+<li><p>首页列表缓存目录：<br>  创建首页列表缓存目录：library/caches/MyAppCaches/用户ID/HomeCaches<br>首页有多个不同的栏目，针对不同的栏目，创建不同的缓存目录，比如栏目『热门』的缓存目录为： library/caches/MyAppCaches/用户ID/HomeCaches/热门</p>
+</li>
+<li><p>新闻详情的缓存目录<br>  新闻详情页的缓存，统一保存在与首页列表缓存目录并列的详情页缓存目录中，如：library/caches/MyAppCaches/用户ID/NewsDetailCaches</p>
+</li>
+</ul>
+<h3 id="实现首页列表数据的磁盘缓存">实现首页列表数据的磁盘缓存</h3><p>（以『推荐新闻』列表为例，其他栏目是一样的）</p>
+<ul>
+<li>为新闻数据创建数据模型类，如NewsModel类，这个类需要遵循NSCoding协议，只有遵循了NSCoding协议，才能使用NSKeyedArchiver对数据模型实例进行归档和反归档。</li>
+<li>在NewsModel类中，实现NSCoding协议方法：</li>
+<li>(id)initWithCoder:(NSCoder *)aDecoder</li>
+<li><ul>
+<li>(void)encodeWithCoder:(NSCoder *)aCoder</li>
+</ul>
+</li>
+<li><p>使用NSKeyedArchiver/NSKeyedUnarchiver对数据模型进行归档和反归档</p>
+<p>  归档：[NSKeyedArchiver archiveRootObject:objectForArchiving toFile:archiveFilePath];<br>  反归档：[NSKeyedArchiver archivedDataWithRootObject:objectForArchiving];</p>
+</li>
+</ul>
+<h3 id="内存缓存（速度更快）">内存缓存（速度更快）</h3><h4 id="创建内存缓存">创建内存缓存</h4><ul>
+<li>NSMutableDictionary类型的变量 cachedDirectory :保存缓存的数据</li>
+<li>NSMutableArray类型的变量 recentData：保存最近访问的数据</li>
+<li>一个整数maxNumber：限制最大内存缓存大小</li>
+</ul>
+<h4 id="保存到内存缓存">保存到内存缓存</h4><ul>
+<li>判断recentData数组中有没有这条数据</li>
+<li>如果有相同数据，则删除这条数据，把数据插入到recentData的第一个位置</li>
+<li>如果没有，直接插入到最后一个位置</li>
+</ul>
+<h4 id="超过保存上限的处理机制">超过保存上限的处理机制</h4><p><strong>当最近访问数据即recentData的count达到上限值maxNumber时，根据LRU（Least Recently Used，最近最少使用）算法做以下处理：</strong></p>
+<ul>
+<li>从recentData中删除最后一个数据</li>
+<li>从cachedDirectory中删除这个数据</li>
+<li>将数据保存到磁盘中</li>
+</ul>
+<h4 id="读取内存缓存">读取内存缓存</h4><ul>
+<li>根据fileName（新闻ID ）查询  cachedDirectory中是否有数据</li>
+<li>如果有，就返回cachedDirectory中的这条数据</li>
+<li>如果没有内存缓存数据，则从磁盘中读取（根据filename（新闻ID）和cachePath 路径）</li>
+</ul>
+<h3 id="添加对内存警告的处理机制">添加对内存警告的处理机制</h3><ul>
+<li>在AppCache但单例类的静态初始化方法中，注册一个对内存警告通知UIApplicationDidReceiveMemoryWarningNotification的监听器。</li>
+<li>在接收到内存警告时，将内存缓存中的数据保存到磁盘中。</li>
+</ul>
+<h3 id="添加对App退出和进入后台时的内存管理机制">添加对App退出和进入后台时的内存管理机制</h3><ul>
+<li>在AppCache但单例类的静态初始化方法中，注册一个对App进入后台的监听器：UIApplicationDidEnterBackgroundNotification</li>
+<li>在AppCache但单例类的静态初始化方法中，注册一个对App退出的监听器：UIApplicationWillTerminateNotification</li>
+<li>在接收到上面两个监听器的通知后，将内存缓存中的数据保存到磁盘。</li>
+</ul>
+<h2 id="参考资料">参考资料</h2><p>人民邮电出版社《iOS6编程实战》第二十四章『离线支持』</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;原因&quot;&gt;原因&lt;/h2&gt;&lt;p&gt;应用需要离线工作的主要原因是：改善应用所表现出来的性能。将应用的内容缓存起来就可以支持离线。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="数据缓存" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BC%93%E5%AD%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>工作两周年的感悟</title>
+    <link href="http://yoursite.com/%E5%B7%A5%E4%BD%9C%E4%B8%A4%E5%91%A8%E5%B9%B4%E7%9A%84%E6%84%9F%E6%82%9F.html"/>
+    <id>http://yoursite.com/工作两周年的感悟.html</id>
+    <published>2015-12-02T15:08:13.000Z</published>
+    <updated>2017-01-24T09:51:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>突然意识到，今天是十二月二号，前年的今天，也就是2013年12月2日，我入职了现在的公司，一干就是两年。可以说，从事iOS开发，就是从那一天正式开始的。</p>
+<p>这两年时间，从毛头丫头走到现在，感悟颇多，把我认为最重要的写下来，算是一个总结吧。</p>
+<h3 id="八小时以外做什么">八小时以外做什么</h3><p>在公司，就集中精力在工作上。下班回家后，用简短的时间吃晚饭（其实晚饭可以不吃），休息一下就该活动活动筋骨了。刚开始我用『每日瑜伽』这个App学做瑜伽，后来感觉没劲，就下了另一个健身App『Keep』，一次训练也就二十几分钟，可以多做几个训练。最近每晚加上了仰卧起坐，今天是第八天了，每天比前一天多做一个。</p>
+<p>每天运动完洗个澡，看看书。最近在看李小龙《生活的艺术家》。</p>
+<p>当然，人都是有惰性的，但我允许自己偶尔懒惰一下，看看电视剧、电影什么的，但是该做的事情还是必须要做的。不然，我对自己没法交代。</p>
+<h3 id="极尽可能开拓视野，从海量信息中获取关键数据">极尽可能开拓视野，从海量信息中获取关键数据</h3><p>在公司iMac和自己的Macbook air上使用了翻墙工具鱼摆摆，每个月9 RMB也就是一顿饭的价格，但是回报给我的却是更广阔的知识海洋。同时，我使用了RSS订阅器Inoreader,订阅了一些技术博客。另外，我在Mac上和iPhone上的浏览器里都装了Evernote的插件，零碎时间看到的有价值的文章，就是用这个插件收藏在印象笔记里，周末统一阅读和整理。</p>
+<p>在这个信息爆炸的时代，对于如何从海量信息中获取对自己有价值的关键数据，要逐步形成自己的方式方法。浪费时间在垃圾信息上绝对是浪费生命。</p>
+<h3 id="远离社交网络，用心做自己的米开朗琪罗">远离社交网络，用心做自己的米开朗琪罗</h3><p>社交网络的初衷是好的，一言以蔽之就是方便人们的沟通。<br>我关闭了朋友圈，删除了空间中所有的文字和照片，我不是在说它不好，而是，我想屏蔽没有价值的信息源。</p>
+<p>多花点心思在自身与世界的联系上，尝试跳脱出来看自己，雕塑自己，成就自己，保持理性，让心流自然流淌。这样的体验，似乎更有价值。</p>
+<h3 id="常立志，立长志">常立志，立长志</h3><p>世界在变，人也要变。我们在这个科技迅猛发展的时代，学习最新的技术是时间成本最小的做法。人的惰性是天生的，从心理学的角度分析，人对可以让自己变优秀的东西是本能抗拒的，之所以敞开怀抱拥抱新东西，是逻辑分析起了作用。面对新东西，人们会思考它们是否对自己的目标有帮助，如果有，它们就会感兴趣。因此，目标的重要性由此可见。</p>
+<p>暂时写到这里。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;突然意识到，今天是十二月二号，前年的今天，也就是2013年12月2日，我入职了现在的公司，一干就是两年。可以说，从事iOS开发，就是从那一天正式开始的。&lt;/p&gt;
+&lt;p&gt;这两年时间，从毛头丫头走到现在，感悟颇多，把我认为最重要的写下来，算是一个总结吧。&lt;/p&gt;
+&lt;h3 id=
+    
+    </summary>
+    
+      <category term="生活记录" scheme="http://yoursite.com/categories/%E7%94%9F%E6%B4%BB%E8%AE%B0%E5%BD%95/"/>
+    
+    
+      <category term="总结" scheme="http://yoursite.com/tags/%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Swift Cheat Sheet [3] - Functions</title>
+    <link href="http://yoursite.com/Swift%20Cheat%20Sheet%20%5B3%5D%20-%20Functions.html"/>
+    <id>http://yoursite.com/Swift Cheat Sheet [3] - Functions.html</id>
+    <published>2015-11-03T11:42:53.000Z</published>
+    <updated>2016-02-26T06:27:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="无参函数">无参函数</h1><pre><code>func sayHelloWorld<span class="function"><span class="params">()</span> -&gt;</span> String{
+    <span class="keyword">return</span> <span class="string">"hello, world"</span>
+}
+<span class="built_in">print</span>(sayHelloWorld())
+</code></pre><a id="more"></a>
+<h1 id="多参函数">多参函数</h1><pre><code><span class="func"><span class="keyword">func</span> <span class="title">sayHello</span><span class="params">(personName: String)</span></span> -&gt; <span class="type">String</span>{
+    <span class="keyword">return</span> <span class="string">"hello, <span class="subst">\(personName)</span>"</span>
+}
+
+<span class="func"><span class="keyword">func</span> <span class="title">sayHelloAgain</span><span class="params">(personName: String)</span></span> -&gt; <span class="type">String</span>{
+    <span class="keyword">return</span> <span class="string">"hello again, <span class="subst">\(personName)</span>"</span>
+}
+
+<span class="func"><span class="keyword">func</span> <span class="title">sayHello</span><span class="params">(personName: String, alreadyGreeted: Bool)</span></span> -&gt; <span class="type">String</span> {
+    <span class="keyword">if</span> alreadyGreeted{
+        <span class="keyword">return</span> sayHelloAgain(personName)
+    }<span class="keyword">else</span>{
+        <span class="keyword">return</span> sayHello(personName)
+    }
+}
+
+<span class="built_in">print</span>(sayHello(<span class="string">"Sharon"</span>, alreadyGreeted: <span class="literal">true</span>))
+</code></pre><h1 id="无返回值函数">无返回值函数</h1><pre><code><span class="func"><span class="keyword">func</span> <span class="title">sayGoodBye</span><span class="params">(personName:String)</span></span>{
+    <span class="built_in">print</span>(<span class="string">"Goodbye, <span class="subst">\(personName)</span>"</span>)
+}
+sayGoodBye(<span class="string">"Sharon"</span>)
+</code></pre><h2 id="函数的返回值可以被忽略">函数的返回值可以被忽略</h2><pre><code><span class="func"><span class="keyword">func</span> <span class="title">printAndCount</span><span class="params">(stringToPrint: String)</span></span> -&gt; <span class="type">Int</span> {
+    <span class="built_in">print</span>(stringToPrint)
+    <span class="keyword">return</span> stringToPrint.characters.<span class="built_in">count</span>
+}
+
+<span class="comment">//函数的返回值可以被忽略</span>
+<span class="func"><span class="keyword">func</span> <span class="title">printWithoutCounting</span><span class="params">(stringToPrint : String)</span></span> {
+    printAndCount(stringToPrint)
+}
+
+printAndCount(<span class="string">"hello, world"</span>)
+printWithoutCounting(<span class="string">"hello, world"</span>)
+</code></pre><h1 id="多重返回值函数(使用元组类型）">多重返回值函数(使用元组类型）</h1><pre><code><span class="func"><span class="keyword">func</span> <span class="title">minMax</span><span class="params">(array: [Int])</span></span> -&gt; (<span class="built_in">min</span>: <span class="type">Int</span>, <span class="built_in">max</span>: <span class="type">Int</span>){
+    <span class="keyword">var</span> currentMin = array[<span class="number">0</span>]
+    <span class="keyword">var</span> currentMax = array[<span class="number">0</span>]
+    <span class="keyword">for</span> value <span class="keyword">in</span> array[<span class="number">1</span>..&lt;array.<span class="built_in">count</span>]{
+        <span class="keyword">if</span> value &lt; currentMin {
+            currentMin = value
+        }<span class="keyword">else</span> <span class="keyword">if</span> value &gt; currentMax {
+            currentMax = value
+        }
+    }
+    <span class="keyword">return</span> (currentMin, currentMax)
+}
+
+<span class="keyword">let</span> bounds = minMax([<span class="number">8</span>, -<span class="number">6</span>, <span class="number">2</span>, <span class="number">109</span>, <span class="number">3</span>, <span class="number">71</span>])
+<span class="built_in">print</span>(<span class="string">"min is <span class="subst">\(bounds.<span class="built_in">min</span>)</span> and max is <span class="subst">\(bounds.<span class="built_in">max</span>)</span>"</span>)
+<span class="comment">//prints "min is -6 and max is 109"</span>
+</code></pre><h2 id="可选元组返回类型">可选元组返回类型</h2><pre><code><span class="func"><span class="keyword">func</span> <span class="title">minMax2</span><span class="params">(array: [Int])</span></span> -&gt; (<span class="built_in">min</span>: <span class="type">Int</span>, <span class="built_in">max</span>: <span class="type">Int</span>)? {
+    <span class="keyword">if</span> array.isEmpty {<span class="keyword">return</span> <span class="literal">nil</span>}
+    <span class="keyword">var</span> currentMin = array[<span class="number">0</span>]
+    <span class="keyword">var</span> currentMax = array[<span class="number">0</span>]
+    <span class="keyword">for</span> value <span class="keyword">in</span> array[<span class="number">1</span>..&lt;array.<span class="built_in">count</span>] {
+        <span class="keyword">if</span> value &lt; currentMin {
+            currentMin = value
+        }<span class="keyword">else</span> <span class="keyword">if</span> value &gt; currentMax {
+            currentMax = value
+        }
+    }
+    <span class="keyword">return</span> (currentMin, currentMax)
+}
+
+<span class="keyword">if</span> <span class="keyword">let</span> bounds = minMax2([<span class="number">8</span>, -<span class="number">6</span>, <span class="number">2</span>, <span class="number">109</span>, <span class="number">3</span>, <span class="number">71</span>]) {
+    <span class="built_in">print</span>(<span class="string">"min is <span class="subst">\(bounds.<span class="built_in">min</span>)</span> and max is <span class="subst">\(bounds.<span class="built_in">max</span>)</span>"</span>)
+}<span class="comment">//prints "min is -6 and max is 109"</span>
+</code></pre><h1 id="指定外部参数名">指定外部参数名</h1><p>你可以在局部参数名前指定外部参数名，局部参数名和外部参数名之间以空格分隔：</p>
+<pre><code><span class="func"><span class="keyword">func</span> <span class="title">sayHello</span><span class="params">(to person:String, and anotherPerson:String)</span></span> -&gt; <span class="type">String</span>{
+    <span class="keyword">return</span> (<span class="string">"hello <span class="subst">\(person)</span> and <span class="subst">\(anotherPerson)</span>"</span>)
+}
+<span class="built_in">print</span>(sayHello(to: <span class="string">"Sharon"</span>, and: <span class="string">"XiaoYang"</span>))
+</code></pre><h1 id="忽略外部参数名">忽略外部参数名</h1><p>如果你不想为第二个以及后续的参数设置外部参数名，用一个下划线代替一个明确的参数名<br><strong>注意</strong>：第一个参数默认忽略其外部参数名称，所以显示地写下划线是多余的</p>
+<pre><code><span class="func"><span class="keyword">func</span> <span class="title">someFunction</span><span class="params">(firstParameterName: Int, <span class="number">_</span> secondParameterName: Int)</span></span> {
+    <span class="comment">// function body goes here</span>
+    <span class="comment">// firstParameterName and secondParameterName refer to</span>
+    <span class="comment">// the argument values for the first and second parameters</span>
+}
+someFunction(<span class="number">1</span>, <span class="number">2</span>);
+</code></pre><h1 id="默认参数值">默认参数值</h1><p>当默认参数值被定义后，调用这个函数可以忽略这个参数</p>
+<pre><code><span class="func"><span class="keyword">func</span> <span class="title">someFunction</span><span class="params">(parameterWithDefault: Int = <span class="number">12</span>)</span></span> {
+    <span class="comment">// function body goes here</span>
+    <span class="comment">// if no arguments are passed to the function call,</span>
+    <span class="comment">// value of parameterWithDefault is 12</span>
+}
+someFunction(<span class="number">6</span>)<span class="comment">//parameterWithDefault is 6</span>
+someFunction()<span class="comment">//parameterWithDefault is 12</span>
+</code></pre><h1 id="可变参数">可变参数</h1><p>在函数类型后面加…来表示可变参数<br><strong>注意：一个函数最多只能有一个可变参数</strong><br>下面的函数用来计算一组任意长度数字的<code>算术平均值</code></p>
+<pre><code>func arithmeticMean(numbers: <span class="typename">Double</span>...) -&gt; <span class="typename">Double</span> {
+    <span class="variable"><span class="keyword">var</span> total</span> : <span class="typename">Double</span> = <span class="number">0</span>
+    <span class="keyword">for</span> number <span class="keyword">in</span> numbers {
+        total += number
+    }
+    <span class="keyword">return</span> total / <span class="typename">Double</span>(numbers.count)
+}
+
+arithmeticMean(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>)<span class="comment">//prints 3</span>
+arithmeticMean(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>)<span class="comment">//prints 6</span>
+</code></pre><h1 id="常量参数和变量参数">常量参数和变量参数</h1><p>通过在参数名前加关键字<code>var</code>来定义变量参数：</p>
+<pre><code>func alignRight(<span class="built_in">var</span> <span class="built_in">string</span> : <span class="built_in">String</span>, totalLength: Int, pad: Character) <span class="subst">-&gt; </span><span class="built_in">String</span> {
+    <span class="keyword">let</span> amountToPad = totalLength - <span class="built_in">string</span><span class="built_in">.</span>characters<span class="built_in">.</span>count
+    <span class="keyword">if</span> amountToPad &lt; <span class="number">1</span> {
+        <span class="keyword">return</span> <span class="built_in">string</span>
+    }
+    <span class="keyword">let</span> padString = <span class="built_in">String</span>(pad)
+    f<span class="subst">or</span> _ <span class="keyword">in</span> <span class="number">1.</span><span class="built_in">..</span>amountToPad {
+        <span class="built_in">string</span> = padString + <span class="built_in">string</span>
+    }
+    <span class="keyword">return</span> <span class="built_in">string</span>
+}
+<span class="keyword">let</span> originalString = <span class="string">"hello"</span>
+<span class="keyword">let</span> paddedString = alignRight(originalString, totalLength: <span class="number">10</span>, pad: <span class="string">"-"</span>)
+<span class="comment">//paddedString is eaual to "-----hello"</span>
+<span class="comment">//originalString is still equal to "hello"</span>
+</code></pre><h1 id="输入输出参数(inout关键字)">输入输出参数(inout关键字)</h1><p>变量参数仅仅能在函数体内被更改。输入输出参数对参数值得修改，在函数体调用完成后依然存在<br>定义一个输入输出参数时，在参数定义前加 <code>inout</code> 关键字。只能传递变量给输入输出参数。<br>输入输出参数不能有默认值，而且可变参数不能用 inout 标记。如果你用 <code>inout</code> 标记一个参数，这个参数不能被 <code>var</code> 或者 <code>let</code> 标记。</p>
+<pre><code><span class="func"><span class="keyword">func</span> <span class="title">swapTwoInts</span><span class="params">(<span class="keyword">inout</span> a: Int, <span class="keyword">inout</span> <span class="number">_</span> b: Int)</span></span> {
+    <span class="keyword">let</span> temporary = a
+    a = b
+    b = temporary
+}
+
+<span class="comment">//调用</span>
+<span class="keyword">var</span> someInt = <span class="number">3</span>
+<span class="keyword">var</span> anotherInt = <span class="number">204</span>
+swapTwoInts(&amp;someInt, &amp;anotherInt)
+<span class="comment">//Swift 本来就有这个函数： swap(&amp;someInt, &amp;anotherInt)</span>
+</code></pre><h1 id="函数类型的使用">函数类型的使用</h1><p>函数类型由它的参数类型和返回值类型组成<br>在Swift中，使用函数类型就像使用其他类型一样。例如，你可以定义一个类型为函数的常量或者变量，并将适当的函数赋值给它</p>
+<pre><code>func addTwoInts (someInt : <span class="typename">Int</span>, anotherInt: <span class="typename">Int</span>) -&gt; <span class="typename">Int</span> {
+    <span class="keyword">return</span> someInt + anotherInt
+}
+
+func multiplyTwoInts (someInt: <span class="typename">Int</span>, anotherInt: <span class="typename">Int</span>) -&gt; <span class="typename">Int</span> {
+    <span class="keyword">return</span> someInt * anotherInt
+}
+<span class="variable"><span class="keyword">var</span> mathFunction1</span>:(<span class="typename">Int</span>, <span class="typename">Int</span>) -&gt; <span class="typename">Int</span> = addTwoInts
+<span class="variable"><span class="keyword">var</span> mathFunction2</span>:(<span class="typename">Int</span>, <span class="typename">Int</span>) -&gt; <span class="typename">Int</span> = multiplyTwoInts
+print(<span class="string">"Result:\(mathFunction1(2,3))"</span>)<span class="comment">//prints "Result:5"</span>
+print(<span class="string">"Result:\(mathFunction2(2,3))"</span>)<span class="comment">//prints "Result:6"</span>
+</code></pre><h2 id="函数类型作为参数类型">函数类型作为参数类型</h2><pre><code><span class="func"><span class="keyword">func</span> <span class="title">printMathResult</span><span class="params">(mathFunction : <span class="params">(Int, Int)</span></span></span> -&gt; <span class="type">Int</span>, <span class="number">_</span> a: <span class="type">Int</span>, <span class="number">_</span> b :<span class="type">Int</span>) {
+    <span class="built_in">print</span>(<span class="string">"Result: <span class="subst">\(mathFunction(a, b)</span>)"</span>)
+}
+
+printMathResult(addTwoInts, <span class="number">2</span>, <span class="number">3</span>)<span class="comment">//prints "Result:5"</span>
+</code></pre><h1 id="函数类型作为返回类型">函数类型作为返回类型</h1><p>箭头后面写上一个完整的函数类型即可</p>
+<pre><code><span class="func"><span class="keyword">func</span> <span class="title">stepForward</span><span class="params">(input: Int)</span></span> -&gt; <span class="type">Int</span> {
+    <span class="keyword">return</span> input + <span class="number">1</span>
+}
+<span class="func"><span class="keyword">func</span> <span class="title">stepBackward</span><span class="params">(input: Int)</span></span> -&gt; <span class="type">Int</span> {
+    <span class="keyword">return</span> input - <span class="number">1</span>
+}
+
+<span class="comment">//定义一个函数类型返回值的函数</span>
+<span class="func"><span class="keyword">func</span> <span class="title">chooseStepFunction</span><span class="params">(backwards: Bool)</span></span> -&gt; (<span class="type">Int</span>) -&gt; <span class="type">Int</span> {
+    <span class="keyword">return</span> backwards ? stepBackward : stepForward
+}
+
+<span class="keyword">var</span> currentValue = <span class="number">3</span>
+<span class="keyword">let</span> moveNearerToZero = chooseStepFunction(currentValue &gt; <span class="number">0</span>)<span class="comment">//计算出从 currentValue 逐渐接近到0是需要向正数走还是向负数走</span>
+
+<span class="built_in">print</span>(<span class="string">"Counting to zero"</span>)
+<span class="keyword">while</span> currentValue != <span class="number">0</span> {
+    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(currentValue)</span>..."</span>)
+    currentValue = moveNearerToZero(currentValue)
+}
+
+<span class="built_in">print</span>(<span class="string">"zero!"</span>)
+<span class="comment">//3...</span>
+<span class="comment">//2...</span>
+<span class="comment">//1...</span>
+<span class="comment">//zero!</span>
+</code></pre><h1 id="嵌套函数">嵌套函数</h1><p>将函数定义在别的函数体中。默认情况下，嵌套函数对外界是不可见的，但是，它可以被它的外围函数调用</p>
+<pre><code><span class="func"><span class="keyword">func</span> <span class="title">chooseStepFunction1</span><span class="params">(backward: Bool)</span></span> -&gt; (<span class="type">Int</span>) -&gt; <span class="type">Int</span> {
+    <span class="func"><span class="keyword">func</span> <span class="title">stepForward</span><span class="params">(input: Int)</span></span> -&gt; <span class="type">Int</span> {
+        <span class="keyword">return</span> input + <span class="number">1</span>
+    }
+    <span class="func"><span class="keyword">func</span> <span class="title">stepBackground</span><span class="params">(input: Int)</span></span> -&gt;<span class="type">Int</span>{
+        <span class="keyword">return</span> input - <span class="number">1</span>
+    }
+    <span class="keyword">return</span> backward ? stepBackground : stepForward
+}
+
+<span class="keyword">var</span> currentValue1 = -<span class="number">4</span>
+<span class="keyword">let</span> moveNearerToZero1 = chooseStepFunction1(currentValue &gt; <span class="number">0</span>)
+<span class="keyword">while</span> currentValue1 != <span class="number">0</span> {
+    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(currentValue1)</span>"</span>)
+    currentValue1 = moveNearerToZero1(currentValue1)
+}
+<span class="built_in">print</span>(<span class="string">"zero!"</span>)
+<span class="comment">// -4...</span>
+<span class="comment">// -3...</span>
+<span class="comment">// -2...</span>
+<span class="comment">// -1...</span>
+<span class="comment">// zero!</span>
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;无参函数&quot;&gt;无参函数&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;func sayHelloWorld&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; -&amp;gt;&lt;/span&gt; String{
+    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;hello, world&quot;&lt;/span&gt;
+}
+&lt;span class=&quot;built_in&quot;&gt;print&lt;/span&gt;(sayHelloWorld())
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="Swift" scheme="http://yoursite.com/tags/Swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>什么是EXC_BAD_ACCESS以及如何调试</title>
+    <link href="http://yoursite.com/%E4%BB%80%E4%B9%88%E6%98%AFEXC_BAD_ACCESS%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95.html"/>
+    <id>http://yoursite.com/什么是EXC_BAD_ACCESS以及如何调试.html</id>
+    <published>2015-10-30T02:23:56.000Z</published>
+    <updated>2016-02-26T06:27:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>某些时候，你可能会遇到由EXC_BAD_ACCESS引起的崩溃。在这片文章中，你将学会什么是EXC_BAD_ACCESS，以及它是由什么引起的。我也将提出一些解决由EXC_BAD_ACCESS引起的bug的技巧。</p>
+<a id="more"></a>
+<h1 id="什么是EXC_BAD_ACCESS？">什么是EXC_BAD_ACCESS？</h1><p>一旦你理解了EXC_BAD_ACCESS的根本原因，你会更好地理解它这个含义模糊的名称。这里有一个简单的解释和一个更加专业的解释。让我们首先以这个简单的解释开始吧。</p>
+<h2 id="保持简单">保持简单</h2><p>无论何时你遇到了EXC_BAD_ACCESS，那就意味着你正在发送一个消息给一个对象，而这个对象已经被释放掉了。这是最常见的情况，但是下面来看看更多的解释。</p>
+<h2 id="真正含义">真正含义</h2><p>专业的解释有一些复杂。在C和Objective-C中，经常处理指针。指针无非是存储另一个变量的内存地址的变量。当你发送一个消息给一个对象，那么指向这个对象的指针需要被引用。这意味着，你取得这个指针指向的内存地址而且访问那块内存的值。</p>
+<p>当那块内存不再与你的应用程序映射，或者，换一种说法，那块内存不再以你所期许的方式被使用，那么，就有可能无法访问到那一块内存。当这种情况发生的时候，内核发送异常（ <strong>EXC</strong> ），表明你的应用程序无法访问到那块内存（<strong>BAD ACCESS</strong>）。</p>
+<p>概括起来就是：当你遇到EXC_BAD_ACCESS时，意味着你在尝试向一块内存发送消息，而这块内存无法执行这个消息。</p>
+<p>然而，有时候,EXC_BAD_ACCESS是由一个corrupt pointer（即野指针）引起的。每当你的应用程序程序尝试去引用一个corrupt pointer指针时，内核都会抛出一个异常。</p>
+<p>注：corrupt pointer：可以理解为『野指针』。指的是：指向一个已删除的对象或未申请访问受限内存区域的指针。与空指针不同，野指针无法通过简单地判断是否为 NULL避免，而只能通过养成良好的编程习惯来尽力减少。对野指针进行操作很容易造成程序错误。</p>
+<h1 id="调试EXC_BAD_ACCESS">调试EXC_BAD_ACCESS</h1><p>调试EXC_BAD_ACCESS可能是棘手和令人沮丧的。显示，现在EXC_BAD_ACCESS对你来说不再是那么困难的事情了。</p>
+<p>你需要了解的第一件事情是，一旦内存块无法被访问到，你的应用程序就会崩溃。这就是使调试EXC_BAD_ACCESS这么困难的原因。</p>
+<p>同样的，当你引用野指针时，情况就糟糕了。</p>
+<h2 id="Zombies">Zombies</h2><p>虽然僵尸在过去的几年中才得到普及，但是，在Xcode中以及出现十多年了。『僵尸』这个名称听起来可能有些戏剧化，但是，这对于解释我们是如何调试EXC_BAD_ACCESS来说，是一个体现其特性的伟大的名字。</p>
+<p>在Xcode中，你可以启用僵尸对象（zombie objects），这意味着，被释放的对象作为『僵尸』来被保持。换句话说，被释放的对象为了调试程序而被保持活跃。这没有什么神奇的作用。如果你将消息发送给一个僵尸对象，你的应用程序仍然会得到一个EXC_BAD_ACCESS的崩溃。</p>
+<p>为什么启用zombie是有用的？让EXC_BAD_ACCESS难以调试的原因是：你不知道你的应用程序尝试去访问的对象是什么。在多种情况下，僵尸对象能够解决这个问题。通过使被释放的对象保持活跃，Xcode能够告诉你应用程序试图访问的对象，并使问题的检索更加简单。</p>
+<p>在Xcode中启用Zombies很简单。注意，你的Xcode版本不同可能导致方法不同。以下方法适用于Xcode 6 和Xcode 7.选择工具条中的Product-&gt; 选择 Scheme -&gt; 选择 Edit Scheme。或者使用快捷方式Command+&lt;。</p>
+<p>选择左侧的Run，打开顶部标签中的Diagnotics(诊断)，勾选复选框Enable Zombie Objects。<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-11-01%2019.05.57.png" alt="此处输入图片的描述"></p>
+<p>如果现在遇到EXC_BAD_ACCESS,Xcode控制台的输出会给你一个从哪里开始检索错误的更好的建议。看看下面的例子:</p>
+<pre><code>2015-08-12 06:31:55.501 Debug<span class="keyword">[</span>2371:1379247] -<span class="keyword">[</span>ChildViewController respondsToSelector:] message sent to deallocated<span class="instruction"> instance </span>0x17579780
+</code></pre><p>在上面的例子中，Xcode是在告诉我们，这个消息<code>respondsToSelector:</code>被发送给一个僵尸对象。然而，僵尸对象不再是ChildViewController类的一个实例对象。之前分配给ChildViewController实例对象的内存块不再与你的应用程序所映射。这对你认识问题的根本原因有所帮助。</p>
+<p>不幸的是，僵尸对象不能解决你所遇到的任何由EXC_BAD_ACCESS所引起的崩溃。如果僵尸对象不能解决你的问题，那么试着去做一些分析。</p>
+<h2 id="剖析">剖析</h2><p>如果僵尸对象不能帮助你，那么根本原因则是很重要的。这种情况下，你应该仔细看看你的应用程序崩溃时正在执行的代码。这个过程有可能是耗时而麻烦的。</p>
+<p>为了帮你找到你的代码中得问题，你可以让Xcode分析你的代码，以帮你找到问题区间。注意，Xcode分析你的项目，可能会指出它遇到的任何一个潜在的问题。</p>
+<p>选择Product-&gt;Analyze，或者快捷方式Shift+Command+B，来启用Xcode对你的项目的分析。</p>
+<p>这可能消耗Xcode几分钟时间，但是，当它完成的时候，你会在左侧的问题导航器中看到问题清单。通过分析发现的问题以蓝色高亮显示。<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-11-01%2019.58.48.png" alt="此处输入图片的描述"></p>
+<p>当你点击一个问题时，Xcode定位到需要你注意的那块代码。需要注意的是，Xcode只是提出建议，某些时候，有可能问题是不相干的，或者不需要你去解决的。<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-11-01%2020.00.54.png" alt="此处输入图片的描述"></p>
+<p>如果你不能找到引起EXC_BAD_ACCESS的bug，那么仔细检查Xcode在分析过程中找到的问题就很重要了。</p>
+<h1 id="结论">结论</h1><p>EXC_BAD_ACCESS是开发人员共同面临的挫折，这是手动内存管理所特有的东西。自推出ARC之后，内存管理相关的问题出现的频率比较低了，但是，它们并没有消失。</p>
+<p>本篇文章翻译自：<a href="http://code.tutsplus.com/tutorials/what-is-exc_bad_access-and-how-to-debug-it--cms-24544" target="_blank" rel="external">http://code.tutsplus.com/tutorials/what-is-exc_bad_access-and-how-to-debug-it--cms-24544</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;某些时候，你可能会遇到由EXC_BAD_ACCESS引起的崩溃。在这片文章中，你将学会什么是EXC_BAD_ACCESS，以及它是由什么引起的。我也将提出一些解决由EXC_BAD_ACCESS引起的bug的技巧。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="EXC_BAD_ACCESS，调试" scheme="http://yoursite.com/tags/EXC-BAD-ACCESS%EF%BC%8C%E8%B0%83%E8%AF%95/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>浅析UITableViewCell重用机制</title>
+    <link href="http://yoursite.com/%E6%B5%85%E6%9E%90UITableViewCell%E9%87%8D%E7%94%A8%E6%9C%BA%E5%88%B6.html"/>
+    <id>http://yoursite.com/浅析UITableViewCell重用机制.html</id>
+    <published>2015-10-28T02:31:02.000Z</published>
+    <updated>2016-02-26T06:27:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>UITableView在iOS开发中用的非常的多，由于Cell中一般都会有Image等占用内存的资源，容易引起Memory Warning，所以iOS引入了重用机制。那么今天就对UITableView的重用机制分析一下。</p>
+<a id="more"></a>
+<h1 id="案例分析">案例分析</h1><h2 id="情况A：所有Cell具有相同的类型">情况A：所有Cell具有相同的类型</h2><pre><code>-(<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath
+{
+    <span class="keyword">static</span> <span class="built_in">NSInteger</span> times = <span class="number">0</span>;
+    <span class="keyword">static</span> <span class="built_in">NSString</span> *cellIdentifier = <span class="string">@"Default Type"</span>;
+    <span class="built_in">UITableViewCell</span> *myCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    <span class="keyword">if</span> (myCell == <span class="literal">nil</span>) {
+        myCell = [[<span class="built_in">UITableViewCell</span> alloc] initWithStyle:<span class="built_in">UITableViewCellStyleDefault</span> reuseIdentifier:cellIdentifier];
+        <span class="built_in">NSLog</span>(<span class="string">@"创建%d次"</span>,++times);
+    }
+    myCell<span class="variable">.textLabel</span><span class="variable">.text</span>= [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"第%d行 %@"</span>,indexPath<span class="variable">.row</span>+<span class="number">1</span>, cellIdentifier];
+    <span class="keyword">return</span> myCell;
+}
+</code></pre><p>分析：</p>
+<ul>
+<li>有两个存放Cell的队列：可复用Cell队列 <strong>reusableCellQueue</strong> 和可见的Cell队列 <strong>visualCellQueue</strong>；</li>
+<li>执行<code>cellForRowAtIndexPath</code>之前，先从reusableCellQueue中寻找标识为<code>Default Style</code>的Cell，如果没有，返回<code>nil</code>，接着会执行<code>initWithStyle：reuseIdentifier</code>；</li>
+<li>假设屏幕显示 <strong>11行</strong> Cell，如果不滚动TableView，reusableCellQueue是空的，Cell被创建了11次；</li>
+<li>向上拖动TableView，使第12行Cell出现在屏幕中（加入到visualCellQueue中），这时，reusableCellQueue仍然是空的。所以又创建了一次Cell；</li>
+<li>当第12行Cell完全出现在visualCellQueue中，第1行Cell就加入到了reusableCellQueue中。</li>
+<li>再次向上拖动TableView，使第13行Cell出现。注意，这时从reusableCellQueue中寻找到了标识为<code>Default Style</code>的Cell，于是第一行Cell被复用，不用重新创建Cell。</li>
+<li>以后再上下滑动，都会在reusableCellQueue中找到可复用的Cell，因此，此TableView完成完整的滚动需要创建 <strong>12次</strong> Cell。</li>
+<li>总结：第一页显示N行Cell，则一共创建了N+1次。</li>
+</ul>
+<h2 id="情况B：具有多种类型的Cell">情况B：具有多种类型的Cell</h2><pre><code>    -(<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath
+{
+    <span class="built_in">NSString</span> *cellIdentifier;
+    <span class="built_in">UITableViewCellStyle</span> cellStyle;
+    <span class="keyword">switch</span> ((indexPath<span class="variable">.row</span> + <span class="number">1</span>)%<span class="number">4</span>) {
+        <span class="keyword">case</span> <span class="number">1</span>:{
+            <span class="comment">//有标题和副标题，可选图片</span>
+            cellIdentifier = <span class="string">@"Subtitle Style"</span>;
+            cellStyle = <span class="built_in">UITableViewCellStyleSubtitle</span>;
+        }
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="number">2</span>:{
+            <span class="comment">//左边文字左对齐，右边文字右对齐，可选的图片</span>
+            cellIdentifier = <span class="string">@"Value1 Style"</span>;
+            cellStyle = <span class="built_in">UITableViewCellStyleValue1</span>;
+        }
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="number">3</span>:{
+            <span class="comment">//左边文字右对齐，蓝色字体。右边文字左对齐，黑色。没有图片</span>
+            cellIdentifier = <span class="string">@"Value2 Style"</span>;
+            cellStyle = <span class="built_in">UITableViewCellStyleValue2</span>;
+        }
+            <span class="keyword">break</span>;
+        <span class="keyword">default</span>:{
+            <span class="comment">//有标题，没有副标题，可选的图片</span>
+            cellIdentifier = <span class="string">@"Default Style"</span>;
+            cellStyle = <span class="built_in">UITableViewCellStyleDefault</span>;
+        }
+            <span class="keyword">break</span>;
+    }
+
+    <span class="keyword">static</span> <span class="built_in">NSInteger</span> times = <span class="number">0</span>;
+    <span class="built_in">UITableViewCell</span> *myCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    <span class="keyword">if</span> (!myCell) {
+        myCell = [[<span class="built_in">UITableViewCell</span> alloc] initWithStyle:cellStyle reuseIdentifier:cellIdentifier];
+        <span class="built_in">NSLog</span>(<span class="string">@"创建%d次"</span>,++times);
+    }
+    myCell<span class="variable">.textLabel</span><span class="variable">.text</span> = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"第%d行%@"</span>,indexPath<span class="variable">.row</span>+<span class="number">1</span>, cellIdentifier];
+    myCell<span class="variable">.detailTextLabel</span><span class="variable">.text</span> = <span class="string">@"Subtitle Text"</span>;
+    <span class="keyword">if</span> (indexPath<span class="variable">.row</span> &gt; <span class="number">3</span>) {
+        myCell<span class="variable">.imageView</span><span class="variable">.image</span> = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"smile.png"</span>];
+    }
+    <span class="keyword">return</span> myCell;
+}
+</code></pre><p>运行结果是这样的：<br>    <img src="http://7xlt6k.com1.z0.glb.clouddn.com/Simulator%20Screen%20Shot%202015%E5%B9%B410%E6%9C%8828%E6%97%A5%20%E4%B8%8B%E5%8D%881.41.28.png" alt="不同ReusableCellIdentifier的Cell"></p>
+<h3 id="分析：">分析：</h3><ul>
+<li>第一页显示11个Cell，创建了11次。</li>
+<li>向上拖动TableView，使第12行Cell出现，第12行是<code>Default Style</code>类型的，可复用队列为空，没有找到可复用Cell，于是又创建一次（第12次）。第一个Cell进入reusableCellQueue中。此时reusableCellQueue中只有一个<code>Subtitle Style</code>的Cell。</li>
+<li>再次向上拖动，当第13个Cell出现时，从reusableCellQueue中寻找标识为<code>Subtitle Style</code>的Cell，Yes，reusableCellQueue里有这个标识的Cell，于是复用队列里的这个Cell。此时第二个Cell进入reusableCellQueue，队列里有这几个标识：<code>Subtitle Style</code>和<code>Value1 Style</code>。</li>
+<li>当第14个Cell出现时，寻找标识为<code>Value1 Style</code>的Cell，也找到了，复用之。此时队列里有<code>Subtitle Style</code>、<code>Value1 Style</code>和<code>Value2 Style</code></li>
+<li>以此类推，以后的Cell都可以在reusableCellQueue中找到可复用的Cell。因此一共创建了12次Cell。</li>
+</ul>
+<h3 id="不该有图片的Cell出现了图片">不该有图片的Cell出现了图片</h3><p>当上下滑动TableView的时候，会出现第一行的Cell一会有图片，一会儿又没有图片的现象。这是为什么呢？</p>
+<p>第一个Cell应该是没有图片的，但是在TableView向下滚动，使第一个Cell出现在屏幕上的时候，会先从reusableCellQueue中寻找标识为<code>Subtitle Style</code>的Cell。注意了，第5、9、13、17行的Cell都是Subtitle Style类型的，而且还都带有图片，因此，当这些类型的Cell在reusableCellQueue中被寻找到时，第一行Cell上就会出现图片。</p>
+<p>那么，如何解决这类问题呢？</p>
+<p>在配置Cell的时候一定要注意，对取出的重用的cell要重新赋值，不能遗留被重用Cell的数据。</p>
+<h1 id="区分两个获取重用Cell的方法">区分两个获取重用Cell的方法</h1><h2 id="-_dequeueReusableCellWithIdentifier:forIndexPath:">- dequeueReusableCellWithIdentifier:forIndexPath:</h2><p>此方法返回一个相关标识的UITableViewCell对象，这个Cell总是有效的(不是nil)。</p>
+<p><strong> 注意：</strong><br>使用这个方法之前，必须使用<code>registerNib:forCellReuseIdentifier:</code>或者<code>registerClass:forCellReuseIdentifier:</code>注册一个Cell类或者nib。</p>
+<pre><code>[<span class="built_in">table</span>View registerClass:[UITableViewCell class] <span class="keyword">for</span>CellReuseIdentifier:cellIdentifier];
+    UITableViewCell *myCell = [<span class="built_in">table</span>View dequeueReusableCellWithIdentifier:cellIdentifier <span class="keyword">for</span>IndexPath:indexPath];
+</code></pre><h2 id="-_dequeueReusableCellWithIdentifier:">- dequeueReusableCellWithIdentifier:</h2><p>   返回值 : 相关标识的UITableViewCell对象，或者是nil(如果在可重用Cell队列中没有找到的话)。</p>
+<pre><code>   <span class="built_in">UITableViewCell</span> *myCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+<span class="keyword">if</span> (myCell == <span class="literal">nil</span>) {
+    myCell = [[<span class="built_in">UITableViewCell</span> alloc] initWithStyle:<span class="built_in">UITableViewCellStyleDefault</span> reuseIdentifier:cellIdentifier];
+}
+</code></pre><h2 id="比较">比较</h2><pre><code>使用`- dequeueReusableCellWithIdentifier:forIndexPath:`的话，必须注册<span class="keyword">Cell</span>，而且，不需要再判断<span class="keyword">Cell</span>是否为nil和创建 <span class="keyword">Cell</span>。
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;UITableView在iOS开发中用的非常的多，由于Cell中一般都会有Image等占用内存的资源，容易引起Memory Warning，所以iOS引入了重用机制。那么今天就对UITableView的重用机制分析一下。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="UITableView" scheme="http://yoursite.com/tags/UITableView/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="知识小集" scheme="http://yoursite.com/tags/%E7%9F%A5%E8%AF%86%E5%B0%8F%E9%9B%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Swift Cheat Sheet [2] - Control Flow</title>
+    <link href="http://yoursite.com/Swift%20Cheat%20Sheet%20%5B2%5D%20-%20Control%20Flow.html"/>
+    <id>http://yoursite.com/Swift Cheat Sheet [2] - Control Flow.html</id>
+    <published>2015-10-22T02:28:13.000Z</published>
+    <updated>2016-02-26T06:27:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="If_条件语句">If 条件语句</h1><h2 id="if_else">if else</h2><pre><code><span class="built_in">let</span> number = <span class="number">100</span>
+<span class="keyword">if</span> number &lt; <span class="number">10</span> {
+    <span class="built_in">print</span>(<span class="string">"The number is small"</span>)
+} <span class="keyword">else</span> <span class="keyword">if</span> number &gt; <span class="number">100</span> {
+    <span class="built_in">print</span>(<span class="string">"The number is pretty big"</span>)
+} <span class="keyword">else</span> {
+    <span class="built_in">print</span>(<span class="string">"The number is between 10 and 100"</span>)
+}
+</code></pre><a id="more"></a>
+<h2 id="if_else_+_for_in">if else + for in</h2><pre><code>let individualScores = [<span class="number">75</span>, <span class="number">43</span>, <span class="number">103</span>, <span class="number">87</span>, <span class="number">12</span>]
+var teamScore = <span class="number">0</span>
+<span class="keyword">for</span> score in individualScores {
+    <span class="keyword">if</span> score &gt; <span class="number">50</span> {
+        teamScore += <span class="number">3</span>
+    } <span class="keyword">else</span> {
+        teamScore += <span class="number">1</span>
+    }
+}
+print(teamScore)
+</code></pre><h2 id="使用可选绑定">使用可选绑定</h2><pre><code><span class="keyword">var</span> optionalName: <span class="type">String</span>?
+<span class="keyword">var</span> greeting = <span class="string">"Hello!"</span>
+<span class="keyword">if</span> <span class="keyword">let</span> name = optionalName {
+    greeting = <span class="string">"Hello, <span class="subst">\(name)</span>"</span>
+}<span class="keyword">else</span>
+{
+    <span class="built_in">print</span>(<span class="string">"optionalName is nil"</span>)
+}
+</code></pre><h2 id="在if条件判断语句中使用where关键字">在if条件判断语句中使用where关键字</h2><pre><code><span class="keyword">var</span> optionalHello: <span class="type">String</span>? = <span class="string">"Hello"</span>
+<span class="keyword">if</span> <span class="keyword">let</span> hello = optionalHello <span class="keyword">where</span> hello.hasPrefix(<span class="string">"H"</span>), <span class="keyword">let</span> name = optionalName {
+    greeting = <span class="string">"<span class="subst">\(hello)</span>, <span class="subst">\(name)</span>"</span>
+    <span class="built_in">print</span>(<span class="string">"greeting:<span class="subst">\(greeting)</span>"</span>)
+}<span class="keyword">else</span>
+{
+    <span class="comment">//跳到这里，因为hello还没有被复制，它没有“H”前缀，仅当where模式匹配成功，if条件语句才执行。</span>
+}
+</code></pre><h1 id="Switch">Switch</h1><h2 id="一条case分支可匹配多个模式">一条case分支可匹配多个模式</h2><pre><code><span class="keyword">let</span> vegetable = <span class="string">"red pepper"</span>
+<span class="keyword">switch</span> vegetable {
+    <span class="keyword">case</span> <span class="string">"celery"</span>:
+        <span class="keyword">let</span> vegetableComment = <span class="string">"Add some raisins and make ants on a log."</span>
+    <span class="keyword">case</span> <span class="string">"cucumber"</span>, <span class="string">"watercress"</span>:
+        <span class="keyword">let</span> vegetableComment = <span class="string">"That would make a good tea sandwich."</span>
+    <span class="keyword">case</span> <span class="keyword">let</span> x <span class="keyword">where</span> x.hasSuffix(<span class="string">"pepper"</span>):
+        <span class="keyword">let</span> vegetableComment = <span class="string">"Is it a spicy <span class="subst">\(x)</span>?"</span>
+    <span class="keyword">default</span>:<span class="comment">//必须有default分支</span>
+        <span class="keyword">let</span> vegetableComment = <span class="string">"Everything tastes good in soup."</span>
+}
+</code></pre><h2 id="不存在隐式的贯穿">不存在隐式的贯穿</h2><p>下面的代码会有编译错误！</p>
+<pre><code><span class="keyword">let</span> anotherCharacter: <span class="type">Character</span> = <span class="string">"a"</span>
+<span class="keyword">switch</span> anotherCharacter {
+<span class="keyword">case</span> <span class="string">"a"</span>:
+<span class="keyword">case</span> <span class="string">"A"</span>:
+    <span class="built_in">print</span>(<span class="string">"The letter A"</span>)
+<span class="keyword">default</span>:
+    <span class="built_in">print</span>(<span class="string">"Not the letter A"</span>)
+}
+<span class="comment">// this will report a compile-time error</span>
+</code></pre><h2 id="区间匹配">区间匹配</h2><p>使用闭区间操作符<code>..</code>或开区间操作符<code>..&lt;</code></p>
+<pre><code>let approximateCount = <span class="number">62</span>
+let countedThings = <span class="string">"moons orbiting Saturn"</span>
+var naturalCount: String
+<span class="keyword">switch</span> approximateCount {
+<span class="keyword">case</span> <span class="number">0</span>:
+    naturalCount = <span class="string">"no"</span>
+<span class="keyword">case</span> <span class="number">1.</span>.&lt;<span class="number">5</span>:
+    naturalCount = <span class="string">"a few"</span>
+<span class="keyword">case</span> <span class="number">5.</span>.&lt;<span class="number">12</span>:
+    naturalCount = <span class="string">"several"</span>
+<span class="keyword">case</span> <span class="number">12.</span>.&lt;<span class="number">100</span>:
+    naturalCount = <span class="string">"dozens of"</span>
+<span class="keyword">case</span> <span class="number">100.</span>.&lt;<span class="number">1000</span>:
+    naturalCount = <span class="string">"hundreds of"</span>
+<span class="keyword">default</span>:
+    naturalCount = <span class="string">"many"</span>
+}
+print(<span class="string">"There are \(naturalCount) \(countedThings)."</span>)
+<span class="comment">// 输出 "There are dozens of moons orbiting Saturn."</span>
+</code></pre><h2 id="使用元组">使用元组</h2><pre><code><span class="keyword">let</span> somePoint = (<span class="number">1</span>, <span class="number">1</span>)
+<span class="keyword">switch</span> somePoint {
+<span class="keyword">case</span> (<span class="number">0</span>, <span class="number">0</span>):
+    <span class="built_in">print</span>(<span class="string">"(0, 0) is at the origin"</span>)
+<span class="keyword">case</span> (<span class="number">_</span>, <span class="number">0</span>):
+    <span class="built_in">print</span>(<span class="string">"(<span class="subst">\(somePoint.<span class="number">0</span>)</span>, 0) is on the x-axis"</span>)
+<span class="keyword">case</span> (<span class="number">0</span>, <span class="number">_</span>):
+    <span class="built_in">print</span>(<span class="string">"(0, <span class="subst">\(somePoint.<span class="number">1</span>)</span>) is on the y-axis"</span>)
+<span class="keyword">case</span> (-<span class="number">2</span>...<span class="number">2</span>, -<span class="number">2</span>...<span class="number">2</span>):
+    <span class="built_in">print</span>(<span class="string">"(<span class="subst">\(somePoint.<span class="number">0</span>)</span>, <span class="subst">\(somePoint.<span class="number">1</span>)</span>) is inside the box"</span>)
+<span class="keyword">default</span>:
+    <span class="built_in">print</span>(<span class="string">"(<span class="subst">\(somePoint.<span class="number">0</span>)</span>, <span class="subst">\(somePoint.<span class="number">1</span>)</span>) is outside of the box"</span>)
+}
+<span class="comment">// 输出 "(1, 1) is inside the box"</span>
+</code></pre><blockquote>
+<p>如果存在多个匹配，那么只会执行第一个被匹配到的 case 分支。剩下的能够匹配 case 分支都会被忽视掉.</p>
+</blockquote>
+<h2 id="case分支中使用值绑定">case分支中使用值绑定</h2><pre><code><span class="keyword">let</span> anotherPoint = (<span class="number">2</span>, <span class="number">0</span>)
+<span class="keyword">switch</span> anotherPoint {
+<span class="keyword">case</span> (<span class="keyword">let</span> x, <span class="number">0</span>):
+    <span class="built_in">print</span>(<span class="string">"on the x-axis with an x value of <span class="subst">\(x)</span>"</span>)
+<span class="keyword">case</span> (<span class="number">0</span>, <span class="keyword">let</span> y):
+    <span class="built_in">print</span>(<span class="string">"on the y-axis with a y value of <span class="subst">\(y)</span>"</span>)
+<span class="keyword">case</span> <span class="keyword">let</span> (x, y):
+    <span class="built_in">print</span>(<span class="string">"somewhere else at (<span class="subst">\(x)</span>, <span class="subst">\(y)</span>)"</span>)
+}
+<span class="comment">// 输出 "on the x-axis with an x value of 2"</span>
+</code></pre><h2 id="使用where_模式匹配">使用where 模式匹配</h2><pre><code><span class="keyword">let</span> yetAnotherPoint = (<span class="number">1</span>, -<span class="number">1</span>)
+<span class="keyword">switch</span> yetAnotherPoint {
+<span class="keyword">case</span> <span class="keyword">let</span> (x, y) <span class="keyword">where</span> x == y:
+    <span class="built_in">print</span>(<span class="string">"(<span class="subst">\(x)</span>, <span class="subst">\(y)</span>) is on the line x == y"</span>)
+<span class="keyword">case</span> <span class="keyword">let</span> (x, y) <span class="keyword">where</span> x == -y:
+    <span class="built_in">print</span>(<span class="string">"(<span class="subst">\(x)</span>, <span class="subst">\(y)</span>) is on the line x == -y"</span>)
+<span class="keyword">case</span> <span class="keyword">let</span> (x, y):
+    <span class="built_in">print</span>(<span class="string">"(<span class="subst">\(x)</span>, <span class="subst">\(y)</span>) is just some arbitrary point"</span>)
+}
+<span class="comment">// 输出 "(1, -1) is on the line x == -y"</span>
+</code></pre><h1 id="For循环">For循环</h1><p>#使用For-In<br>    var firstForLoop = 0<br>    for i in 0..&lt;4 {<br>        firstForLoop += i<br>    }<br>    print(firstForLoop)</p>
+<pre><code>var secondForLoop = <span class="number">0</span>
+<span class="keyword">for</span> _ in <span class="number">0.</span>.<span class="number">.4</span> {
+    secondForLoop += <span class="number">1</span>
+}
+print(secondForLoop)
+</code></pre><h2 id="使用下划线_替代循环变量名">使用下划线_替代循环变量名</h2><p>如果你不需要知道区间内每一项的值，你可以使用下划线（_）替代变量名来忽略对值的访问：<br>code:</p>
+<pre><code><span class="keyword">let</span> base = <span class="number">3</span>
+<span class="keyword">let</span> power = <span class="number">10</span>
+<span class="keyword">var</span> answer = <span class="number">1</span>
+<span class="keyword">for</span> <span class="number">_</span> <span class="keyword">in</span> <span class="number">1</span>...power {
+    answer *= base
+}
+<span class="built_in">print</span>(<span class="string">"<span class="subst">\(base)</span> to the power of <span class="subst">\(power)</span> is <span class="subst">\(answer)</span>"</span>)
+<span class="comment">// 输出 "3 to the power of 10 is 59049"</span>
+</code></pre><p>code2:</p>
+<pre><code>var secondForLoop = <span class="number">0</span>
+<span class="keyword">for</span> _ in <span class="number">0.</span>.<span class="number">.4</span> {
+    secondForLoop += <span class="number">1</span>
+}
+print(secondForLoop)
+<span class="comment">//输出5</span>
+</code></pre><h2 id="遍历数组元素">遍历数组元素</h2><pre><code><span class="keyword">let</span> names = [<span class="string">"Anna"</span>, <span class="string">"Alex"</span>, <span class="string">"Brian"</span>, <span class="string">"Jack"</span>]
+<span class="keyword">for</span> name <span class="keyword">in</span> names {
+    <span class="built_in">print</span>(<span class="string">"Hello, <span class="subst">\(name)</span>!"</span>)
+}
+<span class="comment">// Hello, Anna!</span>
+<span class="comment">// Hello, Alex!</span>
+<span class="comment">// Hello, Brian!</span>
+<span class="comment">// Hello, Jack!</span>
+</code></pre><h2 id="遍历字典的键值对">遍历字典的键值对</h2><p>字典元素的遍历顺序和插入顺序可能不同</p>
+<pre><code><span class="keyword">let</span> numberOfLegs = [<span class="string">"spider"</span>: <span class="number">8</span>, <span class="string">"ant"</span>: <span class="number">6</span>, <span class="string">"cat"</span>:<span class="number">4</span>]
+<span class="keyword">for</span> (animalName, legCount) <span class="keyword">in</span> numberOfLegs{
+    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(animalName)</span>s have <span class="subst">\(legCount)</span> legs"</span>)
+}
+<span class="comment">// ants have 6 legs</span>
+<span class="comment">// cats have 4 legs</span>
+<span class="comment">// spiders have 8 legs</span>
+</code></pre><h2 id="使用条件判断和递增方法的标准_C_样式for循环">使用条件判断和递增方法的标准 C 样式for循环</h2><pre><code><span class="keyword">for</span> var <span class="keyword">index</span> = <span class="number">0</span>; <span class="keyword">index</span> &lt; <span class="number">3</span>; ++<span class="keyword">index</span> {
+    <span class="keyword">print</span>(<span class="string">"index is \(index)"</span>)
+}
+// <span class="keyword">index</span> is <span class="number">0</span>
+// <span class="keyword">index</span> is <span class="number">1</span>
+// <span class="keyword">index</span> is <span class="number">2</span>
+</code></pre><h1 id="While循环">While循环</h1><h2 id="while">while</h2><pre><code><span class="keyword">var</span> <span class="built_in">count</span> = <span class="number">1</span>
+<span class="keyword">while</span> <span class="built_in">count</span> &lt; <span class="number">3</span> {
+    <span class="built_in">println</span>(<span class="string">"count is <span class="subst">\(<span class="built_in">count</span>)</span>"</span>)
+    ++<span class="built_in">count</span>
+}
+<span class="comment">// count is 1</span>
+<span class="comment">// count is 2</span>
+
+<span class="built_in">count</span> = <span class="number">1</span>
+<span class="keyword">while</span> <span class="built_in">count</span> &lt; <span class="number">1</span> {
+    <span class="built_in">println</span>(<span class="string">"count is <span class="subst">\(<span class="built_in">count</span>)</span>"</span>)
+    ++<span class="built_in">count</span>
+}
+</code></pre><h2 id="repeat-while">repeat-while</h2><pre><code><span class="keyword">var</span> <span class="built_in">count</span> = <span class="number">1</span>
+repeat {
+    <span class="built_in">print</span>(<span class="string">"count is <span class="subst">\(<span class="built_in">count</span>)</span>"</span>)
+    ++<span class="built_in">count</span>
+} <span class="keyword">while</span> <span class="built_in">count</span> &lt; <span class="number">3</span>
+<span class="comment">// count is 1</span>
+<span class="comment">// count is 2</span>
+
+<span class="built_in">count</span> = <span class="number">1</span>
+repeat {
+    <span class="built_in">print</span>(<span class="string">"count is <span class="subst">\(<span class="built_in">count</span>)</span>"</span>)
+    ++<span class="built_in">count</span>
+} <span class="keyword">while</span> <span class="built_in">count</span> &lt; <span class="number">1</span>
+<span class="comment">// count is 1</span>
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;If_条件语句&quot;&gt;If 条件语句&lt;/h1&gt;&lt;h2 id=&quot;if_else&quot;&gt;if else&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;built_in&quot;&gt;let&lt;/span&gt; number = &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; number &amp;lt; &lt;span class=&quot;number&quot;&gt;10&lt;/span&gt; {
+    &lt;span class=&quot;built_in&quot;&gt;print&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;The number is small&quot;&lt;/span&gt;)
+} &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; number &amp;gt; &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt; {
+    &lt;span class=&quot;built_in&quot;&gt;print&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;The number is pretty big&quot;&lt;/span&gt;)
+} &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; {
+    &lt;span class=&quot;built_in&quot;&gt;print&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;The number is between 10 and 100&quot;&lt;/span&gt;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Swift Cheat Sheet [1] — Basic Types</title>
+    <link href="http://yoursite.com/Swift%20Cheat%20Sheet%20%5B1%5D%20%E2%80%94%20Basic%20Types.html"/>
+    <id>http://yoursite.com/Swift Cheat Sheet [1] — Basic Types.html</id>
+    <published>2015-10-21T02:28:31.000Z</published>
+    <updated>2016-02-26T06:27:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="常量和变量">常量和变量</h1><h2 id="Varibales">Varibales</h2><pre><code><span class="variable"><span class="keyword">var</span> myInt</span> = <span class="number">1</span> <span class="comment">//inexplicit type</span>
+<span class="variable"><span class="keyword">var</span> myExplicitInt</span> : <span class="typename">Int</span> = <span class="number">1</span> <span class="comment">// explicit type</span>
+<span class="variable"><span class="keyword">var</span> x</span> = <span class="number">1</span>, y = <span class="number">2</span>, z = <span class="number">3</span> <span class="comment">//declare multiple integers</span>
+myExplicitInt = <span class="number">3</span> <span class="comment">// set to another integer value</span>
+</code></pre><h2 id="Constants">Constants</h2><pre><code>let myInt = <span class="number">1</span>
+myInt = <span class="number">2</span> <span class="comment">//compile-time error !!!</span>
+</code></pre><h2 id="常量和变量的命名">常量和变量的命名</h2><pre><code><span class="keyword">let</span> π = <span class="number">3.1</span><span class="number">4159</span>
+<span class="keyword">let</span> 你好 = <span class="string">"你好世界"</span>
+<span class="keyword">let</span> 🐶🐮 = <span class="string">"dogcow"</span> <span class="comment">//可以用任何字符作为常量或变量名，包括Unicode字符</span>
+</code></pre><a id="more"></a>
+<h1 id="可选类型">可选类型</h1><p>可选类型，暗示常量或者变量可以没有值。</p>
+<pre><code><span class="keyword">let</span> possibleNumber = <span class="string">"123"</span>
+<span class="keyword">let</span> convertedNumber = <span class="built_in">Int</span>(possibleNumber)
+// convertedNumber 被推测为类型 <span class="string">"Int?"</span>， 或者类型 <span class="string">"optional Int"</span>
+</code></pre><h2 id="nil">nil</h2><p>可以给可选变量赋值为nil来表示它没有值.</p>
+<pre><code><span class="variable"><span class="keyword">var</span> serverResponseCode</span>: <span class="typename">Int</span>? = <span class="number">404</span>
+<span class="comment">// serverResponseCode 包含一个可选的 Int 值 404</span>
+serverResponseCode = nil
+<span class="comment">// serverResponseCode 现在不包含值</span>
+</code></pre><p>如果你声明一个可选常量或者变量但是没有赋值，它们会自动被设置为nil</p>
+<pre><code><span class="keyword">var</span> surveyAnswer: <span class="built_in">String</span>?
+<span class="comment">// surveyAnswer 被自动设置为 nil</span>
+</code></pre><p>注意：</p>
+<blockquote>
+<ul>
+<li>Swift 的nil和 Objective-C 中的nil并不一样。在 Objective-C 中，nil是一个指向不存在对象的指针。</li>
+<li>在Swift 中，nil不是指针——它是一个确定的值，用来表示值缺失。</li>
+<li>任何类型的可选状态都可以被设置为nil，不只是对象类型。</li>
+<li>nil不能用于非可选的常量和变量。如果你的代码中有常量或者变量需要处理值缺失的情况，请把它们声明成对应的可选类型。</li>
+</ul>
+</blockquote>
+<h2 id="if_语句以及可选值的强制解析（forced_unwrapping）">if 语句以及可选值的强制解析（forced unwrapping）</h2><p>使用if语句和nil比较来判断一个可选值是否包含值<br>当你确定可选类型确实包含值之后，你可以在可选的名字后面加一个感叹号（!）来获取值</p>
+<pre><code><span class="keyword">var</span> convertedNumber : <span class="type">Int</span>? = <span class="number">10</span>
+<span class="keyword">if</span> convertedNumber != <span class="literal">nil</span>{
+    <span class="built_in">print</span>(<span class="string">"convertedNumber has an integer value of <span class="subst">\(convertedNumber!)</span>"</span>)
+}
+<span class="comment">// 输出 "convertedNumber has an integer value of 10"</span>
+</code></pre><h2 id="可选绑定（option_binding）">可选绑定（option binding）</h2><p>使用可选绑定（optional binding）来判断可选类型是否包含值，如果包含就把值赋给一个临时常量或者变量。可选绑定可以用在if和while语句中，这条语句不仅可以用来判断可选类型中是否有值，同时可以将可选类型中的值赋给一个常量或者变量</p>
+<h3 id="一个示例解析">一个示例解析</h3><ul>
+<li><p>示例：</p>
+<p>  let possibleNumber = “123”<br>  if let actualNumber = Int(possibleNumber){</p>
+<pre><code><span class="function"><span class="title">print</span><span class="params">(<span class="string">"\'\(possibleNumber)\' has an integer value of \(actualNumber)"</span>)</span></span>
+</code></pre><p>  }else{</p>
+<pre><code><span class="function"><span class="title">print</span><span class="params">(<span class="string">"\'\(possibleNumber)\' could not be convered to an integer"</span>)</span></span>
+</code></pre><p>  }</p>
+</li>
+<li><p>解释这个示例：<br>如果Int(possibleNumber)返回的可选Int包含一个值，创建一个叫做actualNumber的新常量并将可选包含的值赋给它。<br>如果转换成功，actualNumber常量可以在if语句的第一个分支中使用。它已经被可选类型包含的值初始化过，所以不需要再使用!后缀来获取它的值。在这个例子中，actualNumber只被用来输出转换结果。</p>
+</li>
+</ul>
+<h3 id="包含多个可选绑定在条件判断语句中">包含多个可选绑定在条件判断语句中</h3><pre><code><span class="keyword">if</span> <span class="keyword">let</span> firstNumber = <span class="type">Int</span>(<span class="string">"4"</span>), secondNumber = <span class="type">Int</span>(<span class="string">"42"</span>) <span class="keyword">where</span> firstNumber &lt; secondNumber
+{
+    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(firstNumber)</span> &lt; <span class="subst">\(secondNumber)</span>"</span>)
+}
+<span class="comment">// prints "4 &lt; 42"</span>
+</code></pre><h2 id="隐式解析可选类型（implicitly_unwrapped_optionals）">隐式解析可选类型（implicitly unwrapped optionals）</h2><p>在Swift构造的过程中，当可选类型第一次赋值之后，就可以确定之后一直有值。这种情况下，可选类型的可选状态被定义为隐式解析可选类型。把可选类型后边的问号改为叹号。</p>
+<pre><code><span class="keyword">let</span> possibleString: <span class="built_in">String</span>? = <span class="string">"An optional string."</span>
+<span class="keyword">let</span> forcedString: <span class="built_in">String</span> = possibleString! <span class="comment">// 需要惊叹号来获取值</span>
+
+<span class="keyword">let</span> assumedString: <span class="built_in">String</span>! = <span class="string">"An implicitly unwrapped optional string."</span>
+<span class="keyword">let</span> implicitString: <span class="built_in">String</span> = assumedString  <span class="comment">// 不需要感叹号</span>
+</code></pre><h1 id="分号">分号</h1><pre><code><span class="comment">//Swift不强制要求在语句结尾处使用分号，当然，也可以按照自己的习惯添加</span>
+<span class="comment">//当在同一行内写多条独立的语句时，必须要用分号！</span>
+let <span class="keyword">cat</span> = <span class="string">"🐱"</span>;<span class="keyword">print</span>(<span class="keyword">cat</span>)
+</code></pre><h1 id="整数">整数</h1><h2 id="整数范围">整数范围</h2><p>使用min和max属性获取整数的最小值和最大值</p>
+<pre><code><span class="keyword">let</span> minValue = UInt8<span class="built_in">.</span><span class="keyword">min</span> <span class="comment">// minValue 为 0，是 UInt8 类型</span>
+<span class="keyword">let</span> maxValue = UInt8<span class="built_in">.</span><span class="keyword">max</span>  <span class="comment">// maxValue 为 255，是 UInt8 类型</span>
+</code></pre><h2 id="Int">Int</h2><ul>
+<li>在32位平台上，Int和Int32长度相同。</li>
+<li>在64位平台上，Int和Int64长度相同。</li>
+<li>Int足够用了。</li>
+</ul>
+<h2 id="UInt">UInt</h2><ul>
+<li>在32位平台上，UInt和UInt32长度相同。</li>
+<li>在64位平台上，UInt和UInt64长度相同。</li>
+<li>尽量不要使用UInt</li>
+</ul>
+<h1 id="浮点数">浮点数</h1><ul>
+<li>Double表示64位浮点数，至少15位小数点。当你需要存储很大或者很高精度的浮点数时请使用此类型。</li>
+<li>Float表示32位浮点数，至少6位小数点。精度要求不高的话可以使用此类型。</li>
+</ul>
+<h1 id="String">String</h1><h2 id="操作符+">操作符+</h2><pre><code><span class="keyword">var</span> myString = <span class="string">"a"</span>
+<span class="keyword">let</span> myImmutableString = <span class="string">"c"</span>
+myString += <span class="string">"b"</span> <span class="comment">// ab</span>
+myString = myString + myImmutableString <span class="comment">//abc</span>
+myImmutableString += <span class="string">"d"</span> <span class="comment">//compile-time error!!!</span>
+</code></pre><h2 id="字符串插值\(value)">字符串插值\(value)</h2><pre><code><span class="keyword">let</span> <span class="built_in">count</span> = <span class="number">7</span>
+<span class="keyword">let</span> message = <span class="string">"There are <span class="subst">\(<span class="built_in">count</span>)</span> days in a week"</span>
+</code></pre><h1 id="Bool值在if语句中的应用">Bool值在if语句中的应用</h1><pre><code><span class="built_in">let</span> turnipsAreDelicious = <span class="literal">false</span>
+<span class="keyword">if</span> turnipsAreDelicious {
+    <span class="built_in">print</span>(<span class="string">"Mmm, tasty turnips!"</span>)
+}<span class="keyword">else</span> {
+    <span class="built_in">print</span>(<span class="string">"Eww, turnips are horrible."</span>)
+}
+</code></pre><h1 id="元组">元组</h1><p>元组（tuples）把多个值组合成一个复合值。元组内的值可以是<strong>任意类型</strong>，并不要求是相同类型。</p>
+<h2 id="创建一个元组">创建一个元组</h2><pre><code><span class="built_in">let</span> http404Error = (<span class="number">404</span>, <span class="string">"Not Found"</span>)
+//<span class="built_in">let</span> http404Error = (<span class="number">404</span>, <span class="string">"Not Found"</span>)
+</code></pre><h2 id="分解元组内容">分解元组内容</h2><pre><code>let http404Error = (<span class="number">404</span>, <span class="string">"Not Found"</span>)
+let (statusCode, statusMessage) = http404Error
+<span class="function"><span class="title">print</span><span class="params">((<span class="string">"The status code is \(statusCode)"</span>)</span></span>)
+<span class="comment">// 输出 "The status code is 404"</span>
+<span class="function"><span class="title">print</span><span class="params">(<span class="string">"The status message is \(statusMessage)"</span>)</span></span>
+<span class="comment">// 输出 "The status message is Not Found"</span>
+</code></pre><h2 id="用下划线_忽略一部分元组值">用下划线_忽略一部分元组值</h2><p>如果你只需要一部分元组值，分解的时候可以把要忽略的部分用下划线（_）标记：</p>
+<pre><code>let (justTheStatusCode, _) = http404Error
+<span class="function"><span class="title">print</span><span class="params">(<span class="string">"The status code is \(justTheStatusCode)"</span>)</span></span>
+<span class="comment">// 输出 "The status code is 404"</span>
+</code></pre><h2 id="访问元组的单个元素">访问元组的单个元素</h2><pre><code><span class="function"><span class="title">print</span><span class="params">(<span class="string">"The status code is \(http404Error.0)"</span>)</span></span>
+<span class="comment">// 输出 "The status code is 404"</span>
+<span class="function"><span class="title">print</span><span class="params">(<span class="string">"The status message is \(http404Error.1)"</span>)</span></span>
+<span class="comment">// 输出 "The status message is Not Found"</span>
+</code></pre><h2 id="给元组的单个元素命名">给元组的单个元素命名</h2><pre><code>let http200Status = (<span class="string">statusCode:</span> <span class="number">200</span>, <span class="string">description:</span> <span class="string">"OK"</span>)
+</code></pre><h2 id="通过名字访问元组元素">通过名字访问元组元素</h2><pre><code><span class="function"><span class="title">print</span><span class="params">(<span class="string">"The status code is \(http200Status.statusCode)"</span>)</span></span>
+<span class="comment">// 输出 "The status code is 200"</span>
+<span class="function"><span class="title">print</span><span class="params">(<span class="string">"The status description is \(http200Status.description)"</span>)</span></span>
+<span class="comment">// 输出 "The status message is OK"</span>
+</code></pre><h1 id="类型别名">类型别名</h1><pre><code>typealias AudioSample = UInt16
+<span class="comment">//使用typealias关键字来定义类型别名</span>
+<span class="tag">var</span> maxAmplitudeFound = AudioSample<span class="class">.min</span>
+<span class="comment">//maxAmplitudeFound 现在是 0</span>
+</code></pre><h1 id="类型转换">类型转换</h1><h2 id="整数和浮点数">整数和浮点数</h2><h3 id="整数_to_浮点数">整数 to 浮点数</h3><pre><code><span class="keyword">let</span> three = <span class="number">3</span>
+<span class="keyword">let</span> pointOneFourOneFiveNine = <span class="number">0.14159</span>
+<span class="keyword">let</span> <span class="literal">pi</span> = Double(three) + pointOneFourOneFiveNine
+// <span class="literal">pi</span> 等于 <span class="number">3.14159</span>，所以被推测为 Double 类型
+</code></pre><h3 id="浮点数_to_整数">浮点数 to 整数</h3><pre><code><span class="keyword">let</span> integerPi = <span class="built_in">Int</span>(<span class="literal">pi</span>)
+// integerPi 等于 <span class="number">3</span>，所以被推测为 <span class="built_in">Int</span> 类型
+</code></pre><h2 id="整数和字符串">整数和字符串</h2><h4 id="Int_to_String">Int to String</h4><pre><code>let <span class="tag">label</span> = <span class="string">"The width is"</span>
+let <span class="attribute">width</span> = <span class="number">94</span>
+let widthLabel = <span class="tag">label</span> + <span class="function"><span class="title">String</span><span class="params">(width)</span></span><span class="comment">// The width is 94</span>
+</code></pre><h3 id="String_to_Int">String to Int</h3><p>code1:</p>
+<pre><code><span class="tag">var</span> myString = <span class="string">"7"</span> <span class="comment">//7</span>
+<span class="tag">var</span> possibleInt = <span class="function"><span class="title">Int</span><span class="params">(myString)</span></span> <span class="comment">//7</span>
+<span class="function"><span class="title">print</span><span class="params">(possibleInt)</span></span> <span class="comment">//"Optional(7)\n"</span>
+</code></pre><p>code2:</p>
+<pre><code><span class="tag">var</span> myString1 = <span class="string">"banana"</span> <span class="comment">// "banana"</span>
+<span class="tag">var</span> possibleInt1 = <span class="function"><span class="title">Int</span><span class="params">(myString1)</span></span> <span class="comment">//nil</span>
+<span class="function"><span class="title">print</span><span class="params">(possibleInt1)</span></span> <span class="comment">// "nil\n"</span>
+</code></pre><h1 id="Printing">Printing</h1><pre><code>let name = <span class="string">"Swift"</span>
+<span class="function"><span class="title">println</span><span class="params">(<span class="string">"Hello"</span>)</span></span>
+<span class="function"><span class="title">pringln</span><span class="params">(<span class="string">"My name is \(name)"</span>)</span></span>
+<span class="function"><span class="title">print</span><span class="params">(<span class="string">"See you"</span>)</span></span>
+<span class="function"><span class="title">print</span><span class="params">(later)</span></span>
+<span class="comment">/*
+    Hello
+    My name is Swift
+    See you later
+*/</span>
+</code></pre><h1 id="Logical_Operators">Logical Operators</h1><pre><code><span class="variable"><span class="keyword">var</span> happy</span> = <span class="literal">true</span>
+<span class="variable"><span class="keyword">var</span> sad</span> = !happy<span class="comment">//logical NOT,sad = false</span>
+<span class="variable"><span class="keyword">var</span> everyoneHappy</span> = happy &amp;&amp; sad<span class="comment">//logical AND, everyoneHappy = false</span>
+<span class="variable"><span class="keyword">var</span> someoneHappy</span> = happy || sad <span class="comment">//logical OR, someoneHappy = true</span>
+</code></pre><h1 id="Functions">Functions</h1><pre><code><span class="func"><span class="keyword">func</span> <span class="title">iAdd</span><span class="params">(a:Int,b:Int,<span class="built_in">c</span>:Int)</span></span> -&gt; <span class="type">Int</span>{
+    <span class="keyword">return</span> a + b + <span class="built_in">c</span>
+}
+iAdd(<span class="number">1</span>, b: <span class="number">2</span>, <span class="built_in">c</span>: <span class="number">3</span>)<span class="comment">//return 6</span>
+
+
+<span class="func"><span class="keyword">func</span> <span class="title">eitherSide</span><span class="params">(n:Int)</span></span>-&gt; (nMinusOne:<span class="type">Int</span>, nPlusOne:<span class="type">Int</span>){
+    <span class="keyword">return</span>(n-<span class="number">1</span>, n+<span class="number">1</span>)
+}
+eitherSide(<span class="number">5</span>)<span class="comment">//(.0 4, .1 6)</span>
+</code></pre><h1 id="Array">Array</h1><h2 id="空数组">空数组</h2><pre><code>// Creates an empty array.
+let emptyArray = [<span class="link_label">String</span>](<span class="link_url"></span>) // []
+</code></pre><h2 id="索引">索引</h2><pre><code><span class="atom">var</span> <span class="atom">ratingList</span> = [<span class="string">"Poor"</span>, <span class="string">"Fine"</span>, <span class="string">"Good"</span>, <span class="string">"Excellent"</span>]
+<span class="atom">ratingList</span>[<span class="number">1</span>] = <span class="string">"k"</span>
+<span class="atom">ratingList</span> // <span class="atom">return</span> [<span class="string">"Poor"</span>, <span class="string">"OK"</span>, <span class="string">"Good"</span>, <span class="string">"Excellent"</span>]
+</code></pre><h2 id="拼接数组">拼接数组</h2><pre><code><span class="atom">var</span> <span class="atom">colors</span> = [<span class="string">"red"</span>, <span class="string">"blue"</span>] //[<span class="string">"red"</span>, <span class="string">"blue"</span>]
+<span class="atom">var</span> <span class="atom">moreColors</span>: [<span class="name">String</span>] = [<span class="string">"orange"</span>, <span class="string">"purple"</span>] //[<span class="string">"orange"</span>, <span class="string">"purple"</span>]
+<span class="atom">colors</span>.<span class="atom">append</span>(<span class="string">"green"</span>) //[<span class="string">"red"</span>, <span class="string">"blue"</span>, <span class="string">"green"</span>]
+<span class="atom">colors</span> += [<span class="string">"yellow"</span>] //[<span class="string">"red"</span>, <span class="string">"blue"</span>, <span class="string">"green"</span>, <span class="string">"yellow"</span>]
+<span class="atom">colors</span> += <span class="atom">moreColors</span> //[<span class="string">"red"</span>, <span class="string">"blue"</span>, <span class="string">"green"</span>, <span class="string">"yellow"</span>, <span class="string">"orange"</span>, <span class="string">"purple"</span>]
+</code></pre><h2 id="添加和删除元素">添加和删除元素</h2><pre><code><span class="tag">var</span> days = [<span class="string">"mon"</span>, <span class="string">"thu"</span>] 
+<span class="tag">var</span> firstDay = days[<span class="number">0</span>] <span class="comment">// mon</span>
+days.<span class="function"><span class="title">insert</span><span class="params">(<span class="string">"tue"</span>, atIndex: <span class="number">1</span>)</span></span> <span class="comment">// [mon, tue, thu]</span>
+days[<span class="number">2</span>] = <span class="string">"wed"</span>  <span class="comment">// [mon, tue, wed]</span>
+days.<span class="function"><span class="title">removeAtIndex</span><span class="params">(<span class="number">0</span>)</span></span>  <span class="comment">//[tue, wed]</span>
+</code></pre><h1 id="Dictionary">Dictionary</h1><pre><code><span class="tag">var</span> days = [<span class="string">"mon"</span>: <span class="string">"monday"</span>, <span class="string">"tue"</span>: <span class="string">"tuseday"</span>]
+days[<span class="string">"tue"</span>] = <span class="string">"tuesday"</span> <span class="comment">// change the value for key "tue"</span>
+days[<span class="string">"wed"</span>] = <span class="string">"wednesday"</span> <span class="comment">// add a new key/value pair</span>
+
+<span class="tag">var</span> moreDays: Dictionary = [<span class="string">"thu"</span>: <span class="string">"thursday"</span>, <span class="string">"fri"</span>: <span class="string">"friday"</span>]
+moreDays[<span class="string">"thu"</span>] = nil <span class="comment">// remove thu from the dictionary</span>
+moreDays.<span class="function"><span class="title">removeValueForKey</span><span class="params">(<span class="string">"fri"</span>)</span></span> <span class="comment">// remove fri from the dictionary</span>
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;常量和变量&quot;&gt;常量和变量&lt;/h1&gt;&lt;h2 id=&quot;Varibales&quot;&gt;Varibales&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;variable&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; myInt&lt;/span&gt; = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;//inexplicit type&lt;/span&gt;
+&lt;span class=&quot;variable&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; myExplicitInt&lt;/span&gt; : &lt;span class=&quot;typename&quot;&gt;Int&lt;/span&gt; = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;// explicit type&lt;/span&gt;
+&lt;span class=&quot;variable&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; x&lt;/span&gt; = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;, y = &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;, z = &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;//declare multiple integers&lt;/span&gt;
+myExplicitInt = &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;// set to another integer value&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;Constants&quot;&gt;Constants&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;let myInt = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;
+myInt = &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;//compile-time error !!!&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;常量和变量的命名&quot;&gt;常量和变量的命名&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; π = &lt;span class=&quot;number&quot;&gt;3.1&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;4159&lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; 你好 = &lt;span class=&quot;string&quot;&gt;&quot;你好世界&quot;&lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; 🐶🐮 = &lt;span class=&quot;string&quot;&gt;&quot;dogcow&quot;&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;//可以用任何字符作为常量或变量名，包括Unicode字符&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="Swift" scheme="http://yoursite.com/tags/Swift/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="知识小集" scheme="http://yoursite.com/tags/%E7%9F%A5%E8%AF%86%E5%B0%8F%E9%9B%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HScrollViewWithTitleAndSlide</title>
+    <link href="http://yoursite.com/HScrollViewWithTitleAndSlide.html"/>
+    <id>http://yoursite.com/HScrollViewWithTitleAndSlide.html</id>
+    <published>2015-10-20T09:13:11.000Z</published>
+    <updated>2016-02-26T06:27:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="功能说明">功能说明</h2><ol>
+<li>模仿LOFTER发现界面的页面切换效果</li>
+<li>标题可以随着内容的滚动而滚动</li>
+<li>下拉展示所有标题以供点选</li>
+<li>下拉按钮的图片和勾选的图片可以自定义，每页最多显示的标题的个数可以自定义。</li>
+<li>封装的比较完整，使用起来很简单，几句代码搞定。</li>
+<li>使用Xcode7.0.1  Objective-C</li>
+<li>GitHub地址：<a href="https://github.com/SharonHu1990/HScrollViewWithTitleAndSlide" target="_blank" rel="external">https://github.com/SharonHu1990/HScrollViewWithTitleAndSlide</a></li>
+</ol>
+<a id="more"></a>
+<h2 id="框架使用说明">框架使用说明</h2><ol>
+<li>拖拽HSlideScrollView文件夹到你的工程目录.</li>
+<li>在需要使用该框架的ViewController中添加如下代码：</li>
+</ol>
+<p>代码示例：</p>
+<pre><code><span class="comment">/**
+ *  添加MySlideScrollView
+ */</span>
+-(<span class="typename">void</span>)addMySlideScrollView
+{
+    CGRect slideScrollFrame = CGRectMake(<span class="number">0</span>, <span class="number">64</span>, self.view.frame.size.width, self.view.frame.size.height-<span class="number">64</span>);
+    NSArray *titlesArray = [[NSArray alloc] <span class="string">initWithObjects:</span>@<span class="string">"A"</span>, @<span class="string">"B"</span>, @<span class="string">"C"</span>, @<span class="string">"D"</span>, @<span class="string">"E"</span>, @<span class="string">"F"</span>, @<span class="string">"G"</span>, @<span class="string">"H"</span>, @<span class="string">"I"</span>, @<span class="string">"J"</span>,     @<span class="string">"K"</span>, @<span class="string">"L"</span>, @<span class="string">"M"</span>, @<span class="string">"N"</span>, nil];
+    mySlideScrollView = [[HSlideScrollView alloc] <span class="string">initWithFrame:</span>slideScrollFrame <span class="string">andTitleArrays:</span>titlesArray     <span class="string">andTitleScrollerViewHight:</span><span class="number">40.</span>f <span class="string">andNumverOfTitlesPerPage:</span><span class="number">7</span> <span class="string">andArrowImage:</span>[UIImage <span class="string">imageNamed:</span>@<span class="string">"arrow_down"</span>] <span class="string">andTickImage:</span>[UIImage         <span class="string">imageNamed:</span>@<span class="string">"tick"</span>] <span class="string">andTitleListTitle:</span>@<span class="string">"分类"</span>];
+     [self.view <span class="string">addSubview:</span>mySlideScrollView];
+}
+</code></pre><h2 id="功能演示">功能演示</h2><p><img src="http://7xlt6k.com1.z0.glb.clouddn.com/SlideScrollView.gif" alt="功能演示"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;功能说明&quot;&gt;功能说明&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;模仿LOFTER发现界面的页面切换效果&lt;/li&gt;
+&lt;li&gt;标题可以随着内容的滚动而滚动&lt;/li&gt;
+&lt;li&gt;下拉展示所有标题以供点选&lt;/li&gt;
+&lt;li&gt;下拉按钮的图片和勾选的图片可以自定义，每页最多显示的标题的个数可以自定义。&lt;/li&gt;
+&lt;li&gt;封装的比较完整，使用起来很简单，几句代码搞定。&lt;/li&gt;
+&lt;li&gt;使用Xcode7.0.1  Objective-C&lt;/li&gt;
+&lt;li&gt;GitHub地址：&lt;a href=&quot;https://github.com/SharonHu1990/HScrollViewWithTitleAndSlide&quot;&gt;https://github.com/SharonHu1990/HScrollViewWithTitleAndSlide&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="Demo" scheme="http://yoursite.com/tags/Demo/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iOS开发总结</title>
+    <link href="http://yoursite.com/iOS%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93.html"/>
+    <id>http://yoursite.com/iOS开发总结.html</id>
+    <published>2015-10-15T00:53:04.000Z</published>
+    <updated>2016-02-26T06:27:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录iOS开发过程中使用的技术、遇到的问题以及解决方法。</p>
+<a id="more"></a>
+<h3 id="自定义系统键盘上方的View有两种方法">自定义系统键盘上方的View有两种方法</h3><p>1.设定textfield或者textview的inputAccessoryView属性<br>2.监听键盘事件，获取键盘高度，动态改变自定义View的位置</p>
+<h3 id="CocoaPods_执行_pod_update_和_pod_install_卡住不动">CocoaPods 执行 pod update 和 pod install 卡住不动</h3><p>使用加参数的命令：<br>pod install –verbose –no-repo-update<br>或者<br>pod update –verbose –no-repo-update</p>
+<h3 id="添加PCH文件">添加PCH文件</h3><p><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-12%20%E4%B8%8A%E5%8D%889.35.57.png" alt="添加PCH文件"><br>注意在BuildSetting中设置Prefix header路径</p>
+<h3 id="添加讯飞语音需要的系统类库">添加讯飞语音需要的系统类库</h3><p><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-14%20%E4%B8%8A%E5%8D%8810.38.35.png" alt="添加讯飞语音需要注意的"></p>
+<h3 id="安装CocoaPods错误">安装CocoaPods错误</h3><p>如果是下面这个错误：<br>Could not find a valid gem ‘cocoapods’ (&gt;= 0), here is why: Unable to download data from <a href="https://rubygems.org/" target="_blank" rel="external">https://rubygems.org/</a> - Errno::ETIMEDOUT: Op…</p>
+<p>解决方法，<a href="http://stackoverflow.com/questions/15305350/gem-install-fails-with-openssl-failure" target="_blank" rel="external">看这里!</a></p>
+<h3 id="Undefined_symbols_for_architecture_arm64">Undefined symbols for architecture arm64</h3><ol>
+<li><p>检查Pod的TARGETS和工程项目的TARGETS的BuildSetting<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-15%20%E4%B8%8A%E5%8D%889.06.43.png" alt="此处输入图片的描述"></p>
+</li>
+<li><p>检查工程项目TARGETS的Other Linder Flags<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-15%20%E4%B8%8A%E5%8D%889.10.01.png" alt="此处输入图片的描述"></p>
+</li>
+</ol>
+<h3 id="理解armv7_armv7s_arm64_i386_x86_64">理解armv7 armv7s arm64 i386 x86_64</h3><p><a href="http://blog.csdn.net/lizhongfu2013/article/details/42387311" target="_blank" rel="external">看这篇博文</a></p>
+<h3 id="什么时候用Block或代理？">什么时候用Block或代理？</h3><p><a href="http://blog.cocoabit.com/2014-01-19-block-delegate/" target="_blank" rel="external">看这篇博文</a><br>1.要是一个对象有超过一个的不同的事件，使用代理<br>2.要是一个对象是个单例，我们不能使用代理<br>3.要是一个对象调用方法需要返回一些额外的信息，我们可能需要使用代理<br>4.过程 vs. 结果<br>5.速度（也许吧？）</p>
+<p>具体情况，具体分析!</p>
+<h3 id="使用%运算符出现错误：invalid_operands_to_binary_expression_(‘CGFloat’(aka_‘double’)_and_‘CGFloat’)">使用%运算符出现错误：invalid operands to binary expression (‘CGFloat’(aka ‘double’) and ‘CGFloat’)</h3><p>CGFloat c = a % b;<br>解决：% is for int or long, not float or double.<br>You can use fmod() or fmodf() from <math.h> instead.<br>Better is <tgmath.h> as suggested by the inventor of CGFloat.</tgmath.h></math.h></p>
+<h3 id="Objective-C浮点数向上取整和向下取整：">Objective-C浮点数向上取整和向下取整：</h3><p>向上取整：ceil（f）//f为浮点数<br>向下取整：floor(f)//f为浮点数</p>
+<h3 id="TableView的分割线从顶端开始：">TableView的分割线从顶端开始：</h3><pre><code><span class="tag">if</span> ([self.tableView <span class="attribute">respondsToSelector</span>:<span class="variable">@selector</span>(<span class="attribute">setLayoutMargins</span>:)]) {  
+  <span class="attr_selector">[self.tableView setLayoutMargins:UIEdgeInsetsZero]</span>;  
+} 
+
+
+<span class="tag">if</span> ([cell <span class="attribute">respondsToSelector</span>:<span class="variable">@selector</span>(<span class="attribute">setSeparatorInset</span>:)]) {  
+ <span class="attr_selector">[cell setSeparatorInset:UIEdgeInsetsZero]</span>;  
+}  
+<span class="tag">if</span> ([cell <span class="attribute">respondsToSelector</span>:<span class="variable">@selector</span>(<span class="attribute">setLayoutMargins</span>:)]) {  
+<span class="attr_selector">[cell setLayoutMargins:UIEdgeInsetsZero]</span>;  
+}
+</code></pre><h3 id="Swift中宏替换与代码标识">Swift中宏替换与代码标识</h3><p><a href="http://www.hmttommy.com/2015/02/26/Swift%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92%E7%B3%BB%E5%88%97-%E4%B8%80-%E4%B9%8B%E5%AE%8F%E6%9B%BF%E6%8D%A2%E4%B8%8E%E4%BB%A3%E7%A0%81%E6%A0%87%E8%AF%86/" target="_blank" rel="external">看这里</a></p>
+<h3 id="监听输入框内容的改变">监听输入框内容的改变</h3><pre><code>[textField <span class="string">addTarget:</span>self <span class="string">action:</span><span class="annotation">@selector</span>(<span class="string">textFieldValueChanged:</span>) <span class="string">forControlEvents:</span>UIControlEventEditingChanged];
+</code></pre><h3 id="[button_setTitleColor:[UIColor_redColor]_forState:UIControlStateSelected]不起作用">[button setTitleColor:[UIColor redColor] forState:UIControlStateSelected]不起作用</h3><p>因为设置了button的AttributedTitle，所以在[button setSelected:YES];之前，先设AttributedTitle为nil<br>如下：<br>[button setAttributedTitle:nil forState:UIControlStateNormal];</p>
+<h3 id="保存图片到相册">保存图片到相册</h3><pre><code>/<span class="keyword">*</span><span class="keyword">*</span>
+ <span class="keyword">*</span>  保存图片
+ <span class="keyword">*</span>/
+- (void)saveImage{
+    /<span class="keyword">*</span><span class="keyword">*</span>
+     <span class="keyword">*</span>  将图片保存到iPhone本地相册
+     <span class="keyword">*</span>  UIImage <span class="keyword">*</span>image            图片对象
+     <span class="keyword">*</span>  id completionTarget       响应方法对象
+     <span class="keyword">*</span>  SEL completionSelector    方法
+     <span class="keyword">*</span>  void <span class="keyword">*</span>contextInfo
+     <span class="keyword">*</span>/
+
+    UIImageWriteToSavedPhotosAlbum(_allImagesOfThisArticle[currentPhotoIndex], self, <span class="comment">@selector(image:didFinishSavingWithError:contextInfo:), nil);</span>
+}
+
+
+- (void)image:(UIImage <span class="keyword">*</span>)image didFinishSavingWithError:(NSError <span class="keyword">*</span>)error contextInfo: (void <span class="keyword">*</span>)contextInfo
+{
+    if (!error)
+    {
+        //it worked do the thing
+    }
+
+}
+</code></pre><h3 id="Request_failed:_unacceptable_content-type:_text/html_using_AFNetworking_2-0">Request failed: unacceptable content-type: text/html using AFNetworking 2.0</h3><p>解决方法是添加：<br>manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@”text/html”];</p>
+<h3 id="Xcode打开代码聚焦栏(Focus_Ribbon)的方式">Xcode打开代码聚焦栏(Focus Ribbon)的方式</h3><p><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E6%89%93%E5%BC%80Xcode%E7%9A%84Focus%20Ribbon%E7%9A%84%E6%96%B9%E5%BC%8F.png" alt="此处输入图片的描述"></p>
+<h3 id="Xcode查找快捷方式（以code_folding为例）">Xcode查找快捷方式（以code folding为例）</h3><p><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E6%9F%A5%E6%89%BECode_Folding%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F.png" alt="此处输入图片的描述"></p>
+<h3 id="区分StoryBoard中的Show、Show_Detail、Present_Modally、Popover_Presentation、Custom">区分StoryBoard中的Show、Show Detail、Present Modally、Popover Presentation、Custom</h3><ul>
+<li>Show</li>
+</ul>
+<p>将目标试图控制器push到navigation堆栈中，由右至左地显示试图控制器，提供一个后退按钮在navigation bar 上。</p>
+<p>例如：应用Mail中导航到收件箱</p>
+<ul>
+<li>Show Detail</li>
+</ul>
+<p>在UISplitViewController中，替换详情视图或次级视图，不提供返回按钮。</p>
+<p>例如：iPad上的邮箱应用在横屏时，点击左侧侧边栏的邮件列表，右侧显示邮件的详情。</p>
+<ul>
+<li>Present Modally</li>
+</ul>
+<p>通过定义不同的Presendation option，以不同的方式展示视图控制器，覆盖上一个视图控制器。最常用的呈现动画是从屏幕底部出现视图控制器，覆盖整个屏幕。但是，在iPad上，最常见的呈现方式是将视图控制器呈现在屏幕的正中间，并且将底部的视图控制器变暗，从下向上出现。</p>
+<p>例如：点击iPhone上日历应用的”+”按钮。</p>
+<ul>
+<li>Popover（iOS8之后改为：Present as Popover）</li>
+</ul>
+<p>当在iPad中运行时，目标视图展示在一个小popover视图中，点击popover视图之外的其他任何地方，视图将消失。iPhone也支持popover，但是，如果连接一个Popover Presentation segue,将会与执行Present Modally的效果相同。</p>
+<p>例如：在iPad上的日历应用中点击+按钮。</p>
+<ul>
+<li>Custom</li>
+</ul>
+<p>你可能会实现和控制自定义的视图切换方式。</p>
+<p><strong> 这些视图切换类型在iOS8中被弃用：Push、Modal、Popover、Replace。</strong></p>
+<p><a href="https://developer.apple.com/library/ios/recipes/xcode_help-IB_storyboard/Chapters/StoryboardSegue.html" target="_blank" rel="external">看这里，了解更多</a>。</p>
+<h3 id="关于M_PI">关于M_PI</h3><pre><code><span class="hexcolor">#def</span>ine M_PI     <span class="number">3.14159265358979323846264338327950288</span> 
+</code></pre><p>其实它就是圆周率的值，在这里代表弧度，相当于角度制 0-360 度，M_PI=180度<br>旋转方向为：顺时针旋转 </p>
+<pre><code>sender.<span class="built_in">transform</span> = CGAffineTransformRotate(sender.<span class="built_in">transform</span>, -M_PI_2*<span class="number">1.0</span>);
+
+sender.<span class="built_in">transform</span> = CGAffineTransformRotate(sender.<span class="built_in">transform</span>, -M_PI_2*<span class="number">1.0</span>);
+</code></pre><h3 id="判断ScrollView向左滑还是向右滑？">判断ScrollView向左滑还是向右滑？</h3><pre><code>-(<span class="typename">void</span>)<span class="string">scrollViewDidScroll:</span>(UIScrollView *)scrollView
+{
+
+        contentScrollViewCurrentPosition = scrollView.contentOffset;
+
+
+        <span class="keyword">if</span> (contentScrollViewCurrentPosition.x &lt; contentScrollViewStartPosition.x &amp;&amp;
+            contentScrollViewCurrentPosition.x &lt; myContentScrollView.contentSize.width) {
+            scrollDirection = DirectionLeft;
+        }<span class="keyword">else</span> <span class="keyword">if</span>(contentScrollViewCurrentPosition.x &gt; contentScrollViewStartPosition.x &amp;&amp;
+                 contentScrollViewCurrentPosition.x &gt; <span class="number">0</span>){
+            scrollDirection = DirectionRight;
+        }
+}
+
+<span class="comment">// 当开始滚动视图时，执行该方法。一次有效滑动（开始滑动，滑动一小段距离，只要手指不松开，只算一次滑动），只执行一次。</span>
+- (<span class="typename">void</span>)<span class="string">scrollViewWillBeginDragging:</span>(UIScrollView *)scrollView{
+
+contentScrollViewStartPosition = scrollView.contentOffset;
+
+}
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录iOS开发过程中使用的技术、遇到的问题以及解决方法。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="知识小集" scheme="http://yoursite.com/tags/%E7%9F%A5%E8%AF%86%E5%B0%8F%E9%9B%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>观《被嫌弃的松子的一生》有感</title>
+    <link href="http://yoursite.com/%E8%A7%82%E3%80%8A%E8%A2%AB%E5%AB%8C%E5%BC%83%E7%9A%84%E6%9D%BE%E5%AD%90%E7%9A%84%E4%B8%80%E7%94%9F%E3%80%8B%E6%9C%89%E6%84%9F.html"/>
+    <id>http://yoursite.com/观《被嫌弃的松子的一生》有感.html</id>
+    <published>2015-10-11T12:29:57.000Z</published>
+    <updated>2017-01-24T09:52:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>电影讲述了一位日本女性悲哀的、充满遗憾的一生。<br><a id="more"></a></p>
+<p>青年松子是一名中学的班主任，一次年级旅行中，她用一个并不恰当的方式，解决学生的偷窃事件，却惹祸上身，被学校辞退，这意外地改变了她从此以后的人生轨迹。不，不能说是意外。从小到大，松子的父亲都对得了肺炎的妹妹久美格外疼爱，却无意中忽略了对松子的关怀。松子为了让父亲多注意她，学着舞台剧里小丑的模样拌鬼脸惹父亲发笑。当她把自己恋爱的消息说给妹妹听后，父亲当着全家人的面呵斥她，认为她没有考虑因生病而无法出门的妹妹的感受。从小到大所受到的所有委屈，就在这一次的家庭教育中喷薄而发，一起之下，松子离家出走。</p>
+<p>离家出走后的松子所经历的一切，包括不堪的工作经历以及屡屡在感情中遭受被抛弃的命运，我觉得，本质上是她从小因特殊的家庭环境而形成的性格有关。小时候，为了取悦父亲而扮鬼脸；作为一名教师，为了委婉地解决学生的偷窃事件，却自己偷钱还给旅馆老板；当自己的作家男友自杀后，居然因为男友对手特殊的关爱，情愿做起了人家的情人，做着取代正宫的美梦；最后和做了为小混混学生谈了一场轰轰烈烈的恋爱，因为男友是混混，她要做混混女；在最后这场感情也无疾而终之后，她选择放弃一切，不走近任何人，也不让任何人走进她的世界，如此自甘堕落下去……她从未想过，要为自己如何在这世上过活，却一味地追求只要有人陪伴就好。可能在被她爱得人看来，她做的一切是出去热爱和包容，可是，这些所谓的对别人的好，恰恰是对自己极大的不负责任。一味地依赖别人，不思考自己的人生意义的人，最后的苦果只有自己去吃。</p>
+<p>性格决定命运，这也是看完该片之后的感受。父母对自己所有的孩子都要公平看待，不要因为自己的过错，对孩子性格的形成造成不良影响。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;电影讲述了一位日本女性悲哀的、充满遗憾的一生。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="影评" scheme="http://yoursite.com/categories/%E5%BD%B1%E8%AF%84/"/>
+    
+    
+      <category term="感悟" scheme="http://yoursite.com/tags/%E6%84%9F%E6%82%9F/"/>
+    
+      <category term="杂谈" scheme="http://yoursite.com/tags/%E6%9D%82%E8%B0%88/"/>
+    
+      <category term="电影" scheme="http://yoursite.com/tags/%E7%94%B5%E5%BD%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用网络代理造成Archive submission failed with errors</title>
+    <link href="http://yoursite.com/%E4%BD%BF%E7%94%A8%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86%E9%80%A0%E6%88%90Archive%20submission%20failed%20with%20errors.html"/>
+    <id>http://yoursite.com/使用网络代理造成Archive submission failed with errors.html</id>
+    <published>2015-10-09T02:02:47.000Z</published>
+    <updated>2016-02-26T06:27:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>提交archive到AppStore，出现这个错误：<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-09%20%E4%B8%8A%E5%8D%889.11.31.png" alt="截图"><br><a id="more"></a></p>
+<p>从中可以看出是网络原因导致的，我使用了鱼摆摆网络代理，所以有可能是因为使用了鱼摆摆。</p>
+<p>那么如何解决呢？</p>
+<p>首先，打开鱼摆摆的设置，点击“高级”，查看是否勾选了代理所有网站，如果勾选了，取消掉。<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-09%20%E4%B8%8A%E5%8D%889.25.40.png" alt="截图"></p>
+<p>然后，取消启用系统代理（不选第一行的“启用系统代理”）。<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-09%20%E4%B8%8A%E5%8D%889.25.27.jpg" alt="截图"></p>
+<p>做完上述的设置后，重新提交archive，成功。<br><img src="http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-09%20%E4%B8%8A%E5%8D%889.25.21.png" alt="此处输入图片的描述"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;提交archive到AppStore，出现这个错误：&lt;br&gt;&lt;img src=&quot;http://7xlt6k.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-10-09%20%E4%B8%8A%E5%8D%889.11.31.png&quot; alt=&quot;截图&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="Archive Submission" scheme="http://yoursite.com/tags/Archive-Submission/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="知识小集" scheme="http://yoursite.com/tags/%E7%9F%A5%E8%AF%86%E5%B0%8F%E9%9B%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>以此纪念2015年最后一个长假的结束</title>
+    <link href="http://yoursite.com/%E4%BB%A5%E6%AD%A4%E7%BA%AA%E5%BF%B52015%E5%B9%B4%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E9%95%BF%E5%81%87%E7%9A%84%E7%BB%93%E6%9D%9F.html"/>
+    <id>http://yoursite.com/以此纪念2015年最后一个长假的结束.html</id>
+    <published>2015-10-08T03:04:13.000Z</published>
+    <updated>2017-01-24T09:56:52.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>2015年的最后一个长假终于还是结束了。这个旷日持久的假期横跨中秋和国庆，从9月24日持续到10月7日，总共十四天之久。为了拼这个假期，请了2.5天的年假和2.5天的事假。至于为什么是2.5天年假，而不是5天，那是因为今年休的是2014年的年假，而我是2014年7月份才开始转正的。不过想想春节的时候还是可以休5天年假，以此来拼凑十二天的长假，还是无比欣慰：）。</p>
+<a id="more"></a>
+<p><img src="http://7xlt6k.com1.z0.glb.clouddn.com/IMG_4521.JPG" alt="白河之畔"></p>
+<p>每个假期都好像是一个空白的画布，放假之前总会在脑海中构思着画一幅多么精彩的图画，图画上有绚丽的色彩和动人的故事情节；而假期刚刚开始，仿佛有一种莫名的力量，总会阻碍你按照预期的想法绘画，于是乎，画布上布满了随心所欲的涂鸦。假期过后，再去看这副假期涂鸦作品，竟然也被它明快的色彩和稍有遗憾的情节所感动。</p>
+<p><img src="http://7xlt6k.com1.z0.glb.clouddn.com/IMG_4517.JPG" alt="白河之畔"></p>
+<p>这个假期，在家里过了二十五岁生日，过了中秋节，当然还有国庆节。爸妈还是放任我每天睡到自然醒，当然，如果当天有什么出门的安排的话，还是会叫叫我的。在家里不出去的话，也就是一家人吃吃饭，看看电视，和老妈一起睡午觉，如果午觉我睡着了，那肯定是一觉睡到了下午五六点，癔症一会儿又该吃完饭了：）。跟弟弟在家里在网上看了《大圣归来》，但我有点看不下去，实在觉得国产动画给人提不上劲的感觉：情节拖沓、动画不华丽，好在他放假后我们在奥斯卡影城看的《小黄人大眼萌》很精彩，其实本来要看《夏洛特烦恼》的，可以那天的场次时间不满意。本打算全家一起出去游玩，爸爸提出的建议有丹江口水库、鸭河水库、社旗山陕会馆，可惜因为种种琐事，最终没有成行。遗憾是有一些的，不过平平淡淡的生活才是最幸福的。</p>
+<p><img src="http://7xlt6k.com1.z0.glb.clouddn.com/813820553279.jpg" alt="追风筝的人"><br>回家后把《追风筝的人》这本书剩下的内容看完了。“为你，千千万万遍”是哈桑对阿米尔说过得话，也是阿米尔在找到哈桑的儿子后对他说过的话，出现过三次，三次出现的含义不同：为了你我可以追千千万万遍的风筝；也可以为你做所有的事情千千万万遍；可以千千万万遍的保护你，没有终止的那天。这么一个简单的句子，蕴含着绵延不尽的深情。本想写一篇读后感，可惜文笔不佳。豆瓣读书上这篇文章写的不错，其中的一些感悟是我深有体会却无法极力描述的。另外，这本书也被拍成了电影，豆瓣评分8.2，找个时间看看。</p>
+<hr>
+<p>原文如下：</p>
+<p>　　大凡是有深刻情感经历的人，对这句话都会有一定的敏感度。因为这句话里蕴涵着说者对听者饱满而充溢得几乎止不住外泄的深情。当我们一字一顿地默念这七个字时，“为、你、千、千、万、万、遍”，便仿佛身边所有的喧哗和嘈杂都在瞬间飞弛而去，它们乘上呼啸的列车，在生命的布景墙上渐渐淡开，没有愤懑、抱怨，也没有偏见、猜测、评判。我们所看见的，就是七朵静静的野蔷薇。</p>
+<p>　　你可以想象这是一段铭心刻骨的恋情，一方为着另一方千万次地奔波、努力、思念；也可以想象这是一种无法割舍的亲情，疲惫地伫立在火车站台上等候的母亲，千万次地祈祷、盼望、付出；当然，你还可以想象成一段生命里的友谊和默契……但这个故事却超离了这所有的想象之外，它很离奇地诉说着一个原本为兄弟血缘却在充满战火、信仰危机、种族争端的中东背景之下被人为隐瞒成主仆关系的两个不知情的孩子以及它们长大后的故事。这个故事情节跌荡起伏，然而，当我看到地位卑微而备受凌辱的哈桑执著地对阿米尔说出这七个字时，我确实忘却了弥漫在整部小说里的背叛、欺骗和救赎，于是，在我合上这本书以后，脑海里留下的是一片响着清脆笑声的小树林，它离这个世界很远。</p>
+<p>　　我以为，再黑暗的人性里总会有一道烛光。而正是这道烛光，就足以点亮灰冥无火的世界。这样看来，再悲剧的人物情节也会有过温暖的笑脸。 </p>
+<p>　　我们往往被迫诞生在一场既定的牌局里，在这场牌局之内，有固定的生活经历和人际关系网，这是幼稚的孩童无法认知和篡改的。因为他们清澈的双眼不认得声誉、金钱作祟的闹剧，也同样不认得人情的冷漠和悲凉。在责任的推脱下，每个人都活在不同的牌理之中。所以孩子是该得到原谅的，因为你完全不忍心鞭笞一个当时内心只是单纯地不理解甚至是憎恨父亲对仆人哈桑情感上的倾斜，只是想通过风筝大赛而获得十足的父爱而背叛哈桑的缺爱的富家小少爷阿米尔。孩子不会故意犯错，孩子的错都是大人的错。</p>
+<p>　　于是哈桑说：“为你，千千万万遍。”他的忠实和真诚就这样随着简单的语气荡漾开来……我想，罪赎和原谅确是很好地均衡了这个世界。三毛在《这种家庭生活》里写过一句话我到现在还记忆尤深：“爱是恒久忍耐而又有恩慈。”恒久，在时间的外衣下坚守着感情的从一而终；忍耐，弱化自身的个性尊严以学会包容；恩慈，普度陷入崖底的人心。在毫无文化水平的哈桑的内心中，贮存着的善良和怜悯之心会令很多人质疑学术争吵的意义。这样，再强势的文化也会在孩子的目光前低下高傲的头颅，因为那是人类原始的皈依和追述。</p>
+<p>　　为你，只为你。 </p>
+<p>　　千千万万遍，哪怕千千万万遍。 </p>
+<p>　　如果是你，你敢不敢说，又敢不敢用尽全力地说。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;2015年的最后一个长假终于还是结束了。这个旷日持久的假期横跨中秋和国庆，从9月24日持续到10月7日，总共十四天之久。为了拼这个假期，请了2.5天的年假和2.5天的事假。至于为什么是2.5天年假，而不是5天，那是因为今年休的是2014年的年假，而我是2014年7月份才开始转正的。不过想想春节的时候还是可以休5天年假，以此来拼凑十二天的长假，还是无比欣慰：）。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="生活记录" scheme="http://yoursite.com/categories/%E7%94%9F%E6%B4%BB%E8%AE%B0%E5%BD%95/"/>
+    
+    
+      <category term="假期" scheme="http://yoursite.com/tags/%E5%81%87%E6%9C%9F/"/>
+    
+      <category term="总结" scheme="http://yoursite.com/tags/%E6%80%BB%E7%BB%93/"/>
+    
+      <category term="生活" scheme="http://yoursite.com/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="随笔" scheme="http://yoursite.com/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>纪·彩虹蛋糕</title>
+    <link href="http://yoursite.com/%E7%BA%AA%C2%B7%E5%BD%A9%E8%99%B9%E8%9B%8B%E7%B3%95.html"/>
+    <id>http://yoursite.com/纪·彩虹蛋糕.html</id>
+    <published>2015-09-20T12:23:39.000Z</published>
+    <updated>2017-01-24T09:54:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://7xlt6k.com1.z0.glb.clouddn.com/IMG_4291-1.JPG" alt="蛋糕先生的彩虹蛋糕"></p>
+<p>蛋糕先生昨天起了个大早，赶早班车来苏州。他提前在网上订了蛋糕，中午十二点之前送到。因为单位周日开会，他只能陪我短暂的几个小时，这是见到他之后他才说的，不然怎么都不会让他来的。蛋糕打开的一瞬间，我像个小孩子一样兴奋得差点跳了起来，是彩虹蛋糕，五彩缤纷，很可爱！我在一旁又是小心舔舐着奶油，又是拿着手机拍照，他则羞涩地说比想象中的小了。很感动，但是更多是心疼，这么折腾地来回跑着，就为了在我放假回家去提前一起过个生日。</p>
+<p>认识这么多年了，还是第一次一起吃生日蛋糕。特别是他开始为我切蛋糕的时刻，瞬间觉得外面的世界再怎么纷乱，有这么一个人，惦念着你，和你一起分享幸福，这就够了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://7xlt6k.com1.z0.glb.clouddn.com/IMG_4291-1.JPG&quot; alt=&quot;蛋糕先生的彩虹蛋糕&quot;&gt;&lt;/p&gt;
+&lt;p&gt;蛋糕先生昨天起了个大早，赶早班车来苏州。他提前在网上订了蛋糕，中午十二点之前送到。因为单位周日开会
+    
+    </summary>
+    
+      <category term="生活记录" scheme="http://yoursite.com/categories/%E7%94%9F%E6%B4%BB%E8%AE%B0%E5%BD%95/"/>
+    
+    
+      <category term="爱" scheme="http://yoursite.com/tags/%E7%88%B1/"/>
+    
+      <category term="生日" scheme="http://yoursite.com/tags/%E7%94%9F%E6%97%A5/"/>
+    
+      <category term="生活" scheme="http://yoursite.com/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
+  
+</feed>
